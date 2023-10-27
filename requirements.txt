@@ -1,2 +1,6 @@
 sphinx
+sphinx_rtd_theme
+pyyaml
+numpy
+mpi4py
 
