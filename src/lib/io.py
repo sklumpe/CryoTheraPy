@@ -12,3 +12,6 @@ def readConfig(filename):
     data = yaml.load(f, Loader=yaml.FullLoader)
     
   return data    
+
+def read_scheme(scheme_name):
+  pass
