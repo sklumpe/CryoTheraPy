@@ -1,0 +1,8 @@
+.. the Name of the header will be used as Name in the index, irrespective of the link-name
+.. _Reading/Writing .star files: 
+
+Functions
+=========
+
+.. automodule:: io
+   :members:

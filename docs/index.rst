@@ -12,9 +12,12 @@ Welcome to cryotheraPy's documentation!
    
    extdocs/setup/setup
    extdocs/tutorial/tutorial
-   extdocs/intern/intern     
+   extdocs/intern/intern
+   src/lib/read_write
+   src/lib/app/app
+   src/test/test_read_write     
 
-   modules
+..   modules
 
 Indices and tables
 ==================
@@ -22,3 +25,7 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+* :ref:`read_write`
+* :ref:`app`
+* :ref:`test_read_write`
+
