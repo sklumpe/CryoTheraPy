@@ -1,7 +1,7 @@
-io
-===
+Application
+===========
 
-.. automodule:: lib.read_write
+.. automodule:: lib.app.app
    :members:
    :undoc-members:
    :show-inheritance:

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lib.app.app &mdash; cryotheraPy 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=2709fde1"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            cryotheraPy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../extdocs/setup/setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../extdocs/tutorial/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../extdocs/intern/intern.html">Intern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../app.html">Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../read_write.html">io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../test_read_write.html">Unit Tests io</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">cryotheraPy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">lib.app.app</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for lib.app.app</h1><div class="highlight"><pre>
+<span></span><span class="c1"># have to be able to import new scheme.star files too so an already started (but stopped) run can be resumed</span>
+<span class="c1"># should also change it so it doesn&#39;t crash everytime there is something going on that doesn&#39;t work. Maybe just write an error instead aborting. For that, I have to wrap everything into a try: ... else:  loop, so every error is cought by the else and I can just say pritn error there</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">from</span> <span class="nn">PyQt6.uic</span> <span class="kn">import</span> <span class="n">loadUi</span>
+<span class="kn">from</span> <span class="nn">PyQt6.QtWidgets</span> <span class="kn">import</span> <span class="n">QApplication</span><span class="p">,</span> <span class="n">QMainWindow</span><span class="p">,</span> <span class="n">QDialog</span>
+
+<span class="n">current_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__name__</span><span class="p">))</span>
+<span class="n">src_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_dir</span><span class="p">,</span> <span class="s1">&#39;../..&#39;</span><span class="p">))</span>
+<span class="c1"># change the path to be until src</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">src_dir</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">lib.read_write</span> <span class="kn">import</span> <span class="n">write_star</span><span class="p">,</span> <span class="n">job_star_dict</span><span class="p">,</span> <span class="n">locate_val</span>
+
+<div class="viewcode-block" id="MainUI">
+<a class="viewcode-back" href="../../../app.html#lib.app.app.MainUI">[docs]</a>
+<span class="k">class</span> <span class="nc">MainUI</span><span class="p">(</span><span class="n">QMainWindow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> 
+        <span class="nb">super</span><span class="p">(</span><span class="n">MainUI</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="n">loadUi</span><span class="p">(</span><span class="s2">&quot;cryotheraPy.ui&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_readStar</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">readStar</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_changeStarValues</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">changeStarValues</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_writeStar</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">writeStar</span><span class="p">)</span>
+        <span class="c1">#these two don&#39;t work yet bc the schemer requires a different version of python</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_start</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start_relion</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_python2</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">switch_python</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MainUI.readStar">
+<a class="viewcode-back" href="../../../app.html#lib.app.app.MainUI.readStar">[docs]</a>
+    <span class="k">def</span> <span class="nf">readStar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Populate the line edits based on the values in the DataFrame</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line_imp_pix_size</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">locate_val</span><span class="p">(</span><span class="s2">&quot;importmovies&quot;</span><span class="p">,</span> <span class="s2">&quot;angpix&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line_imp_path</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">locate_val</span><span class="p">(</span><span class="s2">&quot;importmovies&quot;</span><span class="p">,</span> <span class="s2">&quot;movie_files&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line_imp_meta</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">locate_val</span><span class="p">(</span><span class="s2">&quot;importmovies&quot;</span><span class="p">,</span> <span class="s2">&quot;mdoc_files&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line_imp_qsub</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">locate_val</span><span class="p">(</span><span class="s2">&quot;importmovies&quot;</span><span class="p">,</span> <span class="s2">&quot;qsubscript&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line_mcorr_eer</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">locate_val</span><span class="p">(</span><span class="s2">&quot;motioncorr&quot;</span><span class="p">,</span> <span class="s2">&quot;qsubscript&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line_mcorr_eer</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">locate_val</span><span class="p">(</span><span class="s2">&quot;motioncorr&quot;</span><span class="p">,</span> <span class="s2">&quot;eer_grouping&quot;</span><span class="p">))</span></div>
+
+    
+<div class="viewcode-block" id="MainUI.changeStarValues">
+<a class="viewcode-back" href="../../../app.html#lib.app.app.MainUI.changeStarValues">[docs]</a>
+    <span class="k">def</span> <span class="nf">changeStarValues</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># function to change the value of the given parameter in the given job </span>
+        <span class="k">def</span> <span class="nf">coor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">job</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">job_star_dict</span><span class="p">[</span><span class="n">job</span><span class="p">][</span><span class="s2">&quot;joboptions_values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">job_star_dict</span><span class="p">[</span><span class="n">job</span><span class="p">][</span><span class="s2">&quot;joboptions_values&quot;</span><span class="p">][</span><span class="s2">&quot;rlnJobOptionVariable&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">param</span><span class="p">]</span>
+            <span class="n">job_star_dict</span><span class="p">[</span><span class="n">job</span><span class="p">][</span><span class="s2">&quot;joboptions_values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="k">return</span> <span class="n">job_star_dict</span>
+        <span class="n">value_angpix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_imp_pix_size</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+        <span class="n">coor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;importmovies&quot;</span><span class="p">,</span> <span class="s2">&quot;angpix&quot;</span><span class="p">,</span> <span class="n">value_angpix</span><span class="p">)</span>
+        <span class="n">value_movie_files</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_imp_path</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+        <span class="n">coor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;importmovies&quot;</span><span class="p">,</span> <span class="s2">&quot;movie_files&quot;</span><span class="p">,</span> <span class="n">value_movie_files</span><span class="p">)</span>
+        <span class="n">value_mdoc_files</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_imp_meta</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+        <span class="n">coor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;importmovies&quot;</span><span class="p">,</span> <span class="s2">&quot;mdoc_files&quot;</span><span class="p">,</span> <span class="n">value_mdoc_files</span><span class="p">)</span>
+        <span class="n">value_qsub</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_imp_qsub</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+        <span class="n">coor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;importmovies&quot;</span><span class="p">,</span> <span class="s2">&quot;qsubscript&quot;</span><span class="p">,</span> <span class="n">value_qsub</span><span class="p">)</span>
+
+        <span class="n">coor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;motioncorr&quot;</span><span class="p">,</span> <span class="s2">&quot;qsubscript&quot;</span><span class="p">,</span> <span class="n">value_qsub</span><span class="p">)</span>
+        <span class="n">value_eer_grouping</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_mcorr_eer</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+        <span class="n">coor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;motioncorr&quot;</span><span class="p">,</span> <span class="s2">&quot;eer_grouping&quot;</span><span class="p">,</span> <span class="n">value_eer_grouping</span><span class="p">)</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="n">job_star_dict</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MainUI.writeStar">
+<a class="viewcode-back" href="../../../app.html#lib.app.app.MainUI.writeStar">[docs]</a>
+    <span class="k">def</span> <span class="nf">writeStar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># write the star file with the coordinates given and with the values of job_star_dict</span>
+        <span class="c1"># so far works only if the directory doesn&#39;t exist yet</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;dlg = QDialog(self)</span>
+<span class="sd">        dlg.setWindowTitle(&quot;Path to new Project&quot;)</span>
+<span class="sd">        dlg.exec()&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path_to_new_project</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_path_new_project</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+        <span class="n">path_scheme_star</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_to_new_project</span><span class="p">,</span> <span class="s2">&quot;Schemes/master_scheme/scheme.star&quot;</span><span class="p">)</span>
+        <span class="n">path_import</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_to_new_project</span><span class="p">,</span> <span class="s2">&quot;Schemes/master_scheme/importmovies/job.star&quot;</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path_import</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">path_motioncorr</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_to_new_project</span><span class="p">,</span> <span class="s2">&quot;Schemes/master_scheme/motioncorr/job.star&quot;</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path_motioncorr</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">path_ctffind</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_to_new_project</span><span class="p">,</span> <span class="s2">&quot;Schemes/master_scheme/ctffind/job.star&quot;</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path_ctffind</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">scheme_star</span> <span class="o">=</span> <span class="n">job_star_dict</span><span class="p">[</span><span class="s2">&quot;scheme_star&quot;</span><span class="p">]</span>
+        <span class="n">job_star_import</span> <span class="o">=</span> <span class="n">job_star_dict</span><span class="p">[</span><span class="s2">&quot;importmovies&quot;</span><span class="p">]</span>
+        <span class="n">job_star_motioncorr</span> <span class="o">=</span> <span class="n">job_star_dict</span><span class="p">[</span><span class="s2">&quot;motioncorr&quot;</span><span class="p">]</span>
+        <span class="n">job_star_ctffind</span> <span class="o">=</span> <span class="n">job_star_dict</span><span class="p">[</span><span class="s2">&quot;ctffind&quot;</span><span class="p">]</span>
+        <span class="n">write_star</span><span class="p">(</span><span class="n">scheme_star</span><span class="p">,</span> <span class="n">path_scheme_star</span><span class="p">)</span>
+        <span class="n">write_star</span><span class="p">(</span><span class="n">job_star_import</span><span class="p">,</span> <span class="n">path_import</span><span class="p">)</span>
+        <span class="n">write_star</span><span class="p">(</span><span class="n">job_star_motioncorr</span><span class="p">,</span> <span class="n">path_motioncorr</span><span class="p">)</span>
+        <span class="n">write_star</span><span class="p">(</span><span class="n">job_star_ctffind</span><span class="p">,</span> <span class="n">path_ctffind</span><span class="p">)</span></div>
+</div>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    def switch_python(self):</span>
+<span class="sd">        subprocess.run(&quot;module load ANACONDA/2/2019.10&quot;, shell=True)</span>
+
+<span class="sd">    def start_relion(self):</span>
+<span class="sd">        subprocess.run(&quot;rm -rf .relion_lock_master_scheme&quot;)</span>
+<span class="sd">        subprocess.run(&quot;relion_schemer --scheme master_scheme --reset&quot;)</span>
+<span class="sd">        subprocess.run(&quot;relion_schemer --scheme master_scheme --set_current_node WAIT&quot;)</span>
+<span class="sd">        subprocess.run(&quot;relion_schemer --scheme master_scheme --run --pipeline_control Schemes/master_scheme/ &gt;&gt; Schemes/master_scheme/run.out 2&gt;&gt; Schemes/master_scheme/run.err&quot;)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+    <span class="n">ui</span> <span class="o">=</span> <span class="n">MainUI</span><span class="p">()</span>
+    <span class="n">ui</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Florian Beck.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

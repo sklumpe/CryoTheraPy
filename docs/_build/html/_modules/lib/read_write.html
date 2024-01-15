@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lib.read_write &mdash; cryotheraPy 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=2709fde1"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            cryotheraPy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../extdocs/setup/setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extdocs/tutorial/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extdocs/intern/intern.html">Intern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../app.html">Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../read_write.html">io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../test_read_write.html">Unit Tests io</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">cryotheraPy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">lib.read_write</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for lib.read_write</h1><div class="highlight"><pre>
+<span></span>
+<span class="kn">import</span> <span class="nn">yaml</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">starfile</span>
+
+<div class="viewcode-block" id="readConfig">
+<a class="viewcode-back" href="../../read_write.html#lib.read_write.readConfig">[docs]</a>
+<span class="k">def</span> <span class="nf">readConfig</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  read a configuration file in yaml format</span>
+
+<span class="sd">  :arguments: filename </span>
+<span class="sd">  :returns: dictioanry with paramName and data</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">Loader</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">FullLoader</span><span class="p">)</span>
+    
+  <span class="k">return</span> <span class="n">data</span>    </div>
+
+
+
+<div class="viewcode-block" id="read_star">
+<a class="viewcode-back" href="../../read_write.html#lib.read_write.read_star">[docs]</a>
+<span class="k">def</span> <span class="nf">read_star</span><span class="p">(</span><span class="n">scheme_name</span><span class="p">):</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  reads a .star file and turns it into a pd df.</span>
+
+<span class="sd">  Input:</span>
+<span class="sd">  scheme_name = (path to) a star file.</span>
+
+<span class="sd">  Output:</span>
+<span class="sd">  data_as_df = dataframe with the information of the star file.</span>
+
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">data_as_df</span> <span class="o">=</span> <span class="n">starfile</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">scheme_name</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">data_as_df</span></div>
+
+
+<span class="n">path_to_scheme</span> <span class="o">=</span> <span class="s2">&quot;/fs/gpfs41/lv01/fileset02/pool/pool-plitzko3/Michael/00-Other/CryoTheraPy/src/lib/app/master_scheme&quot;</span>
+
+<span class="n">job_star_dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;importmovies&quot;</span><span class="p">:</span> <span class="n">read_star</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path_to_scheme</span><span class="p">,</span> <span class="s2">&quot;importmovies/job.star&quot;</span><span class="p">)),</span>
+    <span class="s2">&quot;motioncorr&quot;</span><span class="p">:</span> <span class="n">read_star</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path_to_scheme</span><span class="p">,</span> <span class="s2">&quot;motioncorr/job.star&quot;</span><span class="p">)),</span>
+    <span class="s2">&quot;ctffind&quot;</span><span class="p">:</span> <span class="n">read_star</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path_to_scheme</span><span class="p">,</span> <span class="s2">&quot;ctffind/job.star&quot;</span><span class="p">)),</span>
+    <span class="s2">&quot;scheme_star&quot;</span><span class="p">:</span> <span class="n">read_star</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path_to_scheme</span><span class="p">,</span> <span class="s2">&quot;scheme.star&quot;</span><span class="p">))</span>
+<span class="p">}</span>
+
+<div class="viewcode-block" id="locate_val">
+<a class="viewcode-back" href="../../read_write.html#lib.read_write.locate_val">[docs]</a>
+<span class="k">def</span> <span class="nf">locate_val</span><span class="p">(</span><span class="n">job_name</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">var</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">job_dict</span> <span class="o">=</span> <span class="s2">&quot;joboptions_values&quot;</span><span class="p">,</span> <span class="n">column_variable</span> <span class="o">=</span> <span class="s2">&quot;rlnJobOptionVariable&quot;</span><span class="p">,</span> <span class="n">column_value</span> <span class="o">=</span> <span class="s2">&quot;rlnJobOptionValue&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    locates the value defined of the dict defined in the job_star_dict dictionary so it can be displayed and edited.</span>
+
+<span class="sd">    Input:</span>
+<span class="sd">    job_name = job name as str as it&#39;s stated in the job_star_dict (&quot;importmovies&quot;, &quot;motioncorr&quot;, &quot;ctffind&quot;)</span>
+<span class="sd">    var = name of variable/parameter that should be changed (parameters as defined in the job.star files)</span>
+<span class="sd">    job_dict = dataframe that should be accessed inside the job defined in job_name (standard input is the df containing the parameters)</span>
+<span class="sd">    column_variable = column in the dataframe containing the parameters (standard input is the correct name)</span>
+<span class="sd">    column_value = column in the dataframe containing the values assigned to each parameter (standard input is the correct name)</span>
+
+<span class="sd">    Output:</span>
+<span class="sd">    val = value that is currently assigned to the defined parameter of the defined job</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">val</span> <span class="o">=</span> <span class="n">job_star_dict</span><span class="p">[</span><span class="n">job_name</span><span class="p">][</span><span class="n">job_dict</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">job_star_dict</span><span class="p">[</span><span class="n">job_name</span><span class="p">][</span><span class="n">job_dict</span><span class="p">][</span><span class="n">column_variable</span><span class="p">]</span> <span class="o">==</span> <span class="n">var</span><span class="p">,</span> <span class="n">column_value</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">val</span></div>
+
+
+<div class="viewcode-block" id="write_star">
+<a class="viewcode-back" href="../../read_write.html#lib.read_write.write_star">[docs]</a>
+<span class="k">def</span> <span class="nf">write_star</span><span class="p">(</span><span class="n">scheme_name</span><span class="p">,</span> <span class="n">path_and_name</span><span class="p">):</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  reads a pd df and turns it into a .star file.</span>
+
+<span class="sd">  Input:</span>
+<span class="sd">  scheme_name = dataframe with the information of the star file.</span>
+<span class="sd">  path_and_name = path and name to where the new file should be saved.</span>
+
+<span class="sd">  Output:</span>
+<span class="sd">  df_as_star = star file at the given path.</span>
+
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">df_as_star</span> <span class="o">=</span> <span class="n">starfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">scheme_name</span><span class="p">,</span> <span class="n">path_and_name</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">df_as_star</span></div>
+
+
+
+<span class="c1"># create Sphinx documentation: sphinx-build -M html docs/ docs/</span>
+<span class="c1"># remove everything in the _build: make clean</span>
+<span class="c1"># update Sphinx documentation: make html</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Florian Beck.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
