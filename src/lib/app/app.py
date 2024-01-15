@@ -14,7 +14,13 @@ sys.path.append(src_dir)
 from lib.read_write import write_star, job_star_dict, locate_val
 
 class MainUI(QMainWindow):
-    def __init__(self): 
+    """
+    Main window of the UI.
+    """
+    def __init__(self):
+        """
+        Setting up the buttons in the code and connecting them to their respective functions.
+        """ 
         super(MainUI, self).__init__()
         loadUi("cryotheraPy.ui", self)
         self.btn_readStar.clicked.connect(self.readStar)
@@ -25,7 +31,9 @@ class MainUI(QMainWindow):
         self.btn_python2.clicked.connect(self.switch_python)
 
     def readStar(self):
-        # Populate the line edits based on the values in the DataFrame
+        """
+        Populate the line edits based on the values in the dataframe.
+        """
         self.line_imp_pix_size.setText(locate_val("importmovies", "angpix"))
         self.line_imp_path.setText(locate_val("importmovies", "movie_files"))
         self.line_imp_meta.setText(locate_val("importmovies", "mdoc_files"))
@@ -34,7 +42,10 @@ class MainUI(QMainWindow):
         self.line_mcorr_eer.setText(locate_val("motioncorr", "eer_grouping"))
     
     def changeStarValues(self):
-        # function to change the value of the given parameter in the given job 
+        """
+        function to change the value of the given parameter in the given job.
+        Currently, one line has to be written for each parameter that's supposed to be changed.
+        """
         def coor(self, job, param, value):
             index = job_star_dict[job]["joboptions_values"].index[job_star_dict[job]["joboptions_values"]["rlnJobOptionVariable"] == param]
             job_star_dict[job]["joboptions_values"].iloc[index, 1] = value
@@ -55,11 +66,11 @@ class MainUI(QMainWindow):
         print(job_star_dict)
 
     def writeStar(self):
-        # write the star file with the coordinates given and with the values of job_star_dict
-        # so far works only if the directory doesn't exist yet
-        """dlg = QDialog(self)
-        dlg.setWindowTitle("Path to new Project")
-        dlg.exec()"""
+        """
+        write the star file with the coordinates given and with the values of job_star_dict.
+        so far works only if the directory doesn't exist yet.
+        can be made into a pop-up window later.
+        """
         self.path_to_new_project = self.line_path_new_project.text()
         path_scheme_star = os.path.join(self.path_to_new_project, "Schemes/master_scheme/scheme.star")
         path_import = os.path.join(self.path_to_new_project, "Schemes/master_scheme/importmovies/job.star")

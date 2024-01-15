@@ -8,17 +8,23 @@ src_dir = os.path.abspath(os.path.join(current_dir, '../src'))
 # Add the 'src' directory to the Python path
 sys.path.append(src_dir)
 
-from lib.read_write import read_star, write_star, star_path
+from lib.read_write import read_star, write_star
 
 
 class Test_Read_Write_Function_read_star(unittest.TestCase):
     def test_read_star(self):
+        """
+        testing whether the function creates a dict from the star file.
+        """
         result = type(read_star("/fs/pool/pool-plitzko3/Michael/01-Data/relion/pipeline_test/schemes/Schemes/master_scheme/scheme.star")) == dict
         # Use assert methods to check if the result matches the expected value
         self.assertTrue(result, True)
 
 class Test_Read_Write_Function_write_star(unittest.TestCase):
     def test_write_star(self):
+        """
+        testing whether the function creates a .star file from dataframe.
+        """
         # Create a temporary directory
         with tempfile.TemporaryDirectory() as temp_dir:
             temp_file = os.path.join(temp_dir, "test.star")
