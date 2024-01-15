@@ -94,7 +94,13 @@
 <div class="viewcode-block" id="MainUI">
 <a class="viewcode-back" href="../../../app.html#lib.app.app.MainUI">[docs]</a>
 <span class="k">class</span> <span class="nc">MainUI</span><span class="p">(</span><span class="n">QMainWindow</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> 
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Main window of the UI.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setting up the buttons in the code and connecting them to their respective functions.</span>
+<span class="sd">        &quot;&quot;&quot;</span> 
         <span class="nb">super</span><span class="p">(</span><span class="n">MainUI</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="n">loadUi</span><span class="p">(</span><span class="s2">&quot;cryotheraPy.ui&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">btn_readStar</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">readStar</span><span class="p">)</span>
@@ -107,7 +113,9 @@
 <div class="viewcode-block" id="MainUI.readStar">
 <a class="viewcode-back" href="../../../app.html#lib.app.app.MainUI.readStar">[docs]</a>
     <span class="k">def</span> <span class="nf">readStar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># Populate the line edits based on the values in the DataFrame</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Populate the line edits based on the values in the dataframe.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">line_imp_pix_size</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">locate_val</span><span class="p">(</span><span class="s2">&quot;importmovies&quot;</span><span class="p">,</span> <span class="s2">&quot;angpix&quot;</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">line_imp_path</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">locate_val</span><span class="p">(</span><span class="s2">&quot;importmovies&quot;</span><span class="p">,</span> <span class="s2">&quot;movie_files&quot;</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">line_imp_meta</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">locate_val</span><span class="p">(</span><span class="s2">&quot;importmovies&quot;</span><span class="p">,</span> <span class="s2">&quot;mdoc_files&quot;</span><span class="p">))</span>
@@ -119,7 +127,10 @@
 <div class="viewcode-block" id="MainUI.changeStarValues">
 <a class="viewcode-back" href="../../../app.html#lib.app.app.MainUI.changeStarValues">[docs]</a>
     <span class="k">def</span> <span class="nf">changeStarValues</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># function to change the value of the given parameter in the given job </span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        function to change the value of the given parameter in the given job.</span>
+<span class="sd">        Currently, one line has to be written for each parameter that&#39;s supposed to be changed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">def</span> <span class="nf">coor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">job</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
             <span class="n">index</span> <span class="o">=</span> <span class="n">job_star_dict</span><span class="p">[</span><span class="n">job</span><span class="p">][</span><span class="s2">&quot;joboptions_values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">job_star_dict</span><span class="p">[</span><span class="n">job</span><span class="p">][</span><span class="s2">&quot;joboptions_values&quot;</span><span class="p">][</span><span class="s2">&quot;rlnJobOptionVariable&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">param</span><span class="p">]</span>
             <span class="n">job_star_dict</span><span class="p">[</span><span class="n">job</span><span class="p">][</span><span class="s2">&quot;joboptions_values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
@@ -143,11 +154,11 @@
 <div class="viewcode-block" id="MainUI.writeStar">
 <a class="viewcode-back" href="../../../app.html#lib.app.app.MainUI.writeStar">[docs]</a>
     <span class="k">def</span> <span class="nf">writeStar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># write the star file with the coordinates given and with the values of job_star_dict</span>
-        <span class="c1"># so far works only if the directory doesn&#39;t exist yet</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;dlg = QDialog(self)</span>
-<span class="sd">        dlg.setWindowTitle(&quot;Path to new Project&quot;)</span>
-<span class="sd">        dlg.exec()&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        write the star file with the coordinates given and with the values of job_star_dict.</span>
+<span class="sd">        so far works only if the directory doesn&#39;t exist yet.</span>
+<span class="sd">        can be made into a pop-up window later.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">path_to_new_project</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_path_new_project</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
         <span class="n">path_scheme_star</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_to_new_project</span><span class="p">,</span> <span class="s2">&quot;Schemes/master_scheme/scheme.star&quot;</span><span class="p">)</span>
         <span class="n">path_import</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_to_new_project</span><span class="p">,</span> <span class="s2">&quot;Schemes/master_scheme/importmovies/job.star&quot;</span><span class="p">)</span>

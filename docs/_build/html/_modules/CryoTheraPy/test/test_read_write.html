@@ -96,7 +96,7 @@
 <a class="viewcode-back" href="../../../test_read_write.html#CryoTheraPy.test.test_read_write.Test_Read_Write_Function_read_star.test_read_star">[docs]</a>
     <span class="k">def</span> <span class="nf">test_read_star</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Testing whether the function really creates a dict from the star file.</span>
+<span class="sd">        testing whether the function creates a dict from the star file.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">result</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">read_star</span><span class="p">(</span><span class="s2">&quot;/fs/pool/pool-plitzko3/Michael/01-Data/relion/pipeline_test/schemes/Schemes/master_scheme/scheme.star&quot;</span><span class="p">))</span> <span class="o">==</span> <span class="nb">dict</span>
         <span class="c1"># Use assert methods to check if the result matches the expected value</span>
@@ -110,6 +110,9 @@
 <div class="viewcode-block" id="Test_Read_Write_Function_write_star.test_write_star">
 <a class="viewcode-back" href="../../../test_read_write.html#CryoTheraPy.test.test_read_write.Test_Read_Write_Function_write_star.test_write_star">[docs]</a>
     <span class="k">def</span> <span class="nf">test_write_star</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        testing whether the function creates a .star file from dataframe.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Create a temporary directory</span>
         <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">temp_dir</span><span class="p">:</span>
             <span class="n">temp_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">temp_dir</span><span class="p">,</span> <span class="s2">&quot;test.star&quot;</span><span class="p">)</span>

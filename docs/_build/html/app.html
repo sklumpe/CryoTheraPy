@@ -92,22 +92,26 @@
 <dt class="sig sig-object py" id="lib.app.app.MainUI">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lib.app.app.</span></span><span class="sig-name descname"><span class="pre">MainUI</span></span><a class="reference internal" href="_modules/lib/app/app.html#MainUI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.app.app.MainUI" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QMainWindow</span></code></p>
+<p>Main window of the UI.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="lib.app.app.MainUI.changeStarValues">
 <span class="sig-name descname"><span class="pre">changeStarValues</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/app/app.html#MainUI.changeStarValues"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.app.app.MainUI.changeStarValues" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>function to change the value of the given parameter in the given job.
+Currently, one line has to be written for each parameter that’s supposed to be changed.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="lib.app.app.MainUI.readStar">
 <span class="sig-name descname"><span class="pre">readStar</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/app/app.html#MainUI.readStar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.app.app.MainUI.readStar" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Populate the line edits based on the values in the dataframe.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="lib.app.app.MainUI.writeStar">
 <span class="sig-name descname"><span class="pre">writeStar</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/app/app.html#MainUI.writeStar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.app.app.MainUI.writeStar" title="Link to this definition"></a></dt>
-<dd><p>dlg = QDialog(self)
-dlg.setWindowTitle(“Path to new Project”)
-dlg.exec()</p>
+<dd><p>write the star file with the coordinates given and with the values of job_star_dict.
+so far works only if the directory doesn’t exist yet.
+can be made into a pop-up window later.</p>
 </dd></dl>
 
 </dd></dl>

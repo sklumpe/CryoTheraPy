@@ -85,10 +85,13 @@
 <a class="viewcode-back" href="../../read_write.html#lib.read_write.readConfig">[docs]</a>
 <span class="k">def</span> <span class="nf">readConfig</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
 <span class="w">  </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">  read a configuration file in yaml format</span>
-
-<span class="sd">  :arguments: filename </span>
-<span class="sd">  :returns: dictioanry with paramName and data</span>
+<span class="sd">  reads a configuration file in yaml format.</span>
+<span class="sd">  </span>
+<span class="sd">  Args:</span>
+<span class="sd">    filename (str): name of the .yaml file.</span>
+<span class="sd">  </span>
+<span class="sd">  Returns: </span>
+<span class="sd">    dict: dictioanry with paramName and data.</span>
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">Loader</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">FullLoader</span><span class="p">)</span>
@@ -103,11 +106,11 @@
 <span class="w">  </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">  reads a .star file and turns it into a pd df.</span>
 
-<span class="sd">  Input:</span>
-<span class="sd">  scheme_name = (path to) a star file.</span>
+<span class="sd">  Args:</span>
+<span class="sd">    scheme_name (str): path to a star file.</span>
 
-<span class="sd">  Output:</span>
-<span class="sd">  data_as_df = dataframe with the information of the star file.</span>
+<span class="sd">  Returns:</span>
+<span class="sd">    df: dataframe containing the information of the star file at the defined location.</span>
 
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="n">data_as_df</span> <span class="o">=</span> <span class="n">starfile</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">scheme_name</span><span class="p">)</span>
@@ -129,15 +132,15 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    locates the value defined of the dict defined in the job_star_dict dictionary so it can be displayed and edited.</span>
 
-<span class="sd">    Input:</span>
-<span class="sd">    job_name = job name as str as it&#39;s stated in the job_star_dict (&quot;importmovies&quot;, &quot;motioncorr&quot;, &quot;ctffind&quot;)</span>
-<span class="sd">    var = name of variable/parameter that should be changed (parameters as defined in the job.star files)</span>
-<span class="sd">    job_dict = dataframe that should be accessed inside the job defined in job_name (standard input is the df containing the parameters)</span>
-<span class="sd">    column_variable = column in the dataframe containing the parameters (standard input is the correct name)</span>
-<span class="sd">    column_value = column in the dataframe containing the values assigned to each parameter (standard input is the correct name)</span>
+<span class="sd">    Args:</span>
+<span class="sd">      job_name (str): job name as str as it&#39;s stated in the job_star_dict (&quot;importmovies&quot;, &quot;motioncorr&quot;, &quot;ctffind&quot;).</span>
+<span class="sd">      var (str): name of variable/parameter that should be changed (parameters as defined in the job.star files).</span>
+<span class="sd">      job_dict (str): dataframe that should be accessed inside the job defined in job_name (standard input is the df containing the parameters).</span>
+<span class="sd">      column_variable (str): column in the dataframe containing the parameters (standard input is the correct name).</span>
+<span class="sd">      column_value (str): column in the dataframe containing the values assigned to each parameter (standard input is the correct name).</span>
 
-<span class="sd">    Output:</span>
-<span class="sd">    val = value that is currently assigned to the defined parameter of the defined job</span>
+<span class="sd">    Returns:</span>
+<span class="sd">      str: value that is currently assigned to the defined parameter of the defined job.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">val</span> <span class="o">=</span> <span class="n">job_star_dict</span><span class="p">[</span><span class="n">job_name</span><span class="p">][</span><span class="n">job_dict</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">job_star_dict</span><span class="p">[</span><span class="n">job_name</span><span class="p">][</span><span class="n">job_dict</span><span class="p">][</span><span class="n">column_variable</span><span class="p">]</span> <span class="o">==</span> <span class="n">var</span><span class="p">,</span> <span class="n">column_value</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">val</span></div>
@@ -149,16 +152,17 @@
 <span class="w">  </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">  reads a pd df and turns it into a .star file.</span>
 
-<span class="sd">  Input:</span>
-<span class="sd">  scheme_name = dataframe with the information of the star file.</span>
-<span class="sd">  path_and_name = path and name to where the new file should be saved.</span>
+<span class="sd">  Args:</span>
+<span class="sd">    scheme_name (df): dataframe with the information of the star file.</span>
+<span class="sd">    path_and_name (str): path (including file name) to where the new file should be saved.</span>
 
-<span class="sd">  Output:</span>
-<span class="sd">  df_as_star = star file at the given path.</span>
+<span class="sd">  Returns:</span>
+<span class="sd">    .star file: star file at the given path.</span>
 
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="n">df_as_star</span> <span class="o">=</span> <span class="n">starfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">scheme_name</span><span class="p">,</span> <span class="n">path_and_name</span><span class="p">)</span>
   <span class="k">return</span> <span class="n">df_as_star</span></div>
+
 
 
 
