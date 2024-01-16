@@ -34,13 +34,16 @@ def read_star(scheme_name):
   return data_as_df
 
 path_to_scheme = "/fs/gpfs41/lv01/fileset02/pool/pool-plitzko3/Michael/00-Other/CryoTheraPy/src/lib/app/master_scheme_bck"
+scheme_star_dict = read_star(path_to_scheme + "/scheme.star")
+# create a pd.series from the edges in the scheme.star (= the order of jobs that are executed), removing the
+# first and the last as they are usually EXIT_maxtime and WAIT, i.e. not jobs
+jobs_in_scheme = scheme_star_dict["scheme_edges"].rlnSchemeEdgeOutputNodeName.iloc[1:-1]
 
 job_star_dict = {
-    "importmovies": read_star(os.path.join(path_to_scheme, "importmovies/job.star")),
-    "motioncorr": read_star(os.path.join(path_to_scheme, "motioncorr/job.star")),
-    "ctffind": read_star(os.path.join(path_to_scheme, "ctffind/job.star")),
-    "scheme_star": read_star(os.path.join(path_to_scheme, "scheme.star"))
+  f"{job}": read_star(os.path.join(path_to_scheme, f"{job}/job.star"))
+  for job in jobs_in_scheme
 }
+job_star_dict["scheme_star"] = scheme_star_dict
 
 def locate_val(job_name:str, var:str, job_dict = "joboptions_values", column_variable = "rlnJobOptionVariable", column_value = "rlnJobOptionValue"):
     """

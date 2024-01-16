@@ -61,6 +61,7 @@ class test_read_write_variable_job_star_dict(unittest.TestCase):
         for key in job_star_dict.keys():
             dataframe = any(isinstance(job_star_dict[key][sub_key], pd.DataFrame) for sub_key in job_star_dict[key].keys())
             self.assertTrue(dataframe, "job_star_dict is not correctly formatted")
+        self.assertIn("scheme_star", job_star_dict, "scheme.star file is not properly included")
 
 # not ideal yet bc the paths are hard-coded (and the same way as in the function) but wasn't sure how to set up a proper test here since the values are changing and the function just locates them.
 class test_read_write_function_locate_val(unittest.TestCase):
