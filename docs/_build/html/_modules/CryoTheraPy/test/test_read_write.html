@@ -80,35 +80,106 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">bash command to run test (once in respective directory):</span>
+<span class="sd">python -m unittest discover  (runs all tests)</span>
+<span class="sd">python -m unittest test_module_name  (runs just one module)</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="n">current_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__name__</span><span class="p">))</span>
 <span class="n">src_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_dir</span><span class="p">,</span> <span class="s1">&#39;../src&#39;</span><span class="p">))</span>
 <span class="c1"># Add the &#39;src&#39; directory to the Python path</span>
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">src_dir</span><span class="p">)</span>
 
-<span class="kn">from</span> <span class="nn">lib.read_write</span> <span class="kn">import</span> <span class="n">read_star</span><span class="p">,</span> <span class="n">write_star</span>
+<span class="kn">from</span> <span class="nn">lib.read_write</span> <span class="kn">import</span> <span class="n">read_config</span><span class="p">,</span> <span class="n">read_star</span><span class="p">,</span> <span class="n">write_star</span><span class="p">,</span> <span class="n">job_star_dict</span><span class="p">,</span> <span class="n">locate_val</span>
+
+<span class="c1"># don&#39;t have the yaml file yet so changed it to create a temporary file for the test of the function</span>
+<div class="viewcode-block" id="test_read_write_function_read_config">
+<a class="viewcode-back" href="../../../test_read_write.html#CryoTheraPy.test.test_read_write.test_read_write_function_read_config">[docs]</a>
+<span class="k">class</span> <span class="nc">test_read_write_function_read_config</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<div class="viewcode-block" id="test_read_write_function_read_config.test_read_config">
+<a class="viewcode-back" href="../../../test_read_write.html#CryoTheraPy.test.test_read_write.test_read_write_function_read_config.test_read_config">[docs]</a>
+    <span class="k">def</span> <span class="nf">test_read_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        testing whether the function returns a dict.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">delete</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;.yaml&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">temp_file</span><span class="p">:</span>
+            <span class="n">temp_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;key1: value1</span><span class="se">\n</span><span class="s2">key2: value2</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="c1"># Get the temporary file path</span>
+        <span class="n">temp_file_path</span> <span class="o">=</span> <span class="n">temp_file</span><span class="o">.</span><span class="n">name</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Call the read_config function to get the result</span>
+            <span class="n">config_file</span> <span class="o">=</span> <span class="n">read_config</span><span class="p">(</span><span class="n">temp_file_path</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">config_file</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="s2">&quot;read_config does not accurately create a dictionary from the YAML file&quot;</span><span class="p">)</span>
+       
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="c1"># delete the temporary file again</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">temp_file_path</span><span class="p">)</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        config_file = read_config()</span>
+<span class="sd">        self.assertIsInstance(config_file, dict, &quot;read_config does not accurately create a dict from the yaml file&quot;)</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+</div>
 
 
-<div class="viewcode-block" id="Test_Read_Write_Function_read_star">
-<a class="viewcode-back" href="../../../test_read_write.html#CryoTheraPy.test.test_read_write.Test_Read_Write_Function_read_star">[docs]</a>
-<span class="k">class</span> <span class="nc">Test_Read_Write_Function_read_star</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
-<div class="viewcode-block" id="Test_Read_Write_Function_read_star.test_read_star">
-<a class="viewcode-back" href="../../../test_read_write.html#CryoTheraPy.test.test_read_write.Test_Read_Write_Function_read_star.test_read_star">[docs]</a>
+<div class="viewcode-block" id="test_read_write_function_read_star">
+<a class="viewcode-back" href="../../../test_read_write.html#CryoTheraPy.test.test_read_write.test_read_write_function_read_star">[docs]</a>
+<span class="k">class</span> <span class="nc">test_read_write_function_read_star</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<div class="viewcode-block" id="test_read_write_function_read_star.test_read_star">
+<a class="viewcode-back" href="../../../test_read_write.html#CryoTheraPy.test.test_read_write.test_read_write_function_read_star.test_read_star">[docs]</a>
     <span class="k">def</span> <span class="nf">test_read_star</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        testing whether the function creates a dict from the star file.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">read_star</span><span class="p">(</span><span class="s2">&quot;/fs/pool/pool-plitzko3/Michael/01-Data/relion/pipeline_test/schemes/Schemes/master_scheme/scheme.star&quot;</span><span class="p">))</span> <span class="o">==</span> <span class="nb">dict</span>
+        <span class="n">starfile</span> <span class="o">=</span> <span class="n">read_star</span><span class="p">(</span><span class="s2">&quot;/fs/gpfs41/lv01/fileset02/pool/pool-plitzko3/Michael/00-Other/CryoTheraPy/src/lib/app/master_scheme_bck/scheme.star&quot;</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">starfile</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span>
         <span class="c1"># Use assert methods to check if the result matches the expected value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></div>
+        <span class="c1">#if result[&quot;scheme_jobs&quot;].empty or result[&quot;scheme_edges&quot;].empty == True:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">starfile</span><span class="p">[</span><span class="s2">&quot;scheme_jobs&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">empty</span> <span class="ow">or</span> <span class="n">starfile</span><span class="p">[</span><span class="s2">&quot;scheme_edges&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">empty</span><span class="p">,</span> <span class="s2">&quot;scheme.star file doesn&#39;t have all required entries&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="s2">&quot;read_star function does not accurately return a dict containing the data from the .star file as df&quot;</span><span class="p">)</span></div>
 </div>
 
 
-<div class="viewcode-block" id="Test_Read_Write_Function_write_star">
-<a class="viewcode-back" href="../../../test_read_write.html#CryoTheraPy.test.test_read_write.Test_Read_Write_Function_write_star">[docs]</a>
-<span class="k">class</span> <span class="nc">Test_Read_Write_Function_write_star</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
-<div class="viewcode-block" id="Test_Read_Write_Function_write_star.test_write_star">
-<a class="viewcode-back" href="../../../test_read_write.html#CryoTheraPy.test.test_read_write.Test_Read_Write_Function_write_star.test_write_star">[docs]</a>
+<div class="viewcode-block" id="test_read_write_variable_job_star_dict">
+<a class="viewcode-back" href="../../../test_read_write.html#CryoTheraPy.test.test_read_write.test_read_write_variable_job_star_dict">[docs]</a>
+<span class="k">class</span> <span class="nc">test_read_write_variable_job_star_dict</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<div class="viewcode-block" id="test_read_write_variable_job_star_dict.test_job_star_dict">
+<a class="viewcode-back" href="../../../test_read_write.html#CryoTheraPy.test.test_read_write.test_read_write_variable_job_star_dict.test_job_star_dict">[docs]</a>
+    <span class="k">def</span> <span class="nf">test_job_star_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        testing whether the job_star_dict variable has the correct format, as much is based on this.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">job_star_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">dataframe</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">job_star_dict</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">sub_key</span><span class="p">],</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="k">for</span> <span class="n">sub_key</span> <span class="ow">in</span> <span class="n">job_star_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="s2">&quot;job_star_dict is not correctly formatted&quot;</span><span class="p">)</span></div>
+</div>
+
+
+<span class="c1"># not ideal yet bc the paths are hard-coded (and the same way as in the function) but wasn&#39;t sure how to set up a proper test here since the values are changing and the function just locates them.</span>
+<div class="viewcode-block" id="test_read_write_function_locate_val">
+<a class="viewcode-back" href="../../../test_read_write.html#CryoTheraPy.test.test_read_write.test_read_write_function_locate_val">[docs]</a>
+<span class="k">class</span> <span class="nc">test_read_write_function_locate_val</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<div class="viewcode-block" id="test_read_write_function_locate_val.test_locate_val">
+<a class="viewcode-back" href="../../../test_read_write.html#CryoTheraPy.test.test_read_write.test_read_write_function_locate_val.test_locate_val">[docs]</a>
+    <span class="k">def</span> <span class="nf">test_locate_val</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        testing whether the locate_val function correctly locates the respective value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">val_located</span> <span class="o">=</span> <span class="n">locate_val</span><span class="p">(</span><span class="s2">&quot;importmovies&quot;</span><span class="p">,</span> <span class="s2">&quot;Cs&quot;</span><span class="p">)</span>
+        <span class="n">val_actual_df</span> <span class="o">=</span> <span class="n">read_star</span><span class="p">(</span><span class="s2">&quot;/fs/gpfs41/lv01/fileset02/pool/pool-plitzko3/Michael/00-Other/CryoTheraPy/src/lib/app/master_scheme_bck/importmovies/job.star&quot;</span><span class="p">)[</span><span class="s2">&quot;joboptions_values&quot;</span><span class="p">]</span>
+        <span class="n">val_actual</span> <span class="o">=</span> <span class="n">val_actual_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">val_actual_df</span><span class="p">[</span><span class="s2">&quot;rlnJobOptionVariable&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Cs&quot;</span><span class="p">,</span> <span class="s2">&quot;rlnJobOptionValue&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">val_located</span><span class="p">,</span> <span class="n">val_actual</span><span class="p">,</span> <span class="s2">&quot;the located value is not the same as the value in the backup file&quot;</span><span class="p">)</span></div>
+</div>
+
+
+<div class="viewcode-block" id="test_read_write_function_write_star">
+<a class="viewcode-back" href="../../../test_read_write.html#CryoTheraPy.test.test_read_write.test_read_write_function_write_star">[docs]</a>
+<span class="k">class</span> <span class="nc">test_read_write_function_write_star</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<div class="viewcode-block" id="test_read_write_function_write_star.test_write_star">
+<a class="viewcode-back" href="../../../test_read_write.html#CryoTheraPy.test.test_read_write.test_read_write_function_write_star.test_write_star">[docs]</a>
     <span class="k">def</span> <span class="nf">test_write_star</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        testing whether the function creates a .star file from dataframe.</span>
@@ -116,13 +187,13 @@
         <span class="c1"># Create a temporary directory</span>
         <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">temp_dir</span><span class="p">:</span>
             <span class="n">temp_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">temp_dir</span><span class="p">,</span> <span class="s2">&quot;test.star&quot;</span><span class="p">)</span>
-            <span class="n">test_data</span> <span class="o">=</span> <span class="n">read_star</span><span class="p">(</span><span class="n">star_path</span><span class="p">)</span>
+            <span class="n">test_data</span> <span class="o">=</span> <span class="n">job_star_dict</span><span class="p">[</span><span class="s2">&quot;importmovies&quot;</span><span class="p">]</span>
             <span class="c1"># Run the function to create the file</span>
             <span class="n">write_star</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">temp_file</span><span class="p">)</span>
 
             <span class="c1"># Check if the file exists and has the correct extension</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">temp_file</span><span class="p">))</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">temp_file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.star&quot;</span><span class="p">))</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">temp_file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.star&quot;</span><span class="p">),</span> <span class="s2">&quot;no .star file is created at the target location&quot;</span><span class="p">)</span></div>
 </div>
 
 </pre></div>

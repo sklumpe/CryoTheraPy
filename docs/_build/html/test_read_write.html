@@ -51,12 +51,24 @@
 <li class="toctree-l1"><a class="reference internal" href="app.html">Application</a></li>
 <li class="toctree-l1"><a class="reference internal" href="read_write.html">io</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Unit Tests io</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#CryoTheraPy.test.test_read_write.Test_Read_Write_Function_read_star"><code class="docutils literal notranslate"><span class="pre">Test_Read_Write_Function_read_star</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#CryoTheraPy.test.test_read_write.Test_Read_Write_Function_read_star.test_read_star"><code class="docutils literal notranslate"><span class="pre">Test_Read_Write_Function_read_star.test_read_star()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#CryoTheraPy.test.test_read_write.test_read_write_function_locate_val"><code class="docutils literal notranslate"><span class="pre">test_read_write_function_locate_val</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#CryoTheraPy.test.test_read_write.test_read_write_function_locate_val.test_locate_val"><code class="docutils literal notranslate"><span class="pre">test_read_write_function_locate_val.test_locate_val()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#CryoTheraPy.test.test_read_write.Test_Read_Write_Function_write_star"><code class="docutils literal notranslate"><span class="pre">Test_Read_Write_Function_write_star</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#CryoTheraPy.test.test_read_write.Test_Read_Write_Function_write_star.test_write_star"><code class="docutils literal notranslate"><span class="pre">Test_Read_Write_Function_write_star.test_write_star()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#CryoTheraPy.test.test_read_write.test_read_write_function_read_config"><code class="docutils literal notranslate"><span class="pre">test_read_write_function_read_config</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#CryoTheraPy.test.test_read_write.test_read_write_function_read_config.test_read_config"><code class="docutils literal notranslate"><span class="pre">test_read_write_function_read_config.test_read_config()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#CryoTheraPy.test.test_read_write.test_read_write_function_read_star"><code class="docutils literal notranslate"><span class="pre">test_read_write_function_read_star</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#CryoTheraPy.test.test_read_write.test_read_write_function_read_star.test_read_star"><code class="docutils literal notranslate"><span class="pre">test_read_write_function_read_star.test_read_star()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#CryoTheraPy.test.test_read_write.test_read_write_function_write_star"><code class="docutils literal notranslate"><span class="pre">test_read_write_function_write_star</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#CryoTheraPy.test.test_read_write.test_read_write_function_write_star.test_write_star"><code class="docutils literal notranslate"><span class="pre">test_read_write_function_write_star.test_write_star()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#CryoTheraPy.test.test_read_write.test_read_write_variable_job_star_dict"><code class="docutils literal notranslate"><span class="pre">test_read_write_variable_job_star_dict</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#CryoTheraPy.test.test_read_write.test_read_write_variable_job_star_dict.test_job_star_dict"><code class="docutils literal notranslate"><span class="pre">test_read_write_variable_job_star_dict.test_job_star_dict()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -90,25 +102,61 @@
   <section id="module-CryoTheraPy.test.test_read_write">
 <span id="unit-tests-io"></span><h1>Unit Tests io<a class="headerlink" href="#module-CryoTheraPy.test.test_read_write" title="Link to this heading"></a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="CryoTheraPy.test.test_read_write.Test_Read_Write_Function_read_star">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">CryoTheraPy.test.test_read_write.</span></span><span class="sig-name descname"><span class="pre">Test_Read_Write_Function_read_star</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CryoTheraPy/test/test_read_write.html#Test_Read_Write_Function_read_star"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CryoTheraPy.test.test_read_write.Test_Read_Write_Function_read_star" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="CryoTheraPy.test.test_read_write.test_read_write_function_locate_val">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">CryoTheraPy.test.test_read_write.</span></span><span class="sig-name descname"><span class="pre">test_read_write_function_locate_val</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CryoTheraPy/test/test_read_write.html#test_read_write_function_locate_val"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CryoTheraPy.test.test_read_write.test_read_write_function_locate_val" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TestCase</span></code></p>
 <dl class="py method">
-<dt class="sig sig-object py" id="CryoTheraPy.test.test_read_write.Test_Read_Write_Function_read_star.test_read_star">
-<span class="sig-name descname"><span class="pre">test_read_star</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/CryoTheraPy/test/test_read_write.html#Test_Read_Write_Function_read_star.test_read_star"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CryoTheraPy.test.test_read_write.Test_Read_Write_Function_read_star.test_read_star" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="CryoTheraPy.test.test_read_write.test_read_write_function_locate_val.test_locate_val">
+<span class="sig-name descname"><span class="pre">test_locate_val</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/CryoTheraPy/test/test_read_write.html#test_read_write_function_locate_val.test_locate_val"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CryoTheraPy.test.test_read_write.test_read_write_function_locate_val.test_locate_val" title="Link to this definition"></a></dt>
+<dd><p>testing whether the locate_val function correctly locates the respective value.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CryoTheraPy.test.test_read_write.test_read_write_function_read_config">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">CryoTheraPy.test.test_read_write.</span></span><span class="sig-name descname"><span class="pre">test_read_write_function_read_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CryoTheraPy/test/test_read_write.html#test_read_write_function_read_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CryoTheraPy.test.test_read_write.test_read_write_function_read_config" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TestCase</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="CryoTheraPy.test.test_read_write.test_read_write_function_read_config.test_read_config">
+<span class="sig-name descname"><span class="pre">test_read_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/CryoTheraPy/test/test_read_write.html#test_read_write_function_read_config.test_read_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CryoTheraPy.test.test_read_write.test_read_write_function_read_config.test_read_config" title="Link to this definition"></a></dt>
+<dd><p>testing whether the function returns a dict.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CryoTheraPy.test.test_read_write.test_read_write_function_read_star">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">CryoTheraPy.test.test_read_write.</span></span><span class="sig-name descname"><span class="pre">test_read_write_function_read_star</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CryoTheraPy/test/test_read_write.html#test_read_write_function_read_star"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CryoTheraPy.test.test_read_write.test_read_write_function_read_star" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TestCase</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="CryoTheraPy.test.test_read_write.test_read_write_function_read_star.test_read_star">
+<span class="sig-name descname"><span class="pre">test_read_star</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/CryoTheraPy/test/test_read_write.html#test_read_write_function_read_star.test_read_star"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CryoTheraPy.test.test_read_write.test_read_write_function_read_star.test_read_star" title="Link to this definition"></a></dt>
 <dd><p>testing whether the function creates a dict from the star file.</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="CryoTheraPy.test.test_read_write.Test_Read_Write_Function_write_star">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">CryoTheraPy.test.test_read_write.</span></span><span class="sig-name descname"><span class="pre">Test_Read_Write_Function_write_star</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CryoTheraPy/test/test_read_write.html#Test_Read_Write_Function_write_star"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CryoTheraPy.test.test_read_write.Test_Read_Write_Function_write_star" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="CryoTheraPy.test.test_read_write.test_read_write_function_write_star">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">CryoTheraPy.test.test_read_write.</span></span><span class="sig-name descname"><span class="pre">test_read_write_function_write_star</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CryoTheraPy/test/test_read_write.html#test_read_write_function_write_star"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CryoTheraPy.test.test_read_write.test_read_write_function_write_star" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TestCase</span></code></p>
 <dl class="py method">
-<dt class="sig sig-object py" id="CryoTheraPy.test.test_read_write.Test_Read_Write_Function_write_star.test_write_star">
-<span class="sig-name descname"><span class="pre">test_write_star</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/CryoTheraPy/test/test_read_write.html#Test_Read_Write_Function_write_star.test_write_star"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CryoTheraPy.test.test_read_write.Test_Read_Write_Function_write_star.test_write_star" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="CryoTheraPy.test.test_read_write.test_read_write_function_write_star.test_write_star">
+<span class="sig-name descname"><span class="pre">test_write_star</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/CryoTheraPy/test/test_read_write.html#test_read_write_function_write_star.test_write_star"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CryoTheraPy.test.test_read_write.test_read_write_function_write_star.test_write_star" title="Link to this definition"></a></dt>
 <dd><p>testing whether the function creates a .star file from dataframe.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CryoTheraPy.test.test_read_write.test_read_write_variable_job_star_dict">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">CryoTheraPy.test.test_read_write.</span></span><span class="sig-name descname"><span class="pre">test_read_write_variable_job_star_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CryoTheraPy/test/test_read_write.html#test_read_write_variable_job_star_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CryoTheraPy.test.test_read_write.test_read_write_variable_job_star_dict" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TestCase</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="CryoTheraPy.test.test_read_write.test_read_write_variable_job_star_dict.test_job_star_dict">
+<span class="sig-name descname"><span class="pre">test_job_star_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/CryoTheraPy/test/test_read_write.html#test_read_write_variable_job_star_dict.test_job_star_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CryoTheraPy.test.test_read_write.test_read_write_variable_job_star_dict.test_job_star_dict" title="Link to this definition"></a></dt>
+<dd><p>testing whether the job_star_dict variable has the correct format, as much is based on this.</p>
 </dd></dl>
 
 </dd></dl>

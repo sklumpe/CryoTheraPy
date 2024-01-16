@@ -81,9 +81,9 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">starfile</span>
 
-<div class="viewcode-block" id="readConfig">
-<a class="viewcode-back" href="../../read_write.html#lib.read_write.readConfig">[docs]</a>
-<span class="k">def</span> <span class="nf">readConfig</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+<div class="viewcode-block" id="read_config">
+<a class="viewcode-back" href="../../read_write.html#lib.read_write.read_config">[docs]</a>
+<span class="k">def</span> <span class="nf">read_config</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
 <span class="w">  </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">  reads a configuration file in yaml format.</span>
 <span class="sd">  </span>
@@ -117,7 +117,7 @@
   <span class="k">return</span> <span class="n">data_as_df</span></div>
 
 
-<span class="n">path_to_scheme</span> <span class="o">=</span> <span class="s2">&quot;/fs/gpfs41/lv01/fileset02/pool/pool-plitzko3/Michael/00-Other/CryoTheraPy/src/lib/app/master_scheme&quot;</span>
+<span class="n">path_to_scheme</span> <span class="o">=</span> <span class="s2">&quot;/fs/gpfs41/lv01/fileset02/pool/pool-plitzko3/Michael/00-Other/CryoTheraPy/src/lib/app/master_scheme_bck&quot;</span>
 
 <span class="n">job_star_dict</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;importmovies&quot;</span><span class="p">:</span> <span class="n">read_star</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path_to_scheme</span><span class="p">,</span> <span class="s2">&quot;importmovies/job.star&quot;</span><span class="p">)),</span>
@@ -162,7 +162,6 @@
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="n">df_as_star</span> <span class="o">=</span> <span class="n">starfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">scheme_name</span><span class="p">,</span> <span class="n">path_and_name</span><span class="p">)</span>
   <span class="k">return</span> <span class="n">df_as_star</span></div>
-
 
 
 

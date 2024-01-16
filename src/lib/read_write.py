@@ -3,7 +3,7 @@ import yaml
 import os
 import starfile
 
-def readConfig(filename):
+def read_config(filename):
   """
   reads a configuration file in yaml format.
   
@@ -33,7 +33,7 @@ def read_star(scheme_name):
   data_as_df = starfile.read(scheme_name)
   return data_as_df
 
-path_to_scheme = "/fs/gpfs41/lv01/fileset02/pool/pool-plitzko3/Michael/00-Other/CryoTheraPy/src/lib/app/master_scheme"
+path_to_scheme = "/fs/gpfs41/lv01/fileset02/pool/pool-plitzko3/Michael/00-Other/CryoTheraPy/src/lib/app/master_scheme_bck"
 
 job_star_dict = {
     "importmovies": read_star(os.path.join(path_to_scheme, "importmovies/job.star")),
@@ -73,7 +73,6 @@ def write_star(scheme_name, path_and_name):
   """
   df_as_star = starfile.write(scheme_name, path_and_name)
   return df_as_star
-
 
 
 # create Sphinx documentation: sphinx-build -M html docs/ docs/
