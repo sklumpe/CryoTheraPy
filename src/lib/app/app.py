@@ -11,7 +11,7 @@ src_dir = os.path.abspath(os.path.join(current_dir, '../..'))
 # change the path to be until src
 sys.path.append(src_dir)
 
-from lib.read_write import write_star, job_star_dict, locate_val
+from lib.read_write import write_star, job_star_dict, locate_val, jobs_in_scheme, param_names
 
 class MainUI(QMainWindow):
     """
@@ -27,20 +27,37 @@ class MainUI(QMainWindow):
         self.btn_changeStarValues.clicked.connect(self.changeStarValues)
         self.btn_writeStar.clicked.connect(self.writeStar)
         #these two don't work yet bc the schemer requires a different version of python
-        self.btn_start.clicked.connect(self.start_relion)
-        self.btn_python2.clicked.connect(self.switch_python)
+        #self.btn_start.clicked.connect(self.start_relion)
+        #self.btn_python2.clicked.connect(self.switch_python)
 
     def readStar(self):
         """
         Populate the line edits based on the values in the dataframe.
         """
-        self.line_imp_pix_size.setText(locate_val("importmovies", "angpix"))
-        self.line_imp_path.setText(locate_val("importmovies", "movie_files"))
-        self.line_imp_meta.setText(locate_val("importmovies", "mdoc_files"))
-        self.line_imp_qsub.setText(locate_val("importmovies", "qsubscript"))
-        self.line_mcorr_eer.setText(locate_val("motioncorr", "qsubscript"))
-        self.line_mcorr_eer.setText(locate_val("motioncorr", "eer_grouping"))
-    
+        #self.lbl_path.setText(locate_val("importmovies", "movie_files", column_value= "rlnJobOptionVariable"))
+        #self.line_imp_pix_size.setText(locate_val("importmovies", "angpix"))
+        #self.line_imp_path.setText(locate_val("importmovies", "movie_files"))
+        #self.line_imp_meta.setText(locate_val("importmovies", "mdoc_files"))
+        #self.line_imp_qsub.setText(locate_val("importmovies", "qsubscript"))
+        #self.line_motioncorr_1.setText(locate_val("motioncorr", "qsubscript"))
+        #self.line_motioncorr_2.setText(locate_val("motioncorr", "eer_grouping"))
+        
+        for job_name in jobs_in_scheme:
+            for i, (index, param) in enumerate(job_star_dict[job_name]["joboptions_values"]["rlnJobOptionVariable"].items()):
+                label_name = f"lbl_{job_name}_{i + 1}"
+                line_name = f"line_{job_name}_{i + 1}"
+                try:
+                    label = getattr(self, label_name)
+                    if param in param_names:
+                        param = param_names[param]
+                    label.setText(locate_val(job_name, f"{param}", column_value="rlnJobOptionVariable"))
+                    line = getattr(self, line_name)
+                    line.setText(locate_val(job_name, f"{param}"))
+                except:
+                    print(f"could not import label {label_name} {param}")
+                    print(f"could not import value {line_name} {param}")
+                    raise AssertionError("not all parameters could be loaded")
+                
     def changeStarValues(self):
         """
         function to change the value of the given parameter in the given job.
@@ -72,6 +89,7 @@ class MainUI(QMainWindow):
         can be made into a pop-up window later.
         """
         self.path_to_new_project = self.line_path_new_project.text()
+        
         path_scheme_star = os.path.join(self.path_to_new_project, "Schemes/master_scheme/scheme.star")
         path_import = os.path.join(self.path_to_new_project, "Schemes/master_scheme/importmovies/job.star")
         os.makedirs(path_import, exist_ok=True)
@@ -102,4 +120,3 @@ if __name__ == "__main__":
     ui = MainUI()
     ui.show()
     app.exec()
-
