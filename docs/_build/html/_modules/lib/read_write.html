@@ -118,32 +118,45 @@
 
 
 <span class="n">path_to_scheme</span> <span class="o">=</span> <span class="s2">&quot;/fs/gpfs41/lv01/fileset02/pool/pool-plitzko3/Michael/00-Other/CryoTheraPy/src/lib/app/master_scheme_bck&quot;</span>
+<span class="n">scheme_star_dict</span> <span class="o">=</span> <span class="n">read_star</span><span class="p">(</span><span class="n">path_to_scheme</span> <span class="o">+</span> <span class="s2">&quot;/scheme.star&quot;</span><span class="p">)</span>
+<span class="c1"># create a pd.series from the edges in the scheme.star (= the order of jobs that are executed), removing the</span>
+<span class="c1"># first and the last as they are usually EXIT_maxtime and WAIT, i.e. not jobs</span>
+<span class="n">jobs_in_scheme</span> <span class="o">=</span> <span class="n">scheme_star_dict</span><span class="p">[</span><span class="s2">&quot;scheme_edges&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rlnSchemeEdgeOutputNodeName</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
 <span class="n">job_star_dict</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;importmovies&quot;</span><span class="p">:</span> <span class="n">read_star</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path_to_scheme</span><span class="p">,</span> <span class="s2">&quot;importmovies/job.star&quot;</span><span class="p">)),</span>
-    <span class="s2">&quot;motioncorr&quot;</span><span class="p">:</span> <span class="n">read_star</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path_to_scheme</span><span class="p">,</span> <span class="s2">&quot;motioncorr/job.star&quot;</span><span class="p">)),</span>
-    <span class="s2">&quot;ctffind&quot;</span><span class="p">:</span> <span class="n">read_star</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path_to_scheme</span><span class="p">,</span> <span class="s2">&quot;ctffind/job.star&quot;</span><span class="p">)),</span>
-    <span class="s2">&quot;scheme_star&quot;</span><span class="p">:</span> <span class="n">read_star</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path_to_scheme</span><span class="p">,</span> <span class="s2">&quot;scheme.star&quot;</span><span class="p">))</span>
+  <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">job</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">read_star</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path_to_scheme</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">job</span><span class="si">}</span><span class="s2">/job.star&quot;</span><span class="p">))</span>
+  <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="n">jobs_in_scheme</span>
 <span class="p">}</span>
+<span class="n">job_star_dict</span><span class="p">[</span><span class="s2">&quot;scheme_star&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scheme_star_dict</span>
 
 <div class="viewcode-block" id="locate_val">
 <a class="viewcode-back" href="../../read_write.html#lib.read_write.locate_val">[docs]</a>
 <span class="k">def</span> <span class="nf">locate_val</span><span class="p">(</span><span class="n">job_name</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">var</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">job_dict</span> <span class="o">=</span> <span class="s2">&quot;joboptions_values&quot;</span><span class="p">,</span> <span class="n">column_variable</span> <span class="o">=</span> <span class="s2">&quot;rlnJobOptionVariable&quot;</span><span class="p">,</span> <span class="n">column_value</span> <span class="o">=</span> <span class="s2">&quot;rlnJobOptionValue&quot;</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    locates the value defined of the dict defined in the job_star_dict dictionary so it can be displayed and edited.</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  locates the value defined of the dict defined in the job_star_dict dictionary so it can be displayed and edited.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">      job_name (str): job name as str as it&#39;s stated in the job_star_dict (&quot;importmovies&quot;, &quot;motioncorr&quot;, &quot;ctffind&quot;).</span>
-<span class="sd">      var (str): name of variable/parameter that should be changed (parameters as defined in the job.star files).</span>
-<span class="sd">      job_dict (str): dataframe that should be accessed inside the job defined in job_name (standard input is the df containing the parameters).</span>
-<span class="sd">      column_variable (str): column in the dataframe containing the parameters (standard input is the correct name).</span>
-<span class="sd">      column_value (str): column in the dataframe containing the values assigned to each parameter (standard input is the correct name).</span>
+<span class="sd">  Args:</span>
+<span class="sd">    job_name (str): job name as str as it&#39;s stated in the job_star_dict (&quot;importmovies&quot;, &quot;motioncorr&quot;, &quot;ctffind&quot;, &quot;aligntilts&quot;, &quot;reconstruction&quot;).</span>
+<span class="sd">    var (str): name of variable/parameter that should be changed (parameters as defined in the job.star files).</span>
+<span class="sd">    job_dict (str): dataframe that should be accessed inside the job defined in job_name (standard input is the df containing the parameters).</span>
+<span class="sd">    column_variable (str): column in the dataframe containing the parameters (standard input is the correct name).</span>
+<span class="sd">    column_value (str): column in the dataframe containing the values assigned to each parameter (standard input is the correct name).</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">      str: value that is currently assigned to the defined parameter of the defined job.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">val</span> <span class="o">=</span> <span class="n">job_star_dict</span><span class="p">[</span><span class="n">job_name</span><span class="p">][</span><span class="n">job_dict</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">job_star_dict</span><span class="p">[</span><span class="n">job_name</span><span class="p">][</span><span class="n">job_dict</span><span class="p">][</span><span class="n">column_variable</span><span class="p">]</span> <span class="o">==</span> <span class="n">var</span><span class="p">,</span> <span class="n">column_value</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">val</span></div>
+<span class="sd">  Returns:</span>
+<span class="sd">    str: value that is currently assigned to the defined parameter of the defined job.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">val</span> <span class="o">=</span> <span class="n">job_star_dict</span><span class="p">[</span><span class="n">job_name</span><span class="p">][</span><span class="n">job_dict</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">job_star_dict</span><span class="p">[</span><span class="n">job_name</span><span class="p">][</span><span class="n">job_dict</span><span class="p">][</span><span class="n">column_variable</span><span class="p">]</span> <span class="o">==</span> <span class="n">var</span><span class="p">,</span> <span class="n">column_value</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="k">return</span> <span class="n">val</span></div>
+
+
+<div class="viewcode-block" id="update_job_star_dict">
+<a class="viewcode-back" href="../../read_write.html#lib.read_write.update_job_star_dict">[docs]</a>
+<span class="k">def</span> <span class="nf">update_job_star_dict</span><span class="p">(</span><span class="n">job_name</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">index</span> <span class="o">=</span> <span class="n">job_star_dict</span><span class="p">[</span><span class="n">job_name</span><span class="p">][</span><span class="s2">&quot;joboptions_values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">job_star_dict</span><span class="p">[</span><span class="n">job_name</span><span class="p">][</span><span class="s2">&quot;joboptions_values&quot;</span><span class="p">][</span><span class="s2">&quot;rlnJobOptionVariable&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">param</span><span class="p">]</span>
+  <span class="n">job_star_dict</span><span class="p">[</span><span class="n">job_name</span><span class="p">][</span><span class="s2">&quot;joboptions_values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+  <span class="k">return</span> <span class="n">job_star_dict</span></div>
 
 
 <div class="viewcode-block" id="write_star">
@@ -164,6 +177,126 @@
   <span class="k">return</span> <span class="n">df_as_star</span></div>
 
 
+<span class="n">param_names</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s2">&quot;importmovies&quot;</span><span class="p">:{</span>
+    <span class="c1"># all the parameters for importmovies</span>
+    <span class="s2">&quot;Q0&quot;</span><span class="p">:</span> <span class="s2">&quot;Amplitude contrast&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;angpix&quot;</span><span class="p">:</span> <span class="s2">&quot;Pixel size in </span><span class="se">\u212B</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="c1">#do_coords</span>
+    <span class="c1">#do_coords_flipZ</span>
+    <span class="c1">#do_flipYZ</span>
+    <span class="c1">#do_flipZ</span>
+    <span class="c1">#do_other</span>
+    <span class="c1">#do_queue</span>
+    <span class="c1">#do_tiltseries</span>
+    <span class="c1">#do_tomo</span>
+    <span class="c1">#dose_is_per_movie_frame</span>
+    <span class="c1">#dose_rate</span>
+    <span class="c1">#flip_tiltseries_hand</span>
+    <span class="c1">#fn_in_other</span>
+    <span class="c1">#hand</span>
+    <span class="c1">#images_are_motion_corrected</span>
+    <span class="c1">#io_tomos</span>
+    <span class="c1">#kV</span>
+    <span class="c1">#mdoc_files</span>
+    <span class="c1">#min_dedicated</span>
+    <span class="c1">#movie_files</span>
+    <span class="c1">#mtf_file</span>
+    <span class="c1">#node_type</span>
+    <span class="c1">#optics_group_particles</span>
+    <span class="c1">#order_list</span>
+    <span class="c1">#other_args</span>
+    <span class="c1">#part_star</span>
+    <span class="c1">#part_tomos</span>
+    <span class="c1">#prefix</span>
+    <span class="c1">#qsub</span>
+    <span class="c1">#qsub_extra1</span>
+    <span class="c1">#qsub_extra2</span>
+    <span class="c1">#qsub_extra3</span>
+    <span class="c1">#qsub_extra4</span>
+    <span class="c1">#qsubscript</span>
+    <span class="c1">#queuename</span>
+    <span class="c1">#tilt_axis_angle</span>
+    <span class="c1">#tomo_star</span>
+<span class="p">},</span>
+  <span class="s2">&quot;motioncorr&quot;</span><span class="p">:{</span>
+    <span class="c1"># all parameters for motioncorr</span>
+    <span class="s2">&quot;bfactor&quot;</span><span class="p">:</span> <span class="s2">&quot;B factor&quot;</span><span class="p">,</span>
+    <span class="c1">#bin_factor</span>
+    <span class="c1">#do_even_odd_split</span>
+    <span class="c1">#do_float16</span>
+    <span class="c1">#do_own_motioncor</span>
+    <span class="c1">#do_queue</span>
+    <span class="c1">#do_save_ps</span>
+    <span class="c1">#eer_grouping</span>
+    <span class="c1">#fn_defect</span>
+    <span class="c1">#fn_gain_ref</span>
+    <span class="c1">#fn_motioncor2_exe</span>
+    <span class="c1">#gain_flip</span>
+    <span class="c1">#gain_rot</span>
+    <span class="c1">#gpu_ids</span>
+    <span class="c1">#group_for_ps</span>
+    <span class="c1">#group_frames</span>
+    <span class="c1">#input_star_mics</span>
+    <span class="c1">#min_dedicated</span>
+    <span class="c1">#nr_mpi</span>
+    <span class="c1">#nr_threads</span>
+    <span class="c1">#other_args</span>
+    <span class="c1">#other_motioncor2_args</span>
+    <span class="c1">#patch_x</span>
+    <span class="c1">#patch_y</span>
+    <span class="c1">#qsub</span>
+    <span class="c1">#qsub_extra1</span>
+    <span class="c1">#qsub_extra2</span>
+    <span class="c1">#qsub_extra3</span>
+    <span class="c1">#qsub_extra4</span>
+    <span class="c1">#qsubscript</span>
+    <span class="c1">#queuename</span>
+<span class="p">},</span>
+  <span class="s2">&quot;ctffind&quot;</span><span class="p">:{</span>
+    <span class="c1"># all parameters for ctffind</span>
+    <span class="s2">&quot;box&quot;</span><span class="p">:</span> <span class="s2">&quot;Box size&quot;</span><span class="p">,</span>
+    <span class="c1">#ctf_win</span>
+    <span class="c1">#dast</span>
+    <span class="c1">#dfmax</span>
+    <span class="c1">#dfmin</span>
+    <span class="c1">#dfstep</span>
+    <span class="c1">#do_EPA</span>
+    <span class="c1">#do_ignore_ctffind_params</span>
+    <span class="c1">#do_phaseshift</span>
+    <span class="c1">#do_queue</span>
+    <span class="c1">#fn_ctffind_exe</span>
+    <span class="c1">#fn_gctf_exe</span>
+    <span class="c1">#gpu_ids</span>
+    <span class="c1">#input_star_mics</span>
+    <span class="c1">#min_dedicated</span>
+    <span class="c1">#nr_mpi</span>
+    <span class="c1">#other_args</span>
+    <span class="c1">#other_gctf_args</span>
+    <span class="c1">#phase_max</span>
+    <span class="c1">#phase_min</span>
+    <span class="c1">#phase_step</span>
+    <span class="c1">#qsub</span>
+    <span class="c1">#qsub_extra1</span>
+    <span class="c1">#qsub_extra2</span>
+    <span class="c1">#qsub_extra3</span>
+    <span class="c1">#qsub_extra4</span>
+    <span class="c1">#qsubscript</span>
+    <span class="c1">#queuename</span>
+    <span class="c1">#resmax</span>
+    <span class="c1">#resmin</span>
+    <span class="c1">#slow_search</span>
+    <span class="c1">#use_ctffind4</span>
+    <span class="c1">#use_gctf</span>
+    <span class="c1">#use_given_ps</span>
+<span class="p">},</span>
+  <span class="s2">&quot;aligntilts&quot;</span><span class="p">:{</span>
+
+<span class="p">},</span>
+  <span class="s2">&quot;reconstruction&quot;</span><span class="p">:{</span>
+
+<span class="p">}</span>
+<span class="p">}</span>
 
 <span class="c1"># create Sphinx documentation: sphinx-build -M html docs/ docs/</span>
 <span class="c1"># remove everything in the _build: make clean</span>

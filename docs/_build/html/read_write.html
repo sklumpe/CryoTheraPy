@@ -54,6 +54,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#lib.read_write.locate_val"><code class="docutils literal notranslate"><span class="pre">locate_val()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lib.read_write.read_config"><code class="docutils literal notranslate"><span class="pre">read_config()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lib.read_write.read_star"><code class="docutils literal notranslate"><span class="pre">read_star()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lib.read_write.update_job_star_dict"><code class="docutils literal notranslate"><span class="pre">update_job_star_dict()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lib.read_write.write_star"><code class="docutils literal notranslate"><span class="pre">write_star()</span></code></a></li>
 </ul>
 </li>
@@ -93,7 +94,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>job_name</strong> (<em>str</em>) – job name as str as it’s stated in the job_star_dict (“importmovies”, “motioncorr”, “ctffind”).</p></li>
+<li><p><strong>job_name</strong> (<em>str</em>) – job name as str as it’s stated in the job_star_dict (“importmovies”, “motioncorr”, “ctffind”, “aligntilts”, “reconstruction”).</p></li>
 <li><p><strong>var</strong> (<em>str</em>) – name of variable/parameter that should be changed (parameters as defined in the job.star files).</p></li>
 <li><p><strong>job_dict</strong> (<em>str</em>) – dataframe that should be accessed inside the job defined in job_name (standard input is the df containing the parameters).</p></li>
 <li><p><strong>column_variable</strong> (<em>str</em>) – column in the dataframe containing the parameters (standard input is the correct name).</p></li>
@@ -142,6 +143,11 @@
 </dd>
 </dl>
 </dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.read_write.update_job_star_dict">
+<span class="sig-prename descclassname"><span class="pre">lib.read_write.</span></span><span class="sig-name descname"><span class="pre">update_job_star_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/read_write.html#update_job_star_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.read_write.update_job_star_dict" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="lib.read_write.write_star">

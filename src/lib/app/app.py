@@ -11,7 +11,7 @@ src_dir = os.path.abspath(os.path.join(current_dir, '../..'))
 # change the path to be until src
 sys.path.append(src_dir)
 
-from lib.read_write import write_star, job_star_dict, locate_val, jobs_in_scheme, param_names
+from lib.read_write import job_star_dict, locate_val, jobs_in_scheme, param_names, update_job_star_dict, write_star
 
 class MainUI(QMainWindow):
     """
@@ -26,6 +26,7 @@ class MainUI(QMainWindow):
         self.btn_readStar.clicked.connect(self.readStar)
         self.btn_changeStarValues.clicked.connect(self.changeStarValues)
         self.btn_writeStar.clicked.connect(self.writeStar)
+        
         #these two don't work yet bc the schemer requires a different version of python
         #self.btn_start.clicked.connect(self.start_relion)
         #self.btn_python2.clicked.connect(self.switch_python)
@@ -33,54 +34,58 @@ class MainUI(QMainWindow):
     def readStar(self):
         """
         Populate the line edits based on the values in the dataframe.
-        """
-        #self.lbl_path.setText(locate_val("importmovies", "movie_files", column_value= "rlnJobOptionVariable"))
-        #self.line_imp_pix_size.setText(locate_val("importmovies", "angpix"))
-        #self.line_imp_path.setText(locate_val("importmovies", "movie_files"))
-        #self.line_imp_meta.setText(locate_val("importmovies", "mdoc_files"))
-        #self.line_imp_qsub.setText(locate_val("importmovies", "qsubscript"))
-        #self.line_motioncorr_1.setText(locate_val("motioncorr", "qsubscript"))
-        #self.line_motioncorr_2.setText(locate_val("motioncorr", "eer_grouping"))
-        
+        """        
         for job_name in jobs_in_scheme:
+            # iterate over all parameters in a job.star file
             for i, (index, param) in enumerate(job_star_dict[job_name]["joboptions_values"]["rlnJobOptionVariable"].items()):
-                label_name = f"lbl_{job_name}_{i + 1}"
-                line_name = f"line_{job_name}_{i + 1}"
+                # accessing the respective label and line
+                label_name = f"lbl_{job_name}_{i}"
+                line_name = f"line_{job_name}_{i}"
+                line = getattr(self, line_name)
+                # set the value in the line to the current value in the job.star file associated to the repective parameter
+                line.setText(locate_val(job_name, f"{param}"))
+                label = getattr(self, label_name)
                 try:
-                    label = getattr(self, label_name)
-                    if param in param_names:
-                        param = param_names[param]
-                    label.setText(locate_val(job_name, f"{param}", column_value="rlnJobOptionVariable"))
-                    line = getattr(self, line_name)
-                    line.setText(locate_val(job_name, f"{param}"))
+                    # see if there is a label name in the param_names dict (increases clarity for the user as eg. "qsub_extra1" doesn't tell the user what the input should be)
+                    if param in param_names[job_name]:
+                        param = param_names[job_name][param]
+                    label.setText(param)
                 except:
-                    print(f"could not import label {label_name} {param}")
-                    print(f"could not import value {line_name} {param}")
-                    raise AssertionError("not all parameters could be loaded")
+                    try:
+                        # set the respective label to the respective parameter name
+                        label.setText(locate_val(job_name, f"{param}", column_value="rlnJobOptionVariable"))
+                    except:
+                        # print the parameter name and the parameter if it has not been loaded into the ui (i.e. is missing)
+                        print(f"could not import label {label_name} {param}")
+                        print(f"could not import value {line_name} {param}")
+                        #raise AssertionError("not all parameters could be loaded")
                 
     def changeStarValues(self):
         """
         function to change the value of the given parameter in the given job.
-        Currently, one line has to be written for each parameter that's supposed to be changed.
         """
-        def coor(self, job, param, value):
-            index = job_star_dict[job]["joboptions_values"].index[job_star_dict[job]["joboptions_values"]["rlnJobOptionVariable"] == param]
-            job_star_dict[job]["joboptions_values"].iloc[index, 1] = value
-            return job_star_dict
-        value_angpix = self.line_imp_pix_size.text()
-        coor(self, "importmovies", "angpix", value_angpix)
-        value_movie_files = self.line_imp_path.text()
-        coor(self, "importmovies", "movie_files", value_movie_files)
-        value_mdoc_files = self.line_imp_meta.text()
-        coor(self, "importmovies", "mdoc_files", value_mdoc_files)
-        value_qsub = self.line_imp_qsub.text()
-        coor(self, "importmovies", "qsubscript", value_qsub)
-
-        coor(self, "motioncorr", "qsubscript", value_qsub)
-        value_eer_grouping = self.line_mcorr_eer.text()
-        coor(self, "motioncorr", "eer_grouping", value_eer_grouping)
-        
+        for job_name in jobs_in_scheme:
+            for i in range(0, len(job_star_dict[job_name]["joboptions_values"])):
+                # accessing the respective labels
+                current_lbl = f"lbl_{job_name}_{i}"
+                current_label = getattr(self, current_lbl)
+                current_label_text = current_label.text()
+                #print(current_label_text)
+                # checks to which parameter in the job.star file the label refers to by looking for the key (= original name of parameter in the job.star file) associated to the value (= given/displayed name of label) in the param_names dict
+                # --> after this step, al the labels should be their original name again
+                if current_label_text in param_names[job_name].values():
+                        for key, value in param_names[job_name].items():
+                            if value == current_label_text:
+                                current_label_text = key
+                                #print(current_label_text)
+                # the same as for the labels is done for the values too, excluding the changing of names
+                current_ln = f"line_{job_name}_{i}"
+                current_line = getattr(self, current_ln)
+                current_line_text = current_line.text()
+                #print(current_line_text)
+                update_job_star_dict(job_name, current_label_text, current_line_text)
         print(job_star_dict)
+                
 
     def writeStar(self):
         """
@@ -105,7 +110,8 @@ class MainUI(QMainWindow):
         write_star(job_star_import, path_import)
         write_star(job_star_motioncorr, path_motioncorr)
         write_star(job_star_ctffind, path_ctffind)
-"""
+        
+        """
     def switch_python(self):
         subprocess.run("module load ANACONDA/2/2019.10", shell=True)
 

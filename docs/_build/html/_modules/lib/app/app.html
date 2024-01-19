@@ -89,7 +89,7 @@
 <span class="c1"># change the path to be until src</span>
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">src_dir</span><span class="p">)</span>
 
-<span class="kn">from</span> <span class="nn">lib.read_write</span> <span class="kn">import</span> <span class="n">write_star</span><span class="p">,</span> <span class="n">job_star_dict</span><span class="p">,</span> <span class="n">locate_val</span>
+<span class="kn">from</span> <span class="nn">lib.read_write</span> <span class="kn">import</span> <span class="n">job_star_dict</span><span class="p">,</span> <span class="n">locate_val</span><span class="p">,</span> <span class="n">jobs_in_scheme</span><span class="p">,</span> <span class="n">param_names</span><span class="p">,</span> <span class="n">update_job_star_dict</span><span class="p">,</span> <span class="n">write_star</span>
 
 <div class="viewcode-block" id="MainUI">
 <a class="viewcode-back" href="../../../app.html#lib.app.app.MainUI">[docs]</a>
@@ -106,50 +106,72 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">btn_readStar</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">readStar</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">btn_changeStarValues</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">changeStarValues</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">btn_writeStar</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">writeStar</span><span class="p">)</span>
+        
         <span class="c1">#these two don&#39;t work yet bc the schemer requires a different version of python</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">btn_start</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start_relion</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">btn_python2</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">switch_python</span><span class="p">)</span>
+        <span class="c1">#self.btn_start.clicked.connect(self.start_relion)</span>
+        <span class="c1">#self.btn_python2.clicked.connect(self.switch_python)</span>
 
 <div class="viewcode-block" id="MainUI.readStar">
 <a class="viewcode-back" href="../../../app.html#lib.app.app.MainUI.readStar">[docs]</a>
     <span class="k">def</span> <span class="nf">readStar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Populate the line edits based on the values in the dataframe.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">line_imp_pix_size</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">locate_val</span><span class="p">(</span><span class="s2">&quot;importmovies&quot;</span><span class="p">,</span> <span class="s2">&quot;angpix&quot;</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">line_imp_path</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">locate_val</span><span class="p">(</span><span class="s2">&quot;importmovies&quot;</span><span class="p">,</span> <span class="s2">&quot;movie_files&quot;</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">line_imp_meta</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">locate_val</span><span class="p">(</span><span class="s2">&quot;importmovies&quot;</span><span class="p">,</span> <span class="s2">&quot;mdoc_files&quot;</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">line_imp_qsub</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">locate_val</span><span class="p">(</span><span class="s2">&quot;importmovies&quot;</span><span class="p">,</span> <span class="s2">&quot;qsubscript&quot;</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">line_mcorr_eer</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">locate_val</span><span class="p">(</span><span class="s2">&quot;motioncorr&quot;</span><span class="p">,</span> <span class="s2">&quot;qsubscript&quot;</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">line_mcorr_eer</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">locate_val</span><span class="p">(</span><span class="s2">&quot;motioncorr&quot;</span><span class="p">,</span> <span class="s2">&quot;eer_grouping&quot;</span><span class="p">))</span></div>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">for</span> <span class="n">job_name</span> <span class="ow">in</span> <span class="n">jobs_in_scheme</span><span class="p">:</span>
+            <span class="c1"># iterate over all parameters in a job.star file</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">param</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">job_star_dict</span><span class="p">[</span><span class="n">job_name</span><span class="p">][</span><span class="s2">&quot;joboptions_values&quot;</span><span class="p">][</span><span class="s2">&quot;rlnJobOptionVariable&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+                <span class="c1"># accessing the respective label and line</span>
+                <span class="n">label_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;lbl_</span><span class="si">{</span><span class="n">job_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="n">line_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;line_</span><span class="si">{</span><span class="n">job_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="n">line</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line_name</span><span class="p">)</span>
+                <span class="c1"># set the value in the line to the current value in the job.star file associated to the repective parameter</span>
+                <span class="n">line</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">locate_val</span><span class="p">(</span><span class="n">job_name</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
+                <span class="n">label</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label_name</span><span class="p">)</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="c1"># see if there is a label name in the param_names dict (increases clarity for the user as eg. &quot;qsub_extra1&quot; doesn&#39;t tell the user what the input should be)</span>
+                    <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">param_names</span><span class="p">[</span><span class="n">job_name</span><span class="p">]:</span>
+                        <span class="n">param</span> <span class="o">=</span> <span class="n">param_names</span><span class="p">[</span><span class="n">job_name</span><span class="p">][</span><span class="n">param</span><span class="p">]</span>
+                    <span class="n">label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="c1"># set the respective label to the respective parameter name</span>
+                        <span class="n">label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">locate_val</span><span class="p">(</span><span class="n">job_name</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">column_value</span><span class="o">=</span><span class="s2">&quot;rlnJobOptionVariable&quot;</span><span class="p">))</span>
+                    <span class="k">except</span><span class="p">:</span>
+                        <span class="c1"># print the parameter name and the parameter if it has not been loaded into the ui (i.e. is missing)</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;could not import label </span><span class="si">{</span><span class="n">label_name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;could not import value </span><span class="si">{</span><span class="n">line_name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
-    
+                        <span class="c1">#raise AssertionError(&quot;not all parameters could be loaded&quot;)</span>
+                
 <div class="viewcode-block" id="MainUI.changeStarValues">
 <a class="viewcode-back" href="../../../app.html#lib.app.app.MainUI.changeStarValues">[docs]</a>
     <span class="k">def</span> <span class="nf">changeStarValues</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        function to change the value of the given parameter in the given job.</span>
-<span class="sd">        Currently, one line has to be written for each parameter that&#39;s supposed to be changed.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">def</span> <span class="nf">coor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">job</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-            <span class="n">index</span> <span class="o">=</span> <span class="n">job_star_dict</span><span class="p">[</span><span class="n">job</span><span class="p">][</span><span class="s2">&quot;joboptions_values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">job_star_dict</span><span class="p">[</span><span class="n">job</span><span class="p">][</span><span class="s2">&quot;joboptions_values&quot;</span><span class="p">][</span><span class="s2">&quot;rlnJobOptionVariable&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">param</span><span class="p">]</span>
-            <span class="n">job_star_dict</span><span class="p">[</span><span class="n">job</span><span class="p">][</span><span class="s2">&quot;joboptions_values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-            <span class="k">return</span> <span class="n">job_star_dict</span>
-        <span class="n">value_angpix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_imp_pix_size</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
-        <span class="n">coor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;importmovies&quot;</span><span class="p">,</span> <span class="s2">&quot;angpix&quot;</span><span class="p">,</span> <span class="n">value_angpix</span><span class="p">)</span>
-        <span class="n">value_movie_files</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_imp_path</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
-        <span class="n">coor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;importmovies&quot;</span><span class="p">,</span> <span class="s2">&quot;movie_files&quot;</span><span class="p">,</span> <span class="n">value_movie_files</span><span class="p">)</span>
-        <span class="n">value_mdoc_files</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_imp_meta</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
-        <span class="n">coor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;importmovies&quot;</span><span class="p">,</span> <span class="s2">&quot;mdoc_files&quot;</span><span class="p">,</span> <span class="n">value_mdoc_files</span><span class="p">)</span>
-        <span class="n">value_qsub</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_imp_qsub</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
-        <span class="n">coor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;importmovies&quot;</span><span class="p">,</span> <span class="s2">&quot;qsubscript&quot;</span><span class="p">,</span> <span class="n">value_qsub</span><span class="p">)</span>
-
-        <span class="n">coor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;motioncorr&quot;</span><span class="p">,</span> <span class="s2">&quot;qsubscript&quot;</span><span class="p">,</span> <span class="n">value_qsub</span><span class="p">)</span>
-        <span class="n">value_eer_grouping</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_mcorr_eer</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
-        <span class="n">coor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;motioncorr&quot;</span><span class="p">,</span> <span class="s2">&quot;eer_grouping&quot;</span><span class="p">,</span> <span class="n">value_eer_grouping</span><span class="p">)</span>
-        
+        <span class="k">for</span> <span class="n">job_name</span> <span class="ow">in</span> <span class="n">jobs_in_scheme</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">job_star_dict</span><span class="p">[</span><span class="n">job_name</span><span class="p">][</span><span class="s2">&quot;joboptions_values&quot;</span><span class="p">])):</span>
+                <span class="c1"># accessing the respective labels</span>
+                <span class="n">current_lbl</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;lbl_</span><span class="si">{</span><span class="n">job_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="n">current_label</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current_lbl</span><span class="p">)</span>
+                <span class="n">current_label_text</span> <span class="o">=</span> <span class="n">current_label</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+                <span class="c1">#print(current_label_text)</span>
+                <span class="c1"># checks to which parameter in the job.star file the label refers to by looking for the key (= original name of parameter in the job.star file) associated to the value (= given/displayed name of label) in the param_names dict</span>
+                <span class="c1"># --&gt; after this step, al the labels should be their original name again</span>
+                <span class="k">if</span> <span class="n">current_label_text</span> <span class="ow">in</span> <span class="n">param_names</span><span class="p">[</span><span class="n">job_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">param_names</span><span class="p">[</span><span class="n">job_name</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                            <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="n">current_label_text</span><span class="p">:</span>
+                                <span class="n">current_label_text</span> <span class="o">=</span> <span class="n">key</span>
+                                <span class="c1">#print(current_label_text)</span>
+                <span class="c1"># the same as for the labels is done for the values too, excluding the changing of names</span>
+                <span class="n">current_ln</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;line_</span><span class="si">{</span><span class="n">job_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="n">current_line</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current_ln</span><span class="p">)</span>
+                <span class="n">current_line_text</span> <span class="o">=</span> <span class="n">current_line</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+                <span class="c1">#print(current_line_text)</span>
+                <span class="n">update_job_star_dict</span><span class="p">(</span><span class="n">job_name</span><span class="p">,</span> <span class="n">current_label_text</span><span class="p">,</span> <span class="n">current_line_text</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">job_star_dict</span><span class="p">)</span></div>
 
+                
 
 <div class="viewcode-block" id="MainUI.writeStar">
 <a class="viewcode-back" href="../../../app.html#lib.app.app.MainUI.writeStar">[docs]</a>
@@ -160,6 +182,7 @@
 <span class="sd">        can be made into a pop-up window later.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">path_to_new_project</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_path_new_project</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+        
         <span class="n">path_scheme_star</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_to_new_project</span><span class="p">,</span> <span class="s2">&quot;Schemes/master_scheme/scheme.star&quot;</span><span class="p">)</span>
         <span class="n">path_import</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_to_new_project</span><span class="p">,</span> <span class="s2">&quot;Schemes/master_scheme/importmovies/job.star&quot;</span><span class="p">)</span>
         <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path_import</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -174,10 +197,9 @@
         <span class="n">write_star</span><span class="p">(</span><span class="n">scheme_star</span><span class="p">,</span> <span class="n">path_scheme_star</span><span class="p">)</span>
         <span class="n">write_star</span><span class="p">(</span><span class="n">job_star_import</span><span class="p">,</span> <span class="n">path_import</span><span class="p">)</span>
         <span class="n">write_star</span><span class="p">(</span><span class="n">job_star_motioncorr</span><span class="p">,</span> <span class="n">path_motioncorr</span><span class="p">)</span>
-        <span class="n">write_star</span><span class="p">(</span><span class="n">job_star_ctffind</span><span class="p">,</span> <span class="n">path_ctffind</span><span class="p">)</span></div>
-</div>
-
-<span class="sd">&quot;&quot;&quot;</span>
+        <span class="n">write_star</span><span class="p">(</span><span class="n">job_star_ctffind</span><span class="p">,</span> <span class="n">path_ctffind</span><span class="p">)</span>
+<span class="w">        </span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    def switch_python(self):</span>
 <span class="sd">        subprocess.run(&quot;module load ANACONDA/2/2019.10&quot;, shell=True)</span>
 
@@ -186,13 +208,14 @@
 <span class="sd">        subprocess.run(&quot;relion_schemer --scheme master_scheme --reset&quot;)</span>
 <span class="sd">        subprocess.run(&quot;relion_schemer --scheme master_scheme --set_current_node WAIT&quot;)</span>
 <span class="sd">        subprocess.run(&quot;relion_schemer --scheme master_scheme --run --pipeline_control Schemes/master_scheme/ &gt;&gt; Schemes/master_scheme/run.out 2&gt;&gt; Schemes/master_scheme/run.err&quot;)</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">&quot;&quot;&quot;</span></div>
+</div>
+
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
     <span class="n">ui</span> <span class="o">=</span> <span class="n">MainUI</span><span class="p">()</span>
     <span class="n">ui</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
     <span class="n">app</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
-
 </pre></div>
 
            </div>

@@ -229,325 +229,325 @@
                <property name="leftMargin">
                 <number>0</number>
                </property>
-               <item row="13" column="0">
-                <widget class="QLabel" name="lbl_motioncorr_13">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
+               <item row="1" column="1">
+                <widget class="QLineEdit" name="line_motioncorr_0"/>
                </item>
-               <item row="25" column="0">
-                <widget class="QLabel" name="lbl_motioncorr_25">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
+               <item row="2" column="1">
+                <widget class="QLineEdit" name="line_motioncorr_1"/>
                </item>
-               <item row="1" column="0">
+               <item row="2" column="0">
                 <widget class="QLabel" name="lbl_motioncorr_1">
                  <property name="text">
                   <string>empty</string>
                  </property>
                 </widget>
                </item>
-               <item row="23" column="0">
-                <widget class="QLabel" name="lbl_motioncorr_23">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="7" column="1">
-                <widget class="QLineEdit" name="line_motioncorr_7"/>
-               </item>
-               <item row="29" column="0">
-                <widget class="QLabel" name="lbl_motioncorr_29">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="12" column="0">
-                <widget class="QLabel" name="lbl_motioncorr_12">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="17" column="1">
-                <widget class="QLineEdit" name="line_motioncorr_17"/>
-               </item>
-               <item row="4" column="1">
-                <widget class="QLineEdit" name="line_motioncorr_4"/>
-               </item>
-               <item row="20" column="1">
-                <widget class="QLineEdit" name="line_motioncorr_20"/>
-               </item>
-               <item row="23" column="1">
-                <widget class="QLineEdit" name="line_motioncorr_23"/>
-               </item>
-               <item row="25" column="1">
-                <widget class="QLineEdit" name="line_motioncorr_25"/>
-               </item>
-               <item row="26" column="1">
-                <widget class="QLineEdit" name="line_motioncorr_26"/>
-               </item>
-               <item row="3" column="1">
-                <widget class="QLineEdit" name="line_motioncorr_3"/>
-               </item>
-               <item row="11" column="0">
-                <widget class="QLabel" name="lbl_motioncorr_11">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="7" column="0">
-                <widget class="QLabel" name="lbl_motioncorr_7">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="19" column="0">
-                <widget class="QLabel" name="lbl_motioncorr_19">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="26" column="0">
-                <widget class="QLabel" name="lbl_motioncorr_26">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="24" column="0">
-                <widget class="QLabel" name="lbl_motioncorr_24">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="1">
-                <widget class="QLineEdit" name="line_motioncorr_5"/>
-               </item>
-               <item row="16" column="1">
-                <widget class="QLineEdit" name="line_motioncorr_16"/>
-               </item>
-               <item row="27" column="1">
-                <widget class="QLineEdit" name="line_motioncorr_27"/>
-               </item>
-               <item row="8" column="0">
-                <widget class="QLabel" name="lbl_motioncorr_8">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="11" column="1">
-                <widget class="QLineEdit" name="line_motioncorr_11"/>
-               </item>
-               <item row="13" column="1">
-                <widget class="QLineEdit" name="line_motioncorr_13"/>
-               </item>
-               <item row="9" column="0">
-                <widget class="QLabel" name="lbl_motioncorr_9">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="19" column="1">
-                <widget class="QLineEdit" name="line_motioncorr_19"/>
-               </item>
-               <item row="9" column="1">
-                <widget class="QLineEdit" name="line_motioncorr_9"/>
-               </item>
-               <item row="2" column="1">
-                <widget class="QLineEdit" name="line_motioncorr_2"/>
-               </item>
-               <item row="4" column="0">
-                <widget class="QLabel" name="lbl_motioncorr_4">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="0">
-                <widget class="QLabel" name="lbl_motioncorr_5">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="30" column="1">
-                <widget class="QLineEdit" name="line_motioncorr_30"/>
-               </item>
-               <item row="3" column="0">
-                <widget class="QLabel" name="lbl_motioncorr_3">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="17" column="0">
-                <widget class="QLabel" name="lbl_motioncorr_17">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="12" column="1">
-                <widget class="QLineEdit" name="line_motioncorr_12"/>
-               </item>
-               <item row="30" column="0">
-                <widget class="QLabel" name="lbl_motioncorr_30">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="18" column="1">
-                <widget class="QLineEdit" name="line_motioncorr_18"/>
-               </item>
-               <item row="18" column="0">
-                <widget class="QLabel" name="lbl_motioncorr_18">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="22" column="1">
-                <widget class="QLineEdit" name="line_motioncorr_22"/>
-               </item>
-               <item row="14" column="0">
-                <widget class="QLabel" name="lbl_motioncorr_14">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="28" column="1">
-                <widget class="QLineEdit" name="line_motioncorr_28"/>
-               </item>
-               <item row="14" column="1">
-                <widget class="QLineEdit" name="line_motioncorr_14"/>
-               </item>
-               <item row="10" column="0">
-                <widget class="QLabel" name="lbl_motioncorr_10">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="31" column="0">
-                <widget class="QLabel" name="lbl_motioncorr_31">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="29" column="1">
-                <widget class="QLineEdit" name="line_motioncorr_29"/>
-               </item>
-               <item row="31" column="1">
-                <widget class="QLineEdit" name="line_motioncorr_31"/>
-               </item>
                <item row="21" column="0">
-                <widget class="QLabel" name="lbl_motioncorr_21">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="10" column="1">
-                <widget class="QLineEdit" name="line_motioncorr_10"/>
-               </item>
-               <item row="2" column="0">
-                <widget class="QLabel" name="lbl_motioncorr_2">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="22" column="0">
-                <widget class="QLabel" name="lbl_motioncorr_22">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="8" column="1">
-                <widget class="QLineEdit" name="line_motioncorr_8"/>
-               </item>
-               <item row="27" column="0">
-                <widget class="QLabel" name="lbl_motioncorr_27">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="21" column="1">
-                <widget class="QLineEdit" name="line_motioncorr_21"/>
-               </item>
-               <item row="24" column="1">
-                <widget class="QLineEdit" name="line_motioncorr_24"/>
-               </item>
-               <item row="15" column="0">
-                <widget class="QLabel" name="lbl_motioncorr_15">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="28" column="0">
-                <widget class="QLabel" name="lbl_motioncorr_28">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="6" column="0">
-                <widget class="QLabel" name="lbl_motioncorr_6">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QLineEdit" name="line_motioncorr_1"/>
-               </item>
-               <item row="15" column="1">
-                <widget class="QLineEdit" name="line_motioncorr_15"/>
-               </item>
-               <item row="16" column="0">
-                <widget class="QLabel" name="lbl_motioncorr_16">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="20" column="0">
                 <widget class="QLabel" name="lbl_motioncorr_20">
                  <property name="text">
                   <string>empty</string>
                  </property>
                 </widget>
                </item>
-               <item row="6" column="1">
-                <widget class="QLineEdit" name="line_motioncorr_6"/>
+               <item row="31" column="1">
+                <widget class="QLineEdit" name="line_motioncorr_30"/>
+               </item>
+               <item row="4" column="1">
+                <widget class="QLineEdit" name="line_motioncorr_3"/>
+               </item>
+               <item row="13" column="0">
+                <widget class="QLabel" name="lbl_motioncorr_12">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="15" column="0">
+                <widget class="QLabel" name="lbl_motioncorr_14">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="8" column="0">
+                <widget class="QLabel" name="lbl_motioncorr_7">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="30" column="1">
+                <widget class="QLineEdit" name="line_motioncorr_29"/>
+               </item>
+               <item row="4" column="0">
+                <widget class="QLabel" name="lbl_motioncorr_3">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="22" column="0">
+                <widget class="QLabel" name="lbl_motioncorr_21">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="16" column="1">
+                <widget class="QLineEdit" name="line_motioncorr_15"/>
+               </item>
+               <item row="10" column="1">
+                <widget class="QLineEdit" name="line_motioncorr_9"/>
                </item>
                <item row="32" column="0">
-                <widget class="QLabel" name="lbl_motioncorr_32">
+                <widget class="QLabel" name="lbl_motioncorr_31">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="16" column="0">
+                <widget class="QLabel" name="lbl_motioncorr_15">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="7" column="1">
+                <widget class="QLineEdit" name="line_motioncorr_6"/>
+               </item>
+               <item row="14" column="1">
+                <widget class="QLineEdit" name="line_motioncorr_13"/>
+               </item>
+               <item row="20" column="0">
+                <widget class="QLabel" name="lbl_motioncorr_19">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="28" column="1">
+                <widget class="QLineEdit" name="line_motioncorr_27"/>
+               </item>
+               <item row="23" column="1">
+                <widget class="QLineEdit" name="line_motioncorr_22"/>
+               </item>
+               <item row="8" column="1">
+                <widget class="QLineEdit" name="line_motioncorr_7"/>
+               </item>
+               <item row="10" column="0">
+                <widget class="QLabel" name="lbl_motioncorr_9">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="0">
+                <widget class="QLabel" name="lbl_motioncorr_4">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="9" column="1">
+                <widget class="QLineEdit" name="line_motioncorr_8"/>
+               </item>
+               <item row="27" column="0">
+                <widget class="QLabel" name="lbl_motioncorr_26">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="29" column="0">
+                <widget class="QLabel" name="lbl_motioncorr_28">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="17" column="1">
+                <widget class="QLineEdit" name="line_motioncorr_16"/>
+               </item>
+               <item row="7" column="0">
+                <widget class="QLabel" name="lbl_motioncorr_6">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="15" column="1">
+                <widget class="QLineEdit" name="line_motioncorr_14"/>
+               </item>
+               <item row="29" column="1">
+                <widget class="QLineEdit" name="line_motioncorr_28"/>
+               </item>
+               <item row="13" column="1">
+                <widget class="QLineEdit" name="line_motioncorr_12"/>
+               </item>
+               <item row="6" column="0">
+                <widget class="QLabel" name="lbl_motioncorr_5">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="27" column="1">
+                <widget class="QLineEdit" name="line_motioncorr_26"/>
+               </item>
+               <item row="18" column="0">
+                <widget class="QLabel" name="lbl_motioncorr_17">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="19" column="0">
+                <widget class="QLabel" name="lbl_motioncorr_18">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="14" column="0">
+                <widget class="QLabel" name="lbl_motioncorr_13">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="24" column="0">
+                <widget class="QLabel" name="lbl_motioncorr_23">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="24" column="1">
+                <widget class="QLineEdit" name="line_motioncorr_23"/>
+               </item>
+               <item row="3" column="1">
+                <widget class="QLineEdit" name="line_motioncorr_2"/>
+               </item>
+               <item row="17" column="0">
+                <widget class="QLabel" name="lbl_motioncorr_16">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="6" column="1">
+                <widget class="QLineEdit" name="line_motioncorr_5"/>
+               </item>
+               <item row="20" column="1">
+                <widget class="QLineEdit" name="line_motioncorr_19"/>
+               </item>
+               <item row="19" column="1">
+                <widget class="QLineEdit" name="line_motioncorr_18"/>
+               </item>
+               <item row="5" column="1">
+                <widget class="QLineEdit" name="line_motioncorr_4"/>
+               </item>
+               <item row="21" column="1">
+                <widget class="QLineEdit" name="line_motioncorr_20"/>
+               </item>
+               <item row="12" column="0">
+                <widget class="QLabel" name="lbl_motioncorr_11">
                  <property name="text">
                   <string>empty</string>
                  </property>
                 </widget>
                </item>
                <item row="32" column="1">
-                <widget class="QLineEdit" name="line_motioncorr_32"/>
+                <widget class="QLineEdit" name="line_motioncorr_31"/>
+               </item>
+               <item row="18" column="1">
+                <widget class="QLineEdit" name="line_motioncorr_17"/>
+               </item>
+               <item row="25" column="0">
+                <widget class="QLabel" name="lbl_motioncorr_24">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="22" column="1">
+                <widget class="QLineEdit" name="line_motioncorr_21"/>
+               </item>
+               <item row="26" column="1">
+                <widget class="QLineEdit" name="line_motioncorr_25"/>
+               </item>
+               <item row="12" column="1">
+                <widget class="QLineEdit" name="line_motioncorr_11"/>
+               </item>
+               <item row="28" column="0">
+                <widget class="QLabel" name="lbl_motioncorr_27">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="25" column="1">
+                <widget class="QLineEdit" name="line_motioncorr_24"/>
+               </item>
+               <item row="11" column="0">
+                <widget class="QLabel" name="lbl_motioncorr_10">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="11" column="1">
+                <widget class="QLineEdit" name="line_motioncorr_10"/>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="lbl_motioncorr_0">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="9" column="0">
+                <widget class="QLabel" name="lbl_motioncorr_8">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="23" column="0">
+                <widget class="QLabel" name="lbl_motioncorr_22">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QLabel" name="lbl_motioncorr_2">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="26" column="0">
+                <widget class="QLabel" name="lbl_motioncorr_25">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="31" column="0">
+                <widget class="QLabel" name="lbl_motioncorr_30">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="30" column="0">
+                <widget class="QLabel" name="lbl_motioncorr_29">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
                </item>
               </layout>
              </item>
@@ -627,41 +627,60 @@
                <property name="leftMargin">
                 <number>0</number>
                </property>
-               <item row="25" column="0">
-                <widget class="QLabel" name="lbl_ctffind_25">
+               <item row="20" column="1">
+                <widget class="QLineEdit" name="line_ctffind_20"/>
+               </item>
+               <item row="13" column="1">
+                <widget class="QLineEdit" name="line_ctffind_13"/>
+               </item>
+               <item row="9" column="0">
+                <widget class="QLabel" name="lbl_ctffind_9">
                  <property name="text">
                   <string>empty</string>
                  </property>
                 </widget>
-               </item>
-               <item row="7" column="0">
-                <widget class="QLabel" name="lbl_ctffind_7">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="10" column="1">
-                <widget class="QLineEdit" name="line_ctffind_10"/>
-               </item>
-               <item row="25" column="1">
-                <widget class="QLineEdit" name="line_ctffind_25"/>
                </item>
                <item row="8" column="1">
                 <widget class="QLineEdit" name="line_ctffind_8"/>
                </item>
-               <item row="5" column="0">
-                <widget class="QLabel" name="lbl_ctffind_5">
+               <item row="28" column="1">
+                <widget class="QLineEdit" name="line_ctffind_28"/>
+               </item>
+               <item row="24" column="0">
+                <widget class="QLabel" name="lbl_ctffind_24">
                  <property name="text">
                   <string>empty</string>
                  </property>
                 </widget>
                </item>
+               <item row="12" column="0">
+                <widget class="QLabel" name="lbl_ctffind_12">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="24" column="1">
+                <widget class="QLineEdit" name="line_ctffind_24"/>
+               </item>
                <item row="17" column="1">
                 <widget class="QLineEdit" name="line_ctffind_17"/>
                </item>
-               <item row="21" column="0">
-                <widget class="QLabel" name="lbl_ctffind_21">
+               <item row="32" column="1">
+                <widget class="QLineEdit" name="line_ctffind_32"/>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="lbl_ctffind_2">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="11" column="1">
+                <widget class="QLineEdit" name="line_ctffind_11"/>
+               </item>
+               <item row="28" column="0">
+                <widget class="QLabel" name="lbl_ctffind_28">
                  <property name="text">
                   <string>empty</string>
                  </property>
@@ -670,23 +689,11 @@
                <item row="22" column="1">
                 <widget class="QLineEdit" name="line_ctffind_22"/>
                </item>
-               <item row="29" column="1">
-                <widget class="QLineEdit" name="line_ctffind_29"/>
+               <item row="18" column="1">
+                <widget class="QLineEdit" name="line_ctffind_18"/>
                </item>
-               <item row="21" column="1">
-                <widget class="QLineEdit" name="line_ctffind_21"/>
-               </item>
-               <item row="23" column="1">
-                <widget class="QLineEdit" name="line_ctffind_23"/>
-               </item>
-               <item row="15" column="1">
-                <widget class="QLineEdit" name="line_ctffind_15"/>
-               </item>
-               <item row="26" column="1">
-                <widget class="QLineEdit" name="line_ctffind_26"/>
-               </item>
-               <item row="15" column="0">
-                <widget class="QLabel" name="lbl_ctffind_15">
+               <item row="14" column="0">
+                <widget class="QLabel" name="lbl_ctffind_14">
                  <property name="text">
                   <string>empty</string>
                  </property>
@@ -699,92 +706,17 @@
                  </property>
                 </widget>
                </item>
-               <item row="27" column="0">
-                <widget class="QLabel" name="lbl_ctffind_27">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
+               <item row="33" column="1">
+                <widget class="QLineEdit" name="line_ctffind_33"/>
                </item>
-               <item row="24" column="1">
-                <widget class="QLineEdit" name="line_ctffind_24"/>
+               <item row="12" column="1">
+                <widget class="QLineEdit" name="line_ctffind_12"/>
                </item>
-               <item row="30" column="1">
-                <widget class="QLineEdit" name="line_ctffind_30"/>
+               <item row="21" column="1">
+                <widget class="QLineEdit" name="line_ctffind_21"/>
                </item>
-               <item row="6" column="0">
-                <widget class="QLabel" name="lbl_ctffind_6">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="14" column="1">
-                <widget class="QLineEdit" name="line_ctffind_14"/>
-               </item>
-               <item row="29" column="0">
-                <widget class="QLabel" name="lbl_ctffind_29">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="20" column="0">
-                <widget class="QLabel" name="lbl_ctffind_20">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="6" column="1">
-                <widget class="QLineEdit" name="line_ctffind_6"/>
-               </item>
-               <item row="32" column="0">
-                <widget class="QLabel" name="lbl_ctffind_32">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="30" column="0">
-                <widget class="QLabel" name="lbl_ctffind_30">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="10" column="0">
-                <widget class="QLabel" name="lbl_ctffind_10">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="1">
-                <widget class="QLineEdit" name="line_ctffind_2"/>
-               </item>
-               <item row="1" column="1">
-                <widget class="QLineEdit" name="line_ctffind_1"/>
-               </item>
-               <item row="31" column="0">
-                <widget class="QLabel" name="lbl_ctffind_31">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="24" column="0">
-                <widget class="QLabel" name="lbl_ctffind_24">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="27" column="1">
-                <widget class="QLineEdit" name="line_ctffind_27"/>
-               </item>
-               <item row="18" column="1">
-                <widget class="QLineEdit" name="line_ctffind_18"/>
+               <item row="15" column="1">
+                <widget class="QLineEdit" name="line_ctffind_15"/>
                </item>
                <item row="3" column="0">
                 <widget class="QLabel" name="lbl_ctffind_3">
@@ -800,18 +732,18 @@
                  </property>
                 </widget>
                </item>
-               <item row="9" column="0">
-                <widget class="QLabel" name="lbl_ctffind_9">
+               <item row="21" column="0">
+                <widget class="QLabel" name="lbl_ctffind_21">
                  <property name="text">
                   <string>empty</string>
                  </property>
                 </widget>
                </item>
-               <item row="20" column="1">
-                <widget class="QLineEdit" name="line_ctffind_20"/>
+               <item row="23" column="1">
+                <widget class="QLineEdit" name="line_ctffind_23"/>
                </item>
-               <item row="12" column="0">
-                <widget class="QLabel" name="lbl_ctffind_12">
+               <item row="34" column="0">
+                <widget class="QLabel" name="lbl_ctffind_34">
                  <property name="text">
                   <string>empty</string>
                  </property>
@@ -824,8 +756,25 @@
                  </property>
                 </widget>
                </item>
-               <item row="19" column="1">
-                <widget class="QLineEdit" name="line_ctffind_19"/>
+               <item row="31" column="1">
+                <widget class="QLineEdit" name="line_ctffind_31"/>
+               </item>
+               <item row="10" column="0">
+                <widget class="QLabel" name="lbl_ctffind_10">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="10" column="1">
+                <widget class="QLineEdit" name="line_ctffind_10"/>
+               </item>
+               <item row="7" column="0">
+                <widget class="QLabel" name="lbl_ctffind_7">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
                </item>
                <item row="26" column="0">
                 <widget class="QLabel" name="lbl_ctffind_26">
@@ -834,15 +783,51 @@
                  </property>
                 </widget>
                </item>
-               <item row="33" column="0">
-                <widget class="QLabel" name="lbl_ctffind_33">
+               <item row="16" column="1">
+                <widget class="QLineEdit" name="line_ctffind_16"/>
+               </item>
+               <item row="11" column="0">
+                <widget class="QLabel" name="lbl_ctffind_11">
                  <property name="text">
                   <string>empty</string>
                  </property>
                 </widget>
                </item>
-               <item row="2" column="0">
-                <widget class="QLabel" name="lbl_ctffind_2">
+               <item row="6" column="0">
+                <widget class="QLabel" name="lbl_ctffind_6">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="34" column="1">
+                <widget class="QLineEdit" name="line_ctffind_34"/>
+               </item>
+               <item row="19" column="1">
+                <widget class="QLineEdit" name="line_ctffind_19"/>
+               </item>
+               <item row="17" column="0">
+                <widget class="QLabel" name="lbl_ctffind_17">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="9" column="1">
+                <widget class="QLineEdit" name="line_ctffind_9"/>
+               </item>
+               <item row="5" column="0">
+                <widget class="QLabel" name="lbl_ctffind_5">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="1">
+                <widget class="QLineEdit" name="line_ctffind_5"/>
+               </item>
+               <item row="27" column="0">
+                <widget class="QLabel" name="lbl_ctffind_27">
                  <property name="text">
                   <string>empty</string>
                  </property>
@@ -855,38 +840,30 @@
                  </property>
                 </widget>
                </item>
-               <item row="31" column="1">
-                <widget class="QLineEdit" name="line_ctffind_31"/>
+               <item row="14" column="1">
+                <widget class="QLineEdit" name="line_ctffind_14"/>
                </item>
-               <item row="28" column="0">
-                <widget class="QLabel" name="lbl_ctffind_28">
+               <item row="26" column="1">
+                <widget class="QLineEdit" name="line_ctffind_26"/>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="lbl_ctffind_0">
                  <property name="text">
                   <string>empty</string>
                  </property>
                 </widget>
                </item>
-               <item row="7" column="1">
-                <widget class="QLineEdit" name="line_ctffind_7"/>
+               <item row="2" column="1">
+                <widget class="QLineEdit" name="line_ctffind_2"/>
                </item>
-               <item row="12" column="1">
-                <widget class="QLineEdit" name="line_ctffind_12"/>
+               <item row="29" column="1">
+                <widget class="QLineEdit" name="line_ctffind_29"/>
                </item>
-               <item row="16" column="1">
-                <widget class="QLineEdit" name="line_ctffind_16"/>
+               <item row="6" column="1">
+                <widget class="QLineEdit" name="line_ctffind_6"/>
                </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="lbl_ctffind_1">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="16" column="0">
-                <widget class="QLabel" name="lbl_ctffind_16">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
+               <item row="1" column="1">
+                <widget class="QLineEdit" name="line_ctffind_1"/>
                </item>
                <item row="13" column="0">
                 <widget class="QLabel" name="lbl_ctffind_13">
@@ -895,24 +872,25 @@
                  </property>
                 </widget>
                </item>
-               <item row="4" column="1">
-                <widget class="QLineEdit" name="line_ctffind_4"/>
-               </item>
-               <item row="11" column="0">
-                <widget class="QLabel" name="lbl_ctffind_11">
+               <item row="22" column="0">
+                <widget class="QLabel" name="lbl_ctffind_22">
                  <property name="text">
                   <string>empty</string>
                  </property>
                 </widget>
                </item>
-               <item row="9" column="1">
-                <widget class="QLineEdit" name="line_ctffind_9"/>
+               <item row="0" column="1">
+                <widget class="QLineEdit" name="line_ctffind_0"/>
                </item>
-               <item row="13" column="1">
-                <widget class="QLineEdit" name="line_ctffind_13"/>
+               <item row="15" column="0">
+                <widget class="QLabel" name="lbl_ctffind_15">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
                </item>
-               <item row="17" column="0">
-                <widget class="QLabel" name="lbl_ctffind_17">
+               <item row="30" column="0">
+                <widget class="QLabel" name="lbl_ctffind_30">
                  <property name="text">
                   <string>empty</string>
                  </property>
@@ -925,57 +903,79 @@
                  </property>
                 </widget>
                </item>
-               <item row="28" column="1">
-                <widget class="QLineEdit" name="line_ctffind_28"/>
+               <item row="1" column="0">
+                <widget class="QLabel" name="lbl_ctffind_1">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="30" column="1">
+                <widget class="QLineEdit" name="line_ctffind_30"/>
+               </item>
+               <item row="25" column="1">
+                <widget class="QLineEdit" name="line_ctffind_25"/>
+               </item>
+               <item row="25" column="0">
+                <widget class="QLabel" name="lbl_ctffind_25">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="31" column="0">
+                <widget class="QLabel" name="lbl_ctffind_31">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="16" column="0">
+                <widget class="QLabel" name="lbl_ctffind_16">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="29" column="0">
+                <widget class="QLabel" name="lbl_ctffind_29">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="1">
+                <widget class="QLineEdit" name="line_ctffind_4"/>
+               </item>
+               <item row="20" column="0">
+                <widget class="QLabel" name="lbl_ctffind_20">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
                </item>
                <item row="3" column="1">
                 <widget class="QLineEdit" name="line_ctffind_3"/>
                </item>
-               <item row="22" column="0">
-                <widget class="QLabel" name="lbl_ctffind_22">
+               <item row="7" column="1">
+                <widget class="QLineEdit" name="line_ctffind_7"/>
+               </item>
+               <item row="27" column="1">
+                <widget class="QLineEdit" name="line_ctffind_27"/>
+               </item>
+               <item row="32" column="0">
+                <widget class="QLabel" name="lbl_ctffind_32">
                  <property name="text">
                   <string>empty</string>
                  </property>
                 </widget>
                </item>
-               <item row="34" column="0">
-                <widget class="QLabel" name="lbl_ctffind_34">
+               <item row="33" column="0">
+                <widget class="QLabel" name="lbl_ctffind_33">
                  <property name="text">
                   <string>empty</string>
                  </property>
                 </widget>
-               </item>
-               <item row="14" column="0">
-                <widget class="QLabel" name="lbl_ctffind_14">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="1">
-                <widget class="QLineEdit" name="line_ctffind_5"/>
-               </item>
-               <item row="11" column="1">
-                <widget class="QLineEdit" name="line_ctffind_11"/>
-               </item>
-               <item row="35" column="0">
-                <widget class="QLabel" name="lbl_ctffind_35">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="32" column="1">
-                <widget class="QLineEdit" name="line_ctffind_32"/>
-               </item>
-               <item row="33" column="1">
-                <widget class="QLineEdit" name="line_ctffind_33"/>
-               </item>
-               <item row="34" column="1">
-                <widget class="QLineEdit" name="line_ctffind_34"/>
-               </item>
-               <item row="35" column="1">
-                <widget class="QLineEdit" name="line_ctffind_35"/>
                </item>
               </layout>
              </item>
@@ -1055,215 +1055,215 @@
                <property name="leftMargin">
                 <number>0</number>
                </property>
-               <item row="12" column="1">
-                <widget class="QLineEdit" name="line_aligntilts_12"/>
-               </item>
-               <item row="6" column="1">
-                <widget class="QLineEdit" name="line_aligntilts_6"/>
-               </item>
-               <item row="21" column="1">
-                <widget class="QLineEdit" name="line_aligntilts_21"/>
-               </item>
-               <item row="13" column="0">
-                <widget class="QLabel" name="lbl_aligntilts_13">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="20" column="0">
-                <widget class="QLabel" name="lbl_aligntilts_20">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="18" column="1">
-                <widget class="QLineEdit" name="line_aligntilts_18"/>
-               </item>
-               <item row="10" column="0">
-                <widget class="QLabel" name="lbl_aligntilts_10">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="6" column="0">
-                <widget class="QLabel" name="lbl_aligntilts_6">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
+               <item row="2" column="1">
                 <widget class="QLineEdit" name="line_aligntilts_1"/>
                </item>
-               <item row="4" column="1">
-                <widget class="QLineEdit" name="line_aligntilts_4"/>
-               </item>
-               <item row="10" column="1">
-                <widget class="QLineEdit" name="line_aligntilts_10"/>
-               </item>
-               <item row="19" column="0">
-                <widget class="QLabel" name="lbl_aligntilts_19">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="20" column="1">
-                <widget class="QLineEdit" name="line_aligntilts_20"/>
-               </item>
-               <item row="8" column="0">
-                <widget class="QLabel" name="lbl_aligntilts_8">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="1">
-                <widget class="QLineEdit" name="line_aligntilts_5"/>
-               </item>
-               <item row="7" column="1">
-                <widget class="QLineEdit" name="line_aligntilts_7"/>
-               </item>
-               <item row="18" column="0">
-                <widget class="QLabel" name="lbl_aligntilts_18">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="9" column="0">
-                <widget class="QLabel" name="lbl_aligntilts_9">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
+               <item row="17" column="1">
+                <widget class="QLineEdit" name="line_aligntilts_16"/>
                </item>
                <item row="5" column="0">
-                <widget class="QLabel" name="lbl_aligntilts_5">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="8" column="1">
-                <widget class="QLineEdit" name="line_aligntilts_8"/>
-               </item>
-               <item row="17" column="1">
-                <widget class="QLineEdit" name="line_aligntilts_17"/>
-               </item>
-               <item row="19" column="1">
-                <widget class="QLineEdit" name="line_aligntilts_19"/>
-               </item>
-               <item row="3" column="0">
-                <widget class="QLabel" name="lbl_aligntilts_3">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="21" column="0">
-                <widget class="QLabel" name="lbl_aligntilts_21">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="11" column="0">
-                <widget class="QLabel" name="lbl_aligntilts_11">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="14" column="1">
-                <widget class="QLineEdit" name="line_aligntilts_14"/>
-               </item>
-               <item row="2" column="1">
-                <widget class="QLineEdit" name="line_aligntilts_2"/>
-               </item>
-               <item row="15" column="1">
-                <widget class="QLineEdit" name="line_aligntilts_15"/>
-               </item>
-               <item row="15" column="0">
-                <widget class="QLabel" name="lbl_aligntilts_15">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="0">
-                <widget class="QLabel" name="lbl_aligntilts_2">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="9" column="1">
-                <widget class="QLineEdit" name="line_aligntilts_9"/>
-               </item>
-               <item row="13" column="1">
-                <widget class="QLineEdit" name="line_aligntilts_13"/>
-               </item>
-               <item row="7" column="0">
-                <widget class="QLabel" name="lbl_aligntilts_7">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="12" column="0">
-                <widget class="QLabel" name="lbl_aligntilts_12">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="1">
-                <widget class="QLineEdit" name="line_aligntilts_3"/>
-               </item>
-               <item row="16" column="0">
-                <widget class="QLabel" name="lbl_aligntilts_16">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="11" column="1">
-                <widget class="QLineEdit" name="line_aligntilts_11"/>
-               </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="lbl_aligntilts_1">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="17" column="0">
-                <widget class="QLabel" name="lbl_aligntilts_17">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="0">
                 <widget class="QLabel" name="lbl_aligntilts_4">
                  <property name="text">
                   <string>empty</string>
                  </property>
                 </widget>
                </item>
-               <item row="16" column="1">
-                <widget class="QLineEdit" name="line_aligntilts_16"/>
+               <item row="10" column="1">
+                <widget class="QLineEdit" name="line_aligntilts_9"/>
+               </item>
+               <item row="5" column="1">
+                <widget class="QLineEdit" name="line_aligntilts_4"/>
+               </item>
+               <item row="11" column="1">
+                <widget class="QLineEdit" name="line_aligntilts_10"/>
+               </item>
+               <item row="3" column="1">
+                <widget class="QLineEdit" name="line_aligntilts_2"/>
+               </item>
+               <item row="6" column="0">
+                <widget class="QLabel" name="lbl_aligntilts_5">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="8" column="0">
+                <widget class="QLabel" name="lbl_aligntilts_7">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="1">
+                <widget class="QLineEdit" name="line_aligntilts_3"/>
+               </item>
+               <item row="8" column="1">
+                <widget class="QLineEdit" name="line_aligntilts_7"/>
+               </item>
+               <item row="4" column="0">
+                <widget class="QLabel" name="lbl_aligntilts_3">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="14" column="1">
+                <widget class="QLineEdit" name="line_aligntilts_13"/>
+               </item>
+               <item row="17" column="0">
+                <widget class="QLabel" name="lbl_aligntilts_16">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="13" column="0">
+                <widget class="QLabel" name="lbl_aligntilts_12">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QLabel" name="lbl_aligntilts_2">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="18" column="1">
+                <widget class="QLineEdit" name="line_aligntilts_17"/>
                </item>
                <item row="14" column="0">
+                <widget class="QLabel" name="lbl_aligntilts_13">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="lbl_aligntilts_1">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="18" column="0">
+                <widget class="QLabel" name="lbl_aligntilts_17">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="9" column="0">
+                <widget class="QLabel" name="lbl_aligntilts_8">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="6" column="1">
+                <widget class="QLineEdit" name="line_aligntilts_5"/>
+               </item>
+               <item row="7" column="0">
+                <widget class="QLabel" name="lbl_aligntilts_6">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="21" column="0">
+                <widget class="QLabel" name="lbl_aligntilts_20">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="16" column="0">
+                <widget class="QLabel" name="lbl_aligntilts_15">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="20" column="1">
+                <widget class="QLineEdit" name="line_aligntilts_19"/>
+               </item>
+               <item row="20" column="0">
+                <widget class="QLabel" name="lbl_aligntilts_19">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QLineEdit" name="line_aligntilts_0"/>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="lbl_aligntilts_0">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="15" column="0">
                 <widget class="QLabel" name="lbl_aligntilts_14">
                  <property name="text">
                   <string>empty</string>
                  </property>
                 </widget>
+               </item>
+               <item row="7" column="1">
+                <widget class="QLineEdit" name="line_aligntilts_6"/>
+               </item>
+               <item row="10" column="0">
+                <widget class="QLabel" name="lbl_aligntilts_9">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="12" column="1">
+                <widget class="QLineEdit" name="line_aligntilts_11"/>
+               </item>
+               <item row="9" column="1">
+                <widget class="QLineEdit" name="line_aligntilts_8"/>
+               </item>
+               <item row="12" column="0">
+                <widget class="QLabel" name="lbl_aligntilts_11">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="16" column="1">
+                <widget class="QLineEdit" name="line_aligntilts_15"/>
+               </item>
+               <item row="13" column="1">
+                <widget class="QLineEdit" name="line_aligntilts_12"/>
+               </item>
+               <item row="19" column="1">
+                <widget class="QLineEdit" name="line_aligntilts_18"/>
+               </item>
+               <item row="21" column="1">
+                <widget class="QLineEdit" name="line_aligntilts_20"/>
+               </item>
+               <item row="11" column="0">
+                <widget class="QLabel" name="lbl_aligntilts_10">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="19" column="0">
+                <widget class="QLabel" name="lbl_aligntilts_18">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="15" column="1">
+                <widget class="QLineEdit" name="line_aligntilts_14"/>
                </item>
               </layout>
              </item>
@@ -1343,120 +1343,116 @@
                <property name="leftMargin">
                 <number>0</number>
                </property>
-               <item row="9" column="0">
-                <widget class="QLabel" name="lbl_reconstruction_9">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="0">
-                <widget class="QLabel" name="lbl_reconstruction_2">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="12" column="1">
+               <item row="13" column="1">
                 <widget class="QLineEdit" name="line_reconstruction_12"/>
                </item>
-               <item row="7" column="0">
-                <widget class="QLabel" name="lbl_reconstruction_7">
+               <item row="15" column="1">
+                <widget class="QLineEdit" name="line_reconstruction_14"/>
+               </item>
+               <item row="1" column="1">
+                <widget class="QLineEdit" name="line_reconstruction_0"/>
+               </item>
+               <item row="20" column="0">
+                <widget class="QLabel" name="lbl_reconstruction_19">
                  <property name="text">
                   <string>empty</string>
                  </property>
                 </widget>
                </item>
-               <item row="16" column="0">
-                <widget class="QLabel" name="lbl_reconstruction_16">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
+               <item row="3" column="1">
+                <widget class="QLineEdit" name="line_reconstruction_2"/>
                </item>
-               <item row="19" column="1">
-                <widget class="QLineEdit" name="line_reconstruction_19"/>
-               </item>
-               <item row="18" column="1">
-                <widget class="QLineEdit" name="line_reconstruction_18"/>
-               </item>
-               <item row="10" column="1">
-                <widget class="QLineEdit" name="line_reconstruction_10"/>
-               </item>
-               <item row="13" column="1">
+               <item row="14" column="1">
                 <widget class="QLineEdit" name="line_reconstruction_13"/>
                </item>
-               <item row="17" column="1">
-                <widget class="QLineEdit" name="line_reconstruction_17"/>
-               </item>
-               <item row="20" column="1">
-                <widget class="QLineEdit" name="line_reconstruction_20"/>
-               </item>
-               <item row="5" column="1">
-                <widget class="QLineEdit" name="line_reconstruction_5"/>
-               </item>
-               <item row="17" column="0">
+               <item row="18" column="0">
                 <widget class="QLabel" name="lbl_reconstruction_17">
                  <property name="text">
                   <string>empty</string>
                  </property>
                 </widget>
                </item>
-               <item row="10" column="0">
-                <widget class="QLabel" name="lbl_reconstruction_10">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="15" column="0">
-                <widget class="QLabel" name="lbl_reconstruction_15">
+               <item row="9" column="0">
+                <widget class="QLabel" name="lbl_reconstruction_8">
                  <property name="text">
                   <string>empty</string>
                  </property>
                 </widget>
                </item>
                <item row="12" column="0">
-                <widget class="QLabel" name="lbl_reconstruction_12">
+                <widget class="QLabel" name="lbl_reconstruction_11">
                  <property name="text">
                   <string>empty</string>
                  </property>
                 </widget>
                </item>
-               <item row="7" column="1">
+               <item row="19" column="1">
+                <widget class="QLineEdit" name="line_reconstruction_18"/>
+               </item>
+               <item row="8" column="1">
                 <widget class="QLineEdit" name="line_reconstruction_7"/>
                </item>
-               <item row="9" column="1">
+               <item row="17" column="1">
+                <widget class="QLineEdit" name="line_reconstruction_16"/>
+               </item>
+               <item row="10" column="1">
                 <widget class="QLineEdit" name="line_reconstruction_9"/>
                </item>
-               <item row="13" column="0">
+               <item row="14" column="0">
                 <widget class="QLabel" name="lbl_reconstruction_13">
                  <property name="text">
                   <string>empty</string>
                  </property>
                 </widget>
                </item>
-               <item row="3" column="0">
+               <item row="11" column="0">
+                <widget class="QLabel" name="lbl_reconstruction_10">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="0">
                 <widget class="QLabel" name="lbl_reconstruction_3">
                  <property name="text">
                   <string>empty</string>
                  </property>
                 </widget>
                </item>
-               <item row="6" column="0">
-                <widget class="QLabel" name="lbl_reconstruction_6">
+               <item row="16" column="1">
+                <widget class="QLineEdit" name="line_reconstruction_15"/>
+               </item>
+               <item row="3" column="0">
+                <widget class="QLabel" name="lbl_reconstruction_2">
                  <property name="text">
                   <string>empty</string>
                  </property>
                 </widget>
                </item>
-               <item row="4" column="1">
-                <widget class="QLineEdit" name="line_reconstruction_4"/>
+               <item row="19" column="0">
+                <widget class="QLabel" name="lbl_reconstruction_18">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
                </item>
-               <item row="16" column="1">
-                <widget class="QLineEdit" name="line_reconstruction_16"/>
+               <item row="7" column="1">
+                <widget class="QLineEdit" name="line_reconstruction_6"/>
                </item>
-               <item row="14" column="0">
+               <item row="2" column="0">
+                <widget class="QLabel" name="lbl_reconstruction_1">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="11" column="1">
+                <widget class="QLineEdit" name="line_reconstruction_10"/>
+               </item>
+               <item row="18" column="1">
+                <widget class="QLineEdit" name="line_reconstruction_17"/>
+               </item>
+               <item row="15" column="0">
                 <widget class="QLabel" name="lbl_reconstruction_14">
                  <property name="text">
                   <string>empty</string>
@@ -1464,84 +1460,88 @@
                 </widget>
                </item>
                <item row="5" column="0">
-                <widget class="QLabel" name="lbl_reconstruction_5">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="0">
                 <widget class="QLabel" name="lbl_reconstruction_4">
                  <property name="text">
                   <string>empty</string>
                  </property>
                 </widget>
                </item>
-               <item row="15" column="1">
-                <widget class="QLineEdit" name="line_reconstruction_15"/>
-               </item>
                <item row="6" column="1">
-                <widget class="QLineEdit" name="line_reconstruction_6"/>
+                <widget class="QLineEdit" name="line_reconstruction_5"/>
                </item>
                <item row="8" column="0">
-                <widget class="QLabel" name="lbl_reconstruction_8">
+                <widget class="QLabel" name="lbl_reconstruction_7">
                  <property name="text">
                   <string>empty</string>
                  </property>
                 </widget>
                </item>
-               <item row="11" column="1">
-                <widget class="QLineEdit" name="line_reconstruction_11"/>
+               <item row="20" column="1">
+                <widget class="QLineEdit" name="line_reconstruction_19"/>
                </item>
-               <item row="8" column="1">
+               <item row="17" column="0">
+                <widget class="QLabel" name="lbl_reconstruction_16">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="6" column="0">
+                <widget class="QLabel" name="lbl_reconstruction_5">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="10" column="0">
+                <widget class="QLabel" name="lbl_reconstruction_9">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="16" column="0">
+                <widget class="QLabel" name="lbl_reconstruction_15">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="1">
+                <widget class="QLineEdit" name="line_reconstruction_4"/>
+               </item>
+               <item row="9" column="1">
                 <widget class="QLineEdit" name="line_reconstruction_8"/>
                </item>
                <item row="2" column="1">
-                <widget class="QLineEdit" name="line_reconstruction_2"/>
+                <widget class="QLineEdit" name="line_reconstruction_1"/>
                </item>
-               <item row="11" column="0">
-                <widget class="QLabel" name="lbl_reconstruction_11">
+               <item row="13" column="0">
+                <widget class="QLabel" name="lbl_reconstruction_12">
                  <property name="text">
                   <string>empty</string>
                  </property>
                 </widget>
                </item>
                <item row="1" column="0">
-                <widget class="QLabel" name="lbl_reconstruction_1">
+                <widget class="QLabel" name="lbl_reconstruction_0">
                  <property name="text">
                   <string>empty</string>
                  </property>
                 </widget>
                </item>
-               <item row="20" column="0">
-                <widget class="QLabel" name="lbl_reconstruction_20">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QLineEdit" name="line_reconstruction_1"/>
-               </item>
-               <item row="3" column="1">
+               <item row="4" column="1">
                 <widget class="QLineEdit" name="line_reconstruction_3"/>
                </item>
-               <item row="18" column="0">
-                <widget class="QLabel" name="lbl_reconstruction_18">
+               <item row="7" column="0">
+                <widget class="QLabel" name="lbl_reconstruction_6">
                  <property name="text">
                   <string>empty</string>
                  </property>
                 </widget>
                </item>
-               <item row="14" column="1">
-                <widget class="QLineEdit" name="line_reconstruction_14"/>
-               </item>
-               <item row="19" column="0">
-                <widget class="QLabel" name="lbl_reconstruction_19">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
+               <item row="12" column="1">
+                <widget class="QLineEdit" name="line_reconstruction_11"/>
                </item>
               </layout>
              </item>
@@ -1610,7 +1610,7 @@
             <property name="geometry">
              <rect>
               <x>0</x>
-              <y>-965</y>
+              <y>0</y>
               <width>223</width>
               <height>1174</height>
              </rect>
@@ -1621,250 +1621,153 @@
                <property name="leftMargin">
                 <number>0</number>
                </property>
-               <item row="20" column="0">
-                <widget class="QLabel" name="lbl_importmovies_20">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="31" column="0">
-                <widget class="QLabel" name="lbl_importmovies_31">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="0">
-                <widget class="QLabel" name="lbl_importmovies_4">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="22" column="1">
-                <widget class="QLineEdit" name="line_importmovies_22"/>
-               </item>
-               <item row="26" column="1">
-                <widget class="QLineEdit" name="line_importmovies_26"/>
-               </item>
-               <item row="24" column="0">
-                <widget class="QLabel" name="lbl_importmovies_24">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="1">
-                <widget class="QLineEdit" name="line_importmovies_3"/>
-               </item>
-               <item row="35" column="0">
-                <widget class="QLabel" name="lbl_importmovies_35">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="21" column="0">
-                <widget class="QLabel" name="lbl_importmovies_21">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="11" column="0">
-                <widget class="QLabel" name="lbl_importmovies_11">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="8" column="1">
-                <widget class="QLineEdit" name="line_importmovies_8"/>
-               </item>
-               <item row="9" column="1">
+               <item row="10" column="1">
                 <widget class="QLineEdit" name="line_importmovies_9"/>
                </item>
-               <item row="23" column="1">
-                <widget class="QLineEdit" name="line_importmovies_23"/>
-               </item>
-               <item row="27" column="1">
-                <widget class="QLineEdit" name="line_importmovies_27"/>
-               </item>
-               <item row="27" column="0">
-                <widget class="QLabel" name="lbl_importmovies_27">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="21" column="1">
-                <widget class="QLineEdit" name="line_importmovies_21"/>
-               </item>
-               <item row="10" column="1">
-                <widget class="QLineEdit" name="line_importmovies_10"/>
-               </item>
-               <item row="32" column="0">
-                <widget class="QLabel" name="lbl_importmovies_32">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="0">
-                <widget class="QLabel" name="lbl_importmovies_3">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="15" column="0">
-                <widget class="QLabel" name="lbl_importmovies_15">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="16" column="0">
-                <widget class="QLabel" name="lbl_importmovies_16">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="0">
-                <widget class="QLabel" name="lbl_importmovies_2">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="1">
-                <widget class="QLineEdit" name="line_importmovies_4"/>
-               </item>
-               <item row="7" column="1">
-                <widget class="QLineEdit" name="line_importmovies_7"/>
-               </item>
-               <item row="6" column="0">
-                <widget class="QLabel" name="lbl_importmovies_6">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="16" column="1">
-                <widget class="QLineEdit" name="line_importmovies_16"/>
-               </item>
-               <item row="12" column="1">
-                <widget class="QLineEdit" name="line_importmovies_12"/>
-               </item>
-               <item row="13" column="1">
-                <widget class="QLineEdit" name="line_importmovies_13"/>
-               </item>
-               <item row="28" column="1">
-                <widget class="QLineEdit" name="line_importmovies_28"/>
-               </item>
-               <item row="9" column="0">
-                <widget class="QLabel" name="lbl_importmovies_9">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="26" column="0">
-                <widget class="QLabel" name="lbl_importmovies_26">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="19" column="1">
-                <widget class="QLineEdit" name="line_importmovies_19"/>
-               </item>
-               <item row="5" column="1">
-                <widget class="QLineEdit" name="line_importmovies_5"/>
-               </item>
-               <item row="34" column="0">
-                <widget class="QLabel" name="lbl_importmovies_34">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="31" column="1">
+               <item row="32" column="1">
                 <widget class="QLineEdit" name="line_importmovies_31"/>
                </item>
-               <item row="14" column="1">
-                <widget class="QLineEdit" name="line_importmovies_14"/>
-               </item>
                <item row="14" column="0">
-                <widget class="QLabel" name="lbl_importmovies_14">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="13" column="0">
                 <widget class="QLabel" name="lbl_importmovies_13">
                  <property name="text">
                   <string>empty</string>
                  </property>
                 </widget>
                </item>
-               <item row="30" column="0">
-                <widget class="QLabel" name="lbl_importmovies_30">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="22" column="0">
-                <widget class="QLabel" name="lbl_importmovies_22">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="30" column="1">
-                <widget class="QLineEdit" name="line_importmovies_30"/>
-               </item>
-               <item row="18" column="1">
-                <widget class="QLineEdit" name="line_importmovies_18"/>
-               </item>
-               <item row="28" column="0">
-                <widget class="QLabel" name="lbl_importmovies_28">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="0">
-                <widget class="QLabel" name="lbl_importmovies_5">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="29" column="1">
-                <widget class="QLineEdit" name="line_importmovies_29"/>
-               </item>
-               <item row="1" column="1">
-                <widget class="QLineEdit" name="line_importmovies_1"/>
-               </item>
-               <item row="32" column="1">
-                <widget class="QLineEdit" name="line_importmovies_32"/>
-               </item>
-               <item row="23" column="0">
+               <item row="24" column="0">
                 <widget class="QLabel" name="lbl_importmovies_23">
                  <property name="text">
                   <string>empty</string>
                  </property>
                 </widget>
                </item>
-               <item row="11" column="1">
-                <widget class="QLineEdit" name="line_importmovies_11"/>
+               <item row="5" column="1">
+                <widget class="QLineEdit" name="line_importmovies_4"/>
                </item>
-               <item row="12" column="0">
+               <item row="27" column="0">
+                <widget class="QLabel" name="lbl_importmovies_26">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="11" column="1">
+                <widget class="QLineEdit" name="line_importmovies_10"/>
+               </item>
+               <item row="23" column="1">
+                <widget class="QLineEdit" name="line_importmovies_22"/>
+               </item>
+               <item row="18" column="0">
+                <widget class="QLabel" name="lbl_importmovies_17">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="0">
+                <widget class="QLabel" name="lbl_importmovies_3">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="25" column="1">
+                <widget class="QLineEdit" name="line_importmovies_24"/>
+               </item>
+               <item row="20" column="0">
+                <widget class="QLabel" name="lbl_importmovies_19">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="6" column="0">
+                <widget class="QLabel" name="lbl_importmovies_5">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="39" column="0">
+                <widget class="QLabel" name="lbl_importmovies_38">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="lbl_importmovies_1">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="26" column="0">
+                <widget class="QLabel" name="lbl_importmovies_25">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QLineEdit" name="line_importmovies_1"/>
+               </item>
+               <item row="7" column="1">
+                <widget class="QLineEdit" name="line_importmovies_6"/>
+               </item>
+               <item row="25" column="0">
+                <widget class="QLabel" name="lbl_importmovies_24">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="15" column="1">
+                <widget class="QLineEdit" name="line_importmovies_14"/>
+               </item>
+               <item row="20" column="1">
+                <widget class="QLineEdit" name="line_importmovies_19"/>
+               </item>
+               <item row="31" column="1">
+                <widget class="QLineEdit" name="line_importmovies_30"/>
+               </item>
+               <item row="30" column="1">
+                <widget class="QLineEdit" name="line_importmovies_29"/>
+               </item>
+               <item row="9" column="1">
+                <widget class="QLineEdit" name="line_importmovies_8"/>
+               </item>
+               <item row="30" column="0">
+                <widget class="QLabel" name="lbl_importmovies_29">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="37" column="1">
+                <widget class="QLineEdit" name="line_importmovies_36"/>
+               </item>
+               <item row="28" column="0">
+                <widget class="QLabel" name="lbl_importmovies_27">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="24" column="1">
+                <widget class="QLineEdit" name="line_importmovies_23"/>
+               </item>
+               <item row="19" column="0">
+                <widget class="QLabel" name="lbl_importmovies_18">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="34" column="1">
+                <widget class="QLineEdit" name="line_importmovies_33"/>
+               </item>
+               <item row="13" column="0">
                 <widget class="QLabel" name="lbl_importmovies_12">
                  <property name="text">
                   <string>empty</string>
@@ -1872,154 +1775,251 @@
                 </widget>
                </item>
                <item row="8" column="0">
-                <widget class="QLabel" name="lbl_importmovies_8">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="25" column="1">
-                <widget class="QLineEdit" name="line_importmovies_25"/>
-               </item>
-               <item row="17" column="0">
-                <widget class="QLabel" name="lbl_importmovies_17">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="36" column="0">
-                <widget class="QLabel" name="lbl_importmovies_36">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="33" column="0">
-                <widget class="QLabel" name="lbl_importmovies_33">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="15" column="1">
-                <widget class="QLineEdit" name="line_importmovies_15"/>
-               </item>
-               <item row="18" column="0">
-                <widget class="QLabel" name="lbl_importmovies_18">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="17" column="1">
-                <widget class="QLineEdit" name="line_importmovies_17"/>
-               </item>
-               <item row="24" column="1">
-                <widget class="QLineEdit" name="line_importmovies_24"/>
-               </item>
-               <item row="2" column="1">
-                <widget class="QLineEdit" name="line_importmovies_2"/>
-               </item>
-               <item row="37" column="0">
-                <widget class="QLabel" name="lbl_importmovies_37">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="38" column="0">
-                <widget class="QLabel" name="lbl_importmovies_38">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="29" column="0">
-                <widget class="QLabel" name="lbl_importmovies_29">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="10" column="0">
-                <widget class="QLabel" name="lbl_importmovies_10">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="19" column="0">
-                <widget class="QLabel" name="lbl_importmovies_19">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="39" column="0">
-                <widget class="QLabel" name="lbl_importmovies_39">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="6" column="1">
-                <widget class="QLineEdit" name="line_importmovies_6"/>
-               </item>
-               <item row="20" column="1">
-                <widget class="QLineEdit" name="line_importmovies_20"/>
-               </item>
-               <item row="7" column="0">
                 <widget class="QLabel" name="lbl_importmovies_7">
                  <property name="text">
                   <string>empty</string>
                  </property>
                 </widget>
                </item>
-               <item row="25" column="0">
-                <widget class="QLabel" name="lbl_importmovies_25">
+               <item row="32" column="0">
+                <widget class="QLabel" name="lbl_importmovies_31">
                  <property name="text">
                   <string>empty</string>
                  </property>
                 </widget>
                </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="lbl_importmovies_1">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="40" column="0">
-                <widget class="QLabel" name="lbl_importmovies_40">
-                 <property name="text">
-                  <string>empty</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="33" column="1">
-                <widget class="QLineEdit" name="line_importmovies_33"/>
-               </item>
-               <item row="34" column="1">
-                <widget class="QLineEdit" name="line_importmovies_34"/>
-               </item>
-               <item row="35" column="1">
-                <widget class="QLineEdit" name="line_importmovies_35"/>
-               </item>
-               <item row="36" column="1">
-                <widget class="QLineEdit" name="line_importmovies_36"/>
-               </item>
-               <item row="37" column="1">
-                <widget class="QLineEdit" name="line_importmovies_37"/>
-               </item>
-               <item row="38" column="1">
-                <widget class="QLineEdit" name="line_importmovies_38"/>
+               <item row="29" column="1">
+                <widget class="QLineEdit" name="line_importmovies_28"/>
                </item>
                <item row="39" column="1">
-                <widget class="QLineEdit" name="line_importmovies_39"/>
+                <widget class="QLineEdit" name="line_importmovies_38"/>
+               </item>
+               <item row="21" column="1">
+                <widget class="QLineEdit" name="line_importmovies_20"/>
+               </item>
+               <item row="11" column="0">
+                <widget class="QLabel" name="lbl_importmovies_10">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="22" column="0">
+                <widget class="QLabel" name="lbl_importmovies_21">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="18" column="1">
+                <widget class="QLineEdit" name="line_importmovies_17"/>
+               </item>
+               <item row="40" column="0">
+                <widget class="QLabel" name="lbl_importmovies_39">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="1">
+                <widget class="QLineEdit" name="line_importmovies_3"/>
+               </item>
+               <item row="7" column="0">
+                <widget class="QLabel" name="lbl_importmovies_6">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="0">
+                <widget class="QLabel" name="lbl_importmovies_4">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="29" column="0">
+                <widget class="QLabel" name="lbl_importmovies_28">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="27" column="1">
+                <widget class="QLineEdit" name="line_importmovies_26"/>
+               </item>
+               <item row="17" column="1">
+                <widget class="QLineEdit" name="line_importmovies_16"/>
+               </item>
+               <item row="34" column="0">
+                <widget class="QLabel" name="lbl_importmovies_33">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="12" column="1">
+                <widget class="QLineEdit" name="line_importmovies_11"/>
+               </item>
+               <item row="36" column="1">
+                <widget class="QLineEdit" name="line_importmovies_35"/>
+               </item>
+               <item row="3" column="0">
+                <widget class="QLabel" name="lbl_importmovies_2">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="16" column="0">
+                <widget class="QLabel" name="lbl_importmovies_15">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="13" column="1">
+                <widget class="QLineEdit" name="line_importmovies_12"/>
                </item>
                <item row="40" column="1">
-                <widget class="QLineEdit" name="line_importmovies_40"/>
+                <widget class="QLineEdit" name="line_importmovies_39"/>
+               </item>
+               <item row="31" column="0">
+                <widget class="QLabel" name="lbl_importmovies_30">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="28" column="1">
+                <widget class="QLineEdit" name="line_importmovies_27"/>
+               </item>
+               <item row="9" column="0">
+                <widget class="QLabel" name="lbl_importmovies_8">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="36" column="0">
+                <widget class="QLabel" name="lbl_importmovies_35">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="23" column="0">
+                <widget class="QLabel" name="lbl_importmovies_22">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="21" column="0">
+                <widget class="QLabel" name="lbl_importmovies_20">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="1">
+                <widget class="QLineEdit" name="line_importmovies_2"/>
+               </item>
+               <item row="6" column="1">
+                <widget class="QLineEdit" name="line_importmovies_5"/>
+               </item>
+               <item row="33" column="1">
+                <widget class="QLineEdit" name="line_importmovies_32"/>
+               </item>
+               <item row="33" column="0">
+                <widget class="QLabel" name="lbl_importmovies_32">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="38" column="0">
+                <widget class="QLabel" name="lbl_importmovies_37">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="37" column="0">
+                <widget class="QLabel" name="lbl_importmovies_36">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="35" column="0">
+                <widget class="QLabel" name="lbl_importmovies_34">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="38" column="1">
+                <widget class="QLineEdit" name="line_importmovies_37"/>
+               </item>
+               <item row="12" column="0">
+                <widget class="QLabel" name="lbl_importmovies_11">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="19" column="1">
+                <widget class="QLineEdit" name="line_importmovies_18"/>
+               </item>
+               <item row="16" column="1">
+                <widget class="QLineEdit" name="line_importmovies_15"/>
+               </item>
+               <item row="35" column="1">
+                <widget class="QLineEdit" name="line_importmovies_34"/>
+               </item>
+               <item row="22" column="1">
+                <widget class="QLineEdit" name="line_importmovies_21"/>
+               </item>
+               <item row="14" column="1">
+                <widget class="QLineEdit" name="line_importmovies_13"/>
+               </item>
+               <item row="17" column="0">
+                <widget class="QLabel" name="lbl_importmovies_16">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="15" column="0">
+                <widget class="QLabel" name="lbl_importmovies_14">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="26" column="1">
+                <widget class="QLineEdit" name="line_importmovies_25"/>
+               </item>
+               <item row="10" column="0">
+                <widget class="QLabel" name="lbl_importmovies_9">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="8" column="1">
+                <widget class="QLineEdit" name="line_importmovies_7"/>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="lbl_importmovies_0">
+                 <property name="text">
+                  <string>empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QLineEdit" name="line_importmovies_0"/>
                </item>
               </layout>
              </item>
@@ -2063,7 +2063,7 @@
       <rect>
        <x>20</x>
        <y>30</y>
-       <width>111</width>
+       <width>113</width>
        <height>101</height>
       </rect>
      </property>

@@ -74,6 +74,14 @@ class test_read_write_function_locate_val(unittest.TestCase):
         val_actual = val_actual_df.loc[val_actual_df["rlnJobOptionVariable"] == "Cs", "rlnJobOptionValue"].values[0]
         self.assertEqual(val_located, val_actual, "the located value is not the same as the value in the backup file")
 
+
+class test_read_write_update_job_star_dict(unittest.TestCase):
+    def test_update_job_star_dict(self):
+        """
+        
+        """
+        pass
+
 class test_read_write_function_write_star(unittest.TestCase):
     def test_write_star(self):
         """
@@ -89,3 +97,10 @@ class test_read_write_function_write_star(unittest.TestCase):
             # Check if the file exists and has the correct extension
             self.assertTrue(os.path.exists(temp_file))
             self.assertTrue(temp_file.endswith(".star"), "no .star file is created at the target location")
+
+class test_read_write_variable_job_names(unittest.TestCase):
+    def test_param_names(self):
+        """
+        testing whether the keys in param_names have corresponding parameter names in the respective job.star
+        """
+        pass

@@ -1,0 +1,9 @@
+[20:07:46] Started import_tilt_series job.                        serialem.py:74
+           Creating output directory at                           serialem.py:78
+           ImportTomo/job001/tilt_series                                        
+           Found 1 mdoc files and 51 image files.                 serialem.py:84
+           Wrote tilt-series data STAR file                      serialem.py:123
+           ImportTomo/job001/tilt_series.star                                   
+           writing per tilt-series STAR files...                 serialem.py:126
+Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00
+           Wrote STAR files for 1 tilt-series.                   serialem.py:146
