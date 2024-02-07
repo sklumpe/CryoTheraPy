@@ -49,6 +49,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../app.html">Application</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../read_write.html">io</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../test_read_write.html">Unit Tests io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../config.html">Config</a></li>
 </ul>
 
         </div>
@@ -81,6 +82,7 @@
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">tempfile</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">random</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">bash command to run test (once in respective directory):</span>
@@ -93,7 +95,7 @@
 <span class="c1"># Add the &#39;src&#39; directory to the Python path</span>
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">src_dir</span><span class="p">)</span>
 
-<span class="kn">from</span> <span class="nn">lib.read_write</span> <span class="kn">import</span> <span class="n">read_config</span><span class="p">,</span> <span class="n">read_star</span><span class="p">,</span> <span class="n">write_star</span><span class="p">,</span> <span class="n">job_star_dict</span><span class="p">,</span> <span class="n">locate_val</span>
+<span class="kn">from</span> <span class="nn">lib.read_write</span> <span class="kn">import</span> <span class="n">read_config</span><span class="p">,</span> <span class="n">read_star</span><span class="p">,</span> <span class="n">write_star</span><span class="p">,</span> <span class="n">job_star_dict</span><span class="p">,</span> <span class="n">locate_val</span><span class="p">,</span> <span class="n">update_job_star_dict</span><span class="p">,</span> <span class="n">param_names</span>
 
 <span class="c1"># don&#39;t have the yaml file yet so changed it to create a temporary file for the test of the function</span>
 <div class="viewcode-block" id="test_read_write_function_read_config">
@@ -176,7 +178,6 @@
 </div>
 
 
-
 <div class="viewcode-block" id="test_read_write_update_job_star_dict">
 <a class="viewcode-back" href="../../../test_read_write.html#CryoTheraPy.test.test_read_write.test_read_write_update_job_star_dict">[docs]</a>
 <span class="k">class</span> <span class="nc">test_read_write_update_job_star_dict</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
@@ -184,12 +185,34 @@
 <a class="viewcode-back" href="../../../test_read_write.html#CryoTheraPy.test.test_read_write.test_read_write_update_job_star_dict.test_update_job_star_dict">[docs]</a>
     <span class="k">def</span> <span class="nf">test_update_job_star_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        </span>
+<span class="sd">        testing whether the function properly updates the set value in the job_star_dict.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
+        <span class="k">for</span> <span class="n">job_name</span> <span class="ow">in</span> <span class="n">job_star_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="c1"># scheme.star has different keys ect --&gt; would have to change update_job_star_dict</span>
+            <span class="k">if</span> <span class="n">job_name</span> <span class="o">==</span> <span class="s2">&quot;scheme_star&quot;</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="n">job_star_dict</span><span class="p">[</span><span class="n">job_name</span><span class="p">][</span><span class="s2">&quot;joboptions_values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rlnJobOptionVariable</span><span class="o">.</span><span class="n">values</span>
+            <span class="n">random_param</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+            <span class="c1"># save the current value of that parameter (.iloc[0] makes sure just the value is saved instead of the pd.series)</span>
+            <span class="n">current_value</span> <span class="o">=</span> <span class="n">job_star_dict</span><span class="p">[</span><span class="n">job_name</span><span class="p">][</span><span class="s2">&quot;joboptions_values&quot;</span><span class="p">][</span><span class="s2">&quot;rlnJobOptionValue&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">job_star_dict</span><span class="p">[</span><span class="n">job_name</span><span class="p">][</span><span class="s2">&quot;joboptions_values&quot;</span><span class="p">][</span><span class="s2">&quot;rlnJobOptionVariable&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">random_param</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="c1"># to ensure that str and floats/int can both be accurately changed</span>
+            <span class="n">str_or_float</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">str_or_float</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">random_value</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">&quot;yes&quot;</span><span class="p">,</span> <span class="s2">&quot;no&quot;</span><span class="p">])</span>
+                <span class="c1"># making sure the value is actually changed and not by coincidence the same as the current</span>
+                <span class="k">while</span> <span class="n">random_value</span> <span class="o">==</span> <span class="n">current_value</span><span class="p">:</span>
+                    <span class="n">random_value</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">&quot;yes&quot;</span><span class="p">,</span> <span class="s2">&quot;no&quot;</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">random_value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">300</span><span class="p">))</span>
+                <span class="c1"># making sure that the random value is not, by coincidence, also the current value of the parameter</span>
+                <span class="k">while</span> <span class="n">random_value</span> <span class="o">==</span> <span class="n">current_value</span><span class="p">:</span>
+                    <span class="n">random_value</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+            <span class="n">updated_job_star_dict</span> <span class="o">=</span> <span class="n">update_job_star_dict</span><span class="p">(</span><span class="n">job_name</span><span class="p">,</span> <span class="n">random_param</span><span class="p">,</span> <span class="n">random_value</span><span class="p">)</span>
+            <span class="n">updated_value</span> <span class="o">=</span> <span class="n">updated_job_star_dict</span><span class="p">[</span><span class="n">job_name</span><span class="p">][</span><span class="s2">&quot;joboptions_values&quot;</span><span class="p">][</span><span class="s2">&quot;rlnJobOptionValue&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">updated_job_star_dict</span><span class="p">[</span><span class="n">job_name</span><span class="p">][</span><span class="s2">&quot;joboptions_values&quot;</span><span class="p">][</span><span class="s2">&quot;rlnJobOptionVariable&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">random_param</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertNotEqual</span><span class="p">(</span><span class="n">current_value</span><span class="p">,</span> <span class="n">updated_value</span><span class="p">,</span> <span class="s2">&quot;the value is not properly updated to the new input&quot;</span><span class="p">)</span></div>
 </div>
 
-
+        
 <div class="viewcode-block" id="test_read_write_function_write_star">
 <a class="viewcode-back" href="../../../test_read_write.html#CryoTheraPy.test.test_read_write.test_read_write_function_write_star">[docs]</a>
 <span class="k">class</span> <span class="nc">test_read_write_function_write_star</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
@@ -220,6 +243,36 @@
     <span class="k">def</span> <span class="nf">test_param_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        testing whether the keys in param_names have corresponding parameter names in the respective job.star</span>
+<span class="sd">        to see whether any variable name has changed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">job_name</span> <span class="ow">in</span> <span class="n">param_names</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">param_names</span><span class="p">[</span><span class="n">job_name</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">job_star_dict</span><span class="p">[</span><span class="n">job_name</span><span class="p">][</span><span class="s2">&quot;joboptions_values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rlnJobOptionVariable</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2"> is no longer a variable in </span><span class="si">{</span><span class="n">job_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+</div>
+
+
+<div class="viewcode-block" id="test_read_write_function_read_mdoc">
+<a class="viewcode-back" href="../../../test_read_write.html#CryoTheraPy.test.test_read_write.test_read_write_function_read_mdoc">[docs]</a>
+<span class="k">class</span> <span class="nc">test_read_write_function_read_mdoc</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<div class="viewcode-block" id="test_read_write_function_read_mdoc.test_read_mdoc">
+<a class="viewcode-back" href="../../../test_read_write.html#CryoTheraPy.test.test_read_write.test_read_write_function_read_mdoc.test_read_mdoc">[docs]</a>
+    <span class="k">def</span> <span class="nf">test_read_mdoc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+</div>
+
+
+<div class="viewcode-block" id="test_read_write_function_read_header">
+<a class="viewcode-back" href="../../../test_read_write.html#CryoTheraPy.test.test_read_write.test_read_write_function_read_header">[docs]</a>
+<span class="k">class</span> <span class="nc">test_read_write_function_read_header</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<div class="viewcode-block" id="test_read_write_function_read_header.test_read_header">
+<a class="viewcode-back" href="../../../test_read_write.html#CryoTheraPy.test.test_read_write.test_read_write_function_read_header.test_read_header">[docs]</a>
+    <span class="k">def</span> <span class="nf">test_read_header</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 </div>

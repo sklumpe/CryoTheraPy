@@ -49,6 +49,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../app.html">Application</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../read_write.html">io</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../test_read_write.html">Unit Tests io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../config.html">Config</a></li>
 </ul>
 
         </div>
@@ -82,14 +83,15 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">subprocess</span>
 <span class="kn">from</span> <span class="nn">PyQt6.uic</span> <span class="kn">import</span> <span class="n">loadUi</span>
-<span class="kn">from</span> <span class="nn">PyQt6.QtWidgets</span> <span class="kn">import</span> <span class="n">QApplication</span><span class="p">,</span> <span class="n">QMainWindow</span><span class="p">,</span> <span class="n">QDialog</span>
+<span class="kn">from</span> <span class="nn">PyQt6.QtWidgets</span> <span class="kn">import</span> <span class="n">QApplication</span><span class="p">,</span> <span class="n">QMainWindow</span><span class="p">,</span> <span class="n">QDialog</span><span class="p">,</span> <span class="n">QComboBox</span><span class="p">,</span> <span class="n">QTabWidget</span>
 
 <span class="n">current_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__name__</span><span class="p">))</span>
 <span class="n">src_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_dir</span><span class="p">,</span> <span class="s1">&#39;../..&#39;</span><span class="p">))</span>
 <span class="c1"># change the path to be until src</span>
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">src_dir</span><span class="p">)</span>
 
-<span class="kn">from</span> <span class="nn">lib.read_write</span> <span class="kn">import</span> <span class="n">job_star_dict</span><span class="p">,</span> <span class="n">locate_val</span><span class="p">,</span> <span class="n">jobs_in_scheme</span><span class="p">,</span> <span class="n">param_names</span><span class="p">,</span> <span class="n">update_job_star_dict</span><span class="p">,</span> <span class="n">write_star</span>
+<span class="kn">from</span> <span class="nn">lib.read_write</span> <span class="kn">import</span> <span class="n">job_star_dict</span><span class="p">,</span> <span class="n">locate_val</span><span class="p">,</span> <span class="n">jobs_in_scheme</span><span class="p">,</span> <span class="n">param_names</span><span class="p">,</span> <span class="n">update_job_star_dict</span><span class="p">,</span> <span class="n">load_config</span><span class="p">,</span> <span class="n">write_star</span>
+<span class="kn">from</span> <span class="nn">lib.config</span> <span class="kn">import</span> <span class="n">titan_krios_4</span><span class="p">,</span> <span class="n">titan_krios_5</span>
 
 <div class="viewcode-block" id="MainUI">
 <a class="viewcode-back" href="../../../app.html#lib.app.app.MainUI">[docs]</a>
@@ -106,7 +108,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">btn_readStar</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">readStar</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">btn_changeStarValues</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">changeStarValues</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">btn_writeStar</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">writeStar</span><span class="p">)</span>
-        
+        <span class="n">dropDown_config</span> <span class="o">=</span> <span class="n">QComboBox</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dropDown_config</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">&quot;Choose Microscope Set-Up&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dropDown_config</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">&quot;Titan Krios 4&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dropDown_config</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">&quot;Titan Krios 5&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dropDown_config</span><span class="o">.</span><span class="n">activated</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loadConfig</span><span class="p">)</span>
+
         <span class="c1">#these two don&#39;t work yet bc the schemer requires a different version of python</span>
         <span class="c1">#self.btn_start.clicked.connect(self.start_relion)</span>
         <span class="c1">#self.btn_python2.clicked.connect(self.switch_python)</span>
@@ -142,7 +149,54 @@
                         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;could not import value </span><span class="si">{</span><span class="n">line_name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
                         <span class="c1">#raise AssertionError(&quot;not all parameters could be loaded&quot;)</span>
-                
+            <span class="c1"># change values based on microscope used to respective values</span>
+
+<div class="viewcode-block" id="MainUI.loadConfig">
+<a class="viewcode-back" href="../../../app.html#lib.app.app.MainUI.loadConfig">[docs]</a>
+    <span class="k">def</span> <span class="nf">loadConfig</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        load in the values for the corresponding microscope depending on the option selected from the drop-down</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#load_config(&quot;Titan Krios 4&quot;)</span>
+        <span class="c1">#load_confg(titan_krios_4)     </span>
+        <span class="c1"># make this all into a function and have only the dict name as input --&gt; can easily add new</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropDown_config</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Titan Krios 4&quot;</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">param</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">titan_krios_4</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="c1">#print(param)</span>
+                <span class="k">for</span> <span class="n">job_name</span> <span class="ow">in</span> <span class="n">job_star_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">job_name</span> <span class="o">!=</span> <span class="s2">&quot;scheme_star&quot;</span><span class="p">:</span>
+                        <span class="c1"># iterate over the number of parameters in each job to check every label (one label was set for each param)</span>
+                        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+                            <span class="n">current_lbl</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;lbl_</span><span class="si">{</span><span class="n">job_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span>
+                            <span class="n">current_label</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current_lbl</span><span class="p">)</span>
+                            <span class="n">current_label_text</span> <span class="o">=</span> <span class="n">current_label</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+                            <span class="c1">#print(current_label_text)</span>
+                            <span class="c1">#print(param)</span>
+                            <span class="k">if</span> <span class="n">current_label_text</span> <span class="o">==</span> <span class="n">param</span><span class="p">:</span>
+                                <span class="n">line_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;line_</span><span class="si">{</span><span class="n">job_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span>
+                                <span class="n">line</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line_name</span><span class="p">)</span>
+                                <span class="n">line</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                                <span class="k">break</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropDown_config</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Titan Krios 5&quot;</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">param</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">titan_krios_5</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="c1">#print(param)</span>
+                <span class="k">for</span> <span class="n">job_name</span> <span class="ow">in</span> <span class="n">job_star_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">job_name</span> <span class="o">!=</span> <span class="s2">&quot;scheme_star&quot;</span><span class="p">:</span>
+                        <span class="c1"># iterate over the number of parameters in each job to check every label (one label was set for each param)</span>
+                        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+                            <span class="n">current_lbl</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;lbl_</span><span class="si">{</span><span class="n">job_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span>
+                            <span class="n">current_label</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current_lbl</span><span class="p">)</span>
+                            <span class="n">current_label_text</span> <span class="o">=</span> <span class="n">current_label</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+                            <span class="c1">#print(current_label_text)</span>
+                            <span class="c1">#print(param)</span>
+                            <span class="k">if</span> <span class="n">current_label_text</span> <span class="o">==</span> <span class="n">param</span><span class="p">:</span>
+                                <span class="n">line_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;line_</span><span class="si">{</span><span class="n">job_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span>
+                                <span class="n">line</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line_name</span><span class="p">)</span>
+                                <span class="n">line</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                                <span class="k">break</span></div>
+
+
 <div class="viewcode-block" id="MainUI.changeStarValues">
 <a class="viewcode-back" href="../../../app.html#lib.app.app.MainUI.changeStarValues">[docs]</a>
     <span class="k">def</span> <span class="nf">changeStarValues</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -168,9 +222,9 @@
                 <span class="n">current_line</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current_ln</span><span class="p">)</span>
                 <span class="n">current_line_text</span> <span class="o">=</span> <span class="n">current_line</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
                 <span class="c1">#print(current_line_text)</span>
-                <span class="n">update_job_star_dict</span><span class="p">(</span><span class="n">job_name</span><span class="p">,</span> <span class="n">current_label_text</span><span class="p">,</span> <span class="n">current_line_text</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">job_star_dict</span><span class="p">)</span></div>
+                <span class="n">update_job_star_dict</span><span class="p">(</span><span class="n">job_name</span><span class="p">,</span> <span class="n">current_label_text</span><span class="p">,</span> <span class="n">current_line_text</span><span class="p">)</span></div>
 
+        <span class="c1">#print(job_star_dict)</span>
                 
 
 <div class="viewcode-block" id="MainUI.writeStar">

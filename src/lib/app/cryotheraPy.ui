@@ -218,7 +218,7 @@
             <property name="geometry">
              <rect>
               <x>0</x>
-              <y>-733</y>
+              <y>0</y>
               <width>223</width>
               <height>942</height>
              </rect>
@@ -616,7 +616,7 @@
             <property name="geometry">
              <rect>
               <x>0</x>
-              <y>-820</y>
+              <y>0</y>
               <width>203</width>
               <height>1029</height>
              </rect>
@@ -1044,7 +1044,7 @@
             <property name="geometry">
              <rect>
               <x>0</x>
-              <y>-414</y>
+              <y>0</y>
               <width>243</width>
               <height>623</height>
              </rect>
@@ -1332,7 +1332,7 @@
             <property name="geometry">
              <rect>
               <x>0</x>
-              <y>-385</y>
+              <y>0</y>
               <width>223</width>
               <height>594</height>
              </rect>
@@ -2031,6 +2031,16 @@
        </item>
       </layout>
      </widget>
+    </widget>
+    <widget class="QComboBox" name="dropDown_config">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>510</y>
+       <width>181</width>
+       <height>23</height>
+      </rect>
+     </property>
     </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox">

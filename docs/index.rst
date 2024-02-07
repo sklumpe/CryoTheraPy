@@ -16,6 +16,7 @@ Welcome to CryoTheraPy's documentation!
    app
    read_write
    test_read_write
+   config
    
 Indices and tables
 ==================

@@ -1,0 +1,14 @@
+# parameters have different names in header/mdoc than in Relion --> make compatible
+# key = parameter name in header/mdoc file
+# value = parameter name in config_aliases file (code uses that name directly to find the correct entry, avoids additional loops)
+
+meta_data:
+
+  header:
+    - EER_number: eer grouping
+
+  mdoc:
+    - ImageSize: x dimensions
+    - ImageSize: y dimensions
+    - PixelSpacing: Pixel in A
+    - Voltage: kV

@@ -13,5 +13,5 @@ src_dir = os.path.abspath(os.path.join(current_dir, '../src'))
 # Add the 'src' directory to the Python path
 sys.path.append(src_dir)
 
-from lib.app.app import writeStar
+from lib.app.app import MainUI
 

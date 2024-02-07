@@ -4,14 +4,15 @@ import sys
 import os
 import subprocess
 from PyQt6.uic import loadUi
-from PyQt6.QtWidgets import QApplication, QMainWindow, QDialog
+from PyQt6.QtWidgets import QApplication, QMainWindow, QDialog, QComboBox, QTabWidget
 
 current_dir = os.path.dirname(os.path.abspath(__name__))
 src_dir = os.path.abspath(os.path.join(current_dir, '../..'))
 # change the path to be until src
 sys.path.append(src_dir)
 
-from lib.read_write import job_star_dict, locate_val, jobs_in_scheme, param_names, update_job_star_dict, write_star
+from lib.read_write import job_star_dict, locate_val, jobs_in_scheme, param_names, update_job_star_dict, load_config, write_star
+from lib.config import titan_krios_4, titan_krios_5
 
 class MainUI(QMainWindow):
     """
@@ -26,7 +27,12 @@ class MainUI(QMainWindow):
         self.btn_readStar.clicked.connect(self.readStar)
         self.btn_changeStarValues.clicked.connect(self.changeStarValues)
         self.btn_writeStar.clicked.connect(self.writeStar)
-        
+        dropDown_config = QComboBox(self)
+        self.dropDown_config.addItem("Choose Microscope Set-Up")
+        self.dropDown_config.addItem("Titan Krios 4")
+        self.dropDown_config.addItem("Titan Krios 5")
+        self.dropDown_config.activated.connect(self.loadConfig)
+
         #these two don't work yet bc the schemer requires a different version of python
         #self.btn_start.clicked.connect(self.start_relion)
         #self.btn_python2.clicked.connect(self.switch_python)
@@ -59,7 +65,51 @@ class MainUI(QMainWindow):
                         print(f"could not import label {label_name} {param}")
                         print(f"could not import value {line_name} {param}")
                         #raise AssertionError("not all parameters could be loaded")
-                
+            # change values based on microscope used to respective values
+
+    def loadConfig(self):
+        """
+        load in the values for the corresponding microscope depending on the option selected from the drop-down
+        """
+        #load_config("Titan Krios 4")
+        #load_confg(titan_krios_4)     
+        # make this all into a function and have only the dict name as input --> can easily add new
+        if self.dropDown_config.currentText() == "Titan Krios 4":
+            for param, value in titan_krios_4.items():
+                #print(param)
+                for job_name in job_star_dict.keys():
+                    if job_name != "scheme_star":
+                        # iterate over the number of parameters in each job to check every label (one label was set for each param)
+                        for i in range(0, 2):
+                            current_lbl = f"lbl_{job_name}_{i}"
+                            current_label = getattr(self, current_lbl)
+                            current_label_text = current_label.text()
+                            #print(current_label_text)
+                            #print(param)
+                            if current_label_text == param:
+                                line_name = f"line_{job_name}_{i}"
+                                line = getattr(self, line_name)
+                                line.setText(value)
+                                break
+
+        elif self.dropDown_config.currentText() == "Titan Krios 5":
+            for param, value in titan_krios_5.items():
+                #print(param)
+                for job_name in job_star_dict.keys():
+                    if job_name != "scheme_star":
+                        # iterate over the number of parameters in each job to check every label (one label was set for each param)
+                        for i in range(0, 2):
+                            current_lbl = f"lbl_{job_name}_{i}"
+                            current_label = getattr(self, current_lbl)
+                            current_label_text = current_label.text()
+                            #print(current_label_text)
+                            #print(param)
+                            if current_label_text == param:
+                                line_name = f"line_{job_name}_{i}"
+                                line = getattr(self, line_name)
+                                line.setText(value)
+                                break
+
     def changeStarValues(self):
         """
         function to change the value of the given parameter in the given job.
@@ -84,7 +134,7 @@ class MainUI(QMainWindow):
                 current_line_text = current_line.text()
                 #print(current_line_text)
                 update_job_star_dict(job_name, current_label_text, current_line_text)
-        print(job_star_dict)
+        #print(job_star_dict)
                 
 
     def writeStar(self):

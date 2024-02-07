@@ -3,6 +3,7 @@ import os
 import sys
 import tempfile
 import pandas as pd
+import random
 
 """
 bash command to run test (once in respective directory):
@@ -15,7 +16,7 @@ src_dir = os.path.abspath(os.path.join(current_dir, '../src'))
 # Add the 'src' directory to the Python path
 sys.path.append(src_dir)
 
-from lib.read_write import read_config, read_star, write_star, job_star_dict, locate_val
+from lib.read_write import read_config, read_star, write_star, job_star_dict, locate_val, update_job_star_dict, param_names
 
 # don't have the yaml file yet so changed it to create a temporary file for the test of the function
 class test_read_write_function_read_config(unittest.TestCase):
@@ -74,14 +75,35 @@ class test_read_write_function_locate_val(unittest.TestCase):
         val_actual = val_actual_df.loc[val_actual_df["rlnJobOptionVariable"] == "Cs", "rlnJobOptionValue"].values[0]
         self.assertEqual(val_located, val_actual, "the located value is not the same as the value in the backup file")
 
-
 class test_read_write_update_job_star_dict(unittest.TestCase):
     def test_update_job_star_dict(self):
         """
-        
+        testing whether the function properly updates the set value in the job_star_dict.
         """
-        pass
-
+        for job_name in job_star_dict.keys():
+            # scheme.star has different keys ect --> would have to change update_job_star_dict
+            if job_name == "scheme_star":
+                continue
+            params = job_star_dict[job_name]["joboptions_values"].rlnJobOptionVariable.values
+            random_param = random.choice(params)
+            # save the current value of that parameter (.iloc[0] makes sure just the value is saved instead of the pd.series)
+            current_value = job_star_dict[job_name]["joboptions_values"]["rlnJobOptionValue"].loc[job_star_dict[job_name]["joboptions_values"]["rlnJobOptionVariable"] == random_param].iloc[0]
+            # to ensure that str and floats/int can both be accurately changed
+            str_or_float = random.randint(1, 2)
+            if str_or_float == 1:
+                random_value = random.choice(["yes", "no"])
+                # making sure the value is actually changed and not by coincidence the same as the current
+                while random_value == current_value:
+                    random_value = random.choice(["yes", "no"])
+            else:
+                random_value = float(random.randint(1, 300))
+                # making sure that the random value is not, by coincidence, also the current value of the parameter
+                while random_value == current_value:
+                    random_value = random.randint(1, 300)
+            updated_job_star_dict = update_job_star_dict(job_name, random_param, random_value)
+            updated_value = updated_job_star_dict[job_name]["joboptions_values"]["rlnJobOptionValue"].loc[updated_job_star_dict[job_name]["joboptions_values"]["rlnJobOptionVariable"] == random_param].iloc[0]
+            self.assertNotEqual(current_value, updated_value, "the value is not properly updated to the new input")
+        
 class test_read_write_function_write_star(unittest.TestCase):
     def test_write_star(self):
         """
@@ -102,5 +124,23 @@ class test_read_write_variable_job_names(unittest.TestCase):
     def test_param_names(self):
         """
         testing whether the keys in param_names have corresponding parameter names in the respective job.star
+        to see whether any variable name has changed.
+        """
+        for job_name in param_names:
+            for key in param_names[job_name]:
+                self.assertIn(key, job_star_dict[job_name]["joboptions_values"].rlnJobOptionVariable.values,
+                f"{key} is no longer a variable in {job_name}")
+
+class test_read_write_function_read_mdoc(unittest.TestCase):
+    def test_read_mdoc(self):
+        """
+        
+        """
+        pass
+
+class test_read_write_function_read_header(unittest.TestCase):
+    def test_read_header(self):
+        """
+        
         """
         pass
