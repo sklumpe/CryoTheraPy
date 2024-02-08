@@ -1,4 +1,4 @@
-[20:07:46] Started import_tilt_series job.                        serialem.py:74
+[15:50:45] Started import_tilt_series job.                        serialem.py:74
            Creating output directory at                           serialem.py:78
            ImportTomo/job001/tilt_series                                        
            Found 1 mdoc files and 51 image files.                 serialem.py:84

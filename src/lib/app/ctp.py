@@ -99,8 +99,40 @@ class MainUI(QMainWindow):
         header of the movies provided and copy the respective information to the respective parameters too.
         """
         # save the input of the field as variable
-        params_dict_movies = {"movie_files": self.line_path_movies.text()}
+        params_dict_movies = {"movie_files": self.line_path_movies.text() + "*.eer"}
 
+        # reading the header doesn't work yet!
+        """
+        # look into the header and save all parameters as variables
+        try:
+            header_eers = read_header(params_dict_movies["movie_files"])
+
+            index_import = jobs_in_scheme[jobs_in_scheme == "importmovies"].index
+
+            self.tabWidget.setCurrentIndex(index_import.item())
+            table_widget = self.tabWidget.currentWidget().findChild(QTableWidget)
+            nRows = table_widget.rowCount()
+            for row in range(nRows):
+                current_param = table_widget.item(row, 0).text()
+                # if the param we are looking for is equal to the param in the row in the table, change the
+                # value in that table to the value to the value of the dict (path or header information).
+                # Additionally, change the colour of the field to clarify that this has been automatically set.
+                if current_param == "Pixel in A":
+                    pixel_size = table_widget.item(row, 1).text()
+
+                # exposure time and dose per ang in mdoc
+
+               exposure_times, dose_per_angstrom, eer_sections
+            # dose per frame from input if I want to change
+            eer_sections = calculate_dose_rate_per_pixel(pixel_size, header_eers)
+
+            params_dict_movies[""] = eer_sections
+            print(header_eers)
+        except:
+            pass
+        # create a combined dict to iterate over
+        #params_dict_movies.update(header_params)
+        """
         # go to the importmovies tab by getting the index where importmovies is
         # if header also has parameters for other jobs, have to loop through here
         index_import = jobs_in_scheme[jobs_in_scheme == "importmovies"].index  
@@ -137,7 +169,7 @@ class MainUI(QMainWindow):
         mdoc file and copy the respective information to the respective parameters too.
         """
         # save the input of the field as variable
-        params_dict_mdoc = {"mdoc_files": self.line_path_mdoc.text()}
+        params_dict_mdoc = {"mdoc_files": self.line_path_mdoc.text() + "*.mdoc"}
         # look into the mdoc file and save all parameters as variables
         try:
             params_dict_mdoc.update(read_mdoc(params_dict_mdoc["mdoc_files"]))

@@ -156,7 +156,7 @@ def read_mdoc(path_to_mdoc_dir):
   """
   return_mdoc_data = {}
   # using the dir, access the first mdoc file in the folder
-  path_to_mdoc = glob.glob(f"{path_to_mdoc_dir}/*.mdoc")[0]
+  path_to_mdoc = glob.glob(f"{path_to_mdoc_dir}")[0]
   # get respective mdoc file
   with open(path_to_mdoc, "r") as mdoc_file:
     # store the lines in that mdoc file in a list to iterate over
