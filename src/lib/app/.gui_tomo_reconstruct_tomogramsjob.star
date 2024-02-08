@@ -18,7 +18,7 @@ _rlnJobOptionValue #2
 binned_angpix      11.72 
   do_queue        Yes 
 generate_split_tomograms         No 
-in_tiltseries AlignTiltSeries/job008/aligned_tilt_series.star 
+in_tiltseries Select/job023/micrographs.star 
 min_dedicated          1 
     nr_mpi          3 
 nr_threads          2 

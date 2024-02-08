@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Application &mdash; cryotheraPy 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=2709fde1"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="io" href="read_write.html" />
+    <link rel="prev" title="Intern" href="extdocs/intern/intern.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            cryotheraPy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="extdocs/setup/setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extdocs/tutorial/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extdocs/intern/intern.html">Intern</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Application</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#bin.ctp.MainUI"><code class="docutils literal notranslate"><span class="pre">MainUI</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#bin.ctp.MainUI.changeDf"><code class="docutils literal notranslate"><span class="pre">MainUI.changeDf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bin.ctp.MainUI.loadConfig"><code class="docutils literal notranslate"><span class="pre">MainUI.loadConfig()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bin.ctp.MainUI.loadPathMdoc"><code class="docutils literal notranslate"><span class="pre">MainUI.loadPathMdoc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bin.ctp.MainUI.loadPathMovies"><code class="docutils literal notranslate"><span class="pre">MainUI.loadPathMovies()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bin.ctp.MainUI.makeJobTabs"><code class="docutils literal notranslate"><span class="pre">MainUI.makeJobTabs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bin.ctp.MainUI.mdoc_use_movie_path"><code class="docutils literal notranslate"><span class="pre">MainUI.mdoc_use_movie_path()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bin.ctp.MainUI.writeStar"><code class="docutils literal notranslate"><span class="pre">MainUI.writeStar()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="read_write.html">io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_read_write.html">Unit Tests io</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">cryotheraPy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Application</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/ctp.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-bin.ctp">
+<span id="application"></span><h1>Application<a class="headerlink" href="#module-bin.ctp" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="bin.ctp.MainUI">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bin.ctp.</span></span><span class="sig-name descname"><span class="pre">MainUI</span></span><a class="reference internal" href="_modules/bin/ctp.html#MainUI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bin.ctp.MainUI" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QMainWindow</span></code></p>
+<p>Main window of the UI.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="bin.ctp.MainUI.changeDf">
+<span class="sig-name descname"><span class="pre">changeDf</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bin/ctp.html#MainUI.changeDf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bin.ctp.MainUI.changeDf" title="Link to this definition"></a></dt>
+<dd><p>go through all tabs that were created using the makeJobTabs function, select the table that is in that tab
+and iterate through the columns and rows of that table, checking whether there is an alias (and reverting
+it if there is) and then writing the value into the df for the job.star file at the same position as it
+is in the table (table is created based on this df so it should always be the same position and name).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bin.ctp.MainUI.loadConfig">
+<span class="sig-name descname"><span class="pre">loadConfig</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bin/ctp.html#MainUI.loadConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bin.ctp.MainUI.loadConfig" title="Link to this definition"></a></dt>
+<dd><p>go through all parameters of all tabs and see whether any parameter is in the config_microscopes file
+(= contains all parameters that are solely dependent on the setup) under the chosen setup. If a parameter
+is found, its value is set to the value defined in the config_microscopes for this parameter.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bin.ctp.MainUI.loadPathMdoc">
+<span class="sig-name descname"><span class="pre">loadPathMdoc</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bin/ctp.html#MainUI.loadPathMdoc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bin.ctp.MainUI.loadPathMdoc" title="Link to this definition"></a></dt>
+<dd><p>set the parameter path to mdoc in the importmovies job to the link provided here. Then, look into the
+mdoc file and copy the respective information to the respective parameters too.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bin.ctp.MainUI.loadPathMovies">
+<span class="sig-name descname"><span class="pre">loadPathMovies</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bin/ctp.html#MainUI.loadPathMovies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bin.ctp.MainUI.loadPathMovies" title="Link to this definition"></a></dt>
+<dd><p>set the parameter path to files in the importmovies job to the link provided here. Then, look into the
+header of the movies provided and copy the respective information to the respective parameters too.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bin.ctp.MainUI.makeJobTabs">
+<span class="sig-name descname"><span class="pre">makeJobTabs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bin/ctp.html#MainUI.makeJobTabs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bin.ctp.MainUI.makeJobTabs" title="Link to this definition"></a></dt>
+<dd><p>insert a new tab for every job and place a table with the parameters found in the respective job.star
+file in the [“joboptions_values”] df.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bin.ctp.MainUI.mdoc_use_movie_path">
+<span class="sig-name descname"><span class="pre">mdoc_use_movie_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bin/ctp.html#MainUI.mdoc_use_movie_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bin.ctp.MainUI.mdoc_use_movie_path" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bin.ctp.MainUI.writeStar">
+<span class="sig-name descname"><span class="pre">writeStar</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bin/ctp.html#MainUI.writeStar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bin.ctp.MainUI.writeStar" title="Link to this definition"></a></dt>
+<dd><p>write the star file with the coordinates given and with the values of job_star_dict.
+so far works only if the directory doesn’t exist yet.
+can be made into a pop-up window later.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="extdocs/intern/intern.html" class="btn btn-neutral float-left" title="Intern" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="read_write.html" class="btn btn-neutral float-right" title="io" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Florian Beck.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

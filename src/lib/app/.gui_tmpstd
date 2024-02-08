@@ -1,9 +1,14 @@
-[15:50:45] Started import_tilt_series job.                        serialem.py:74
-           Creating output directory at                           serialem.py:78
-           ImportTomo/job001/tilt_series                                        
-           Found 1 mdoc files and 51 image files.                 serialem.py:84
-           Wrote tilt-series data STAR file                      serialem.py:123
-           ImportTomo/job001/tilt_series.star                                   
-           writing per tilt-series STAR files...                 serialem.py:126
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00
-           Wrote STAR files for 1 tilt-series.                   serialem.py:146
+submitting relion
+
+
+
+
+ RELION version: 5.0-beta-0-commit-739650
+ exiting with an error ...
+
+
+ RELION version: 5.0-beta-0-commit-739650
+ exiting with an error ...
+ RELION version: 5.0-beta-0-commit-739650
+ exiting with an error ...
+done

@@ -1,7 +1,7 @@
 io
 ===
 
-.. automodule:: lib.read_write
+.. automodule:: src.read_write
    :members:
    :undoc-members:
    :show-inheritance:

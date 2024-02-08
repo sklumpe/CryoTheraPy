@@ -13,10 +13,10 @@ Welcome to CryoTheraPy's documentation!
    extdocs/setup/setup
    extdocs/tutorial/tutorial
    extdocs/intern/intern
-   app
+   ctp
    read_write
    test_read_write
-   config
+   
    
 Indices and tables
 ==================

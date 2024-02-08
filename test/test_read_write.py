@@ -12,11 +12,11 @@ python -m unittest test_module_name  (runs just one module)
 """
 
 current_dir = os.path.dirname(os.path.abspath(__name__))
-src_dir = os.path.abspath(os.path.join(current_dir, '../src'))
+root_dir = os.path.abspath(os.path.join(current_dir, '..'))
 # Add the 'src' directory to the Python path
-sys.path.append(src_dir)
+sys.path.append(root_dir)
 
-from lib.read_write import read_config, read_star, write_star, job_star_dict, locate_val, update_job_star_dict, param_names
+from src.read_write.read_write import read_config, read_star, write_star, job_star_dict, locate_val, update_job_star_dict, param_names
 
 # don't have the yaml file yet so changed it to create a temporary file for the test of the function
 class test_read_write_function_read_config(unittest.TestCase):

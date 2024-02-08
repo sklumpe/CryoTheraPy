@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>bin.ctp &mdash; cryotheraPy 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=2709fde1"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            cryotheraPy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../extdocs/setup/setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extdocs/tutorial/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extdocs/intern/intern.html">Intern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ctp.html">Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../read_write.html">io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../test_read_write.html">Unit Tests io</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">cryotheraPy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">bin.ctp</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for bin.ctp</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
+<span class="kn">from</span> <span class="nn">PyQt6.uic</span> <span class="kn">import</span> <span class="n">loadUi</span>
+<span class="kn">from</span> <span class="nn">PyQt6.QtWidgets</span> <span class="kn">import</span> <span class="n">QTableWidget</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">,</span> <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">QApplication</span><span class="p">,</span> <span class="n">QMainWindow</span><span class="p">,</span> <span class="n">QDialog</span><span class="p">,</span> <span class="n">QComboBox</span><span class="p">,</span> <span class="n">QTabWidget</span><span class="p">,</span> <span class="n">QWidget</span>
+<span class="kn">from</span> <span class="nn">PyQt6.QtGui</span> <span class="kn">import</span> <span class="n">QColor</span>
+<span class="kn">from</span> <span class="nn">PyQt6.QtCore</span> <span class="kn">import</span> <span class="n">Qt</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">script_path = os.path.abspath(__name__)</span>
+<span class="sd">script_dir = os.path.dirname(script_path)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">current_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__name__</span><span class="p">))</span>
+<span class="c1"># change the path to be until src</span>
+<span class="n">root_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_dir</span><span class="p">,</span> <span class="s1">&#39;../&#39;</span><span class="p">))</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root_dir</span><span class="p">)</span>
+
+<span class="c1">#from lib.functions import get_value_from_tab</span>
+<span class="kn">from</span> <span class="nn">src.read_write.read_write</span> <span class="kn">import</span> <span class="n">scheme_star_dict</span><span class="p">,</span> <span class="n">job_star_dict</span><span class="p">,</span> <span class="n">jobs_in_scheme</span><span class="p">,</span> <span class="n">get_alias</span><span class="p">,</span> <span class="n">get_alias_reverse</span><span class="p">,</span> <span class="n">load_config</span><span class="p">,</span> <span class="n">read_mdoc</span><span class="p">,</span> <span class="n">read_header</span><span class="p">,</span> <span class="n">write_star</span>
+
+<div class="viewcode-block" id="MainUI">
+<a class="viewcode-back" href="../../ctp.html#bin.ctp.MainUI">[docs]</a>
+<span class="k">class</span> <span class="nc">MainUI</span><span class="p">(</span><span class="n">QMainWindow</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Main window of the UI.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setting up the buttons in the code and connecting them to their respective functions.</span>
+<span class="sd">        &quot;&quot;&quot;</span> 
+        <span class="nb">super</span><span class="p">(</span><span class="n">MainUI</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="n">loadUi</span><span class="p">(</span><span class="s2">&quot;../src/gui/ctp.ui&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_makeJobTabs</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">makeJobTabs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">groupBox_in_paths</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="c1"># have now put to textChanged --&gt; every key entered updates it. If it takes too long to iterate every</span>
+        <span class="c1"># time, change to editingFinished</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line_path_movies</span><span class="o">.</span><span class="n">textChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loadPathMovies</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line_path_mdoc</span><span class="o">.</span><span class="n">textChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loadPathMdoc</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_use_movie_path</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mdoc_use_movie_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dropDown_config</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">&quot;Choose Microscope Set-Up&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dropDown_config</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">&quot;Titan Krios 4&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dropDown_config</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">&quot;Titan Krios 5&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dropDown_config</span><span class="o">.</span><span class="n">activated</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loadConfig</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_changeStarValues</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">changeDf</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_writeStar</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">writeStar</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="MainUI.makeJobTabs">
+<a class="viewcode-back" href="../../ctp.html#bin.ctp.MainUI.makeJobTabs">[docs]</a>
+    <span class="k">def</span> <span class="nf">makeJobTabs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        insert a new tab for every job and place a table with the parameters found in the respective job.star</span>
+<span class="sd">        file in the [&quot;joboptions_values&quot;] df.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># define where the new tabs should be inserted so all tabs can be used in order             </span>
+        <span class="n">first_insert_position</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="c1"># loop through the jobs and create a tab for each job</span>
+        <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="n">jobs_in_scheme</span><span class="p">:</span>
+            <span class="c1"># arguments: insertTab(index where it&#39;s inserted, widget that&#39;s inserted, name of tab)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tabWidget</span><span class="o">.</span><span class="n">insertTab</span><span class="p">(</span><span class="n">first_insert_position</span><span class="p">,</span> <span class="n">QWidget</span><span class="p">(),</span> <span class="n">job</span><span class="p">)</span>
+            <span class="c1"># build a table with the dataframe containinng the parameters for the respective job in the tab</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="p">(</span><span class="n">job_star_dict</span><span class="p">[</span><span class="n">job</span><span class="p">][</span><span class="s2">&quot;joboptions_values&quot;</span><span class="p">])</span>
+            <span class="n">nRows</span><span class="p">,</span> <span class="n">nColumns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+            <span class="c1"># create empty table with the dimensions of the df</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">table</span> <span class="o">=</span> <span class="n">QTableWidget</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setColumnCount</span><span class="p">(</span><span class="n">nColumns</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setRowCount</span><span class="p">(</span><span class="n">nRows</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setHorizontalHeaderLabels</span><span class="p">((</span><span class="s2">&quot;Parameter&quot;</span><span class="p">,</span> <span class="s2">&quot;Value&quot;</span><span class="p">))</span>
+            <span class="c1"># this doesn&#39;t work yet...:</span>
+            <span class="c1">#self.table.setMinimumSize(1500, 400)            </span>
+            <span class="c1"># populate the table with the values of the df</span>
+            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nRows</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nColumns</span><span class="p">):</span>
+                    <span class="c1"># set the value that should be added to the respective col/row combination in the df containing the parameters</span>
+                    <span class="n">current_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span>
+                    <span class="c1"># see whether there is an alias for the parameter (only for the Parameters column)</span>
+                    <span class="k">if</span> <span class="n">col</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">alias</span> <span class="o">=</span> <span class="n">get_alias</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">current_value</span><span class="p">)</span>
+                        <span class="c1"># if there is an alias, set the widgetItem to this alias, else, do as normal</span>
+                        <span class="k">if</span> <span class="n">alias</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="n">alias</span><span class="p">))</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="n">current_value</span><span class="p">))</span>
+                        <span class="c1"># set the flag for this field as not editable --&gt; people cannot accidentally change the </span>
+                        <span class="c1"># name of a parameter, inhibiting Relion later</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span><span class="o">.</span><span class="n">setFlags</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span><span class="o">.</span><span class="n">flags</span><span class="p">()</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemFlag</span><span class="o">.</span><span class="n">ItemIsEditable</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="n">current_value</span><span class="p">))</span>
+            <span class="c1"># set where this table should be placed</span>
+            <span class="n">tab_layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tabWidget</span><span class="o">.</span><span class="n">widget</span><span class="p">(</span><span class="n">first_insert_position</span><span class="p">))</span>
+            <span class="n">tab_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">)</span>
+            <span class="c1">#self.table.setMinimumSize(1500, 400)            </span>
+            <span class="n">first_insert_position</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="c1"># make groupBox_in_paths available so it can only be used after the tabs are created (--&gt; can load in data)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">groupBox_in_paths</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="MainUI.loadPathMovies">
+<a class="viewcode-back" href="../../ctp.html#bin.ctp.MainUI.loadPathMovies">[docs]</a>
+    <span class="k">def</span> <span class="nf">loadPathMovies</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        set the parameter path to files in the importmovies job to the link provided here. Then, look into the </span>
+<span class="sd">        header of the movies provided and copy the respective information to the respective parameters too.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># save the input of the field as variable</span>
+        <span class="n">params_dict_movies</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;movie_files&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_path_movies</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;*.eer&quot;</span><span class="p">}</span>
+
+        <span class="c1"># reading the header doesn&#39;t work yet!</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        # look into the header and save all parameters as variables</span>
+<span class="sd">        try:</span>
+<span class="sd">            header_eers = read_header(params_dict_movies[&quot;movie_files&quot;])</span>
+
+<span class="sd">            index_import = jobs_in_scheme[jobs_in_scheme == &quot;importmovies&quot;].index</span>
+
+<span class="sd">            self.tabWidget.setCurrentIndex(index_import.item())</span>
+<span class="sd">            table_widget = self.tabWidget.currentWidget().findChild(QTableWidget)</span>
+<span class="sd">            nRows = table_widget.rowCount()</span>
+<span class="sd">            for row in range(nRows):</span>
+<span class="sd">                current_param = table_widget.item(row, 0).text()</span>
+<span class="sd">                # if the param we are looking for is equal to the param in the row in the table, change the</span>
+<span class="sd">                # value in that table to the value to the value of the dict (path or header information).</span>
+<span class="sd">                # Additionally, change the colour of the field to clarify that this has been automatically set.</span>
+<span class="sd">                if current_param == &quot;Pixel in A&quot;:</span>
+<span class="sd">                    pixel_size = table_widget.item(row, 1).text()</span>
+
+<span class="sd">                # exposure time and dose per ang in mdoc</span>
+
+<span class="sd">               exposure_times, dose_per_angstrom, eer_sections</span>
+<span class="sd">            # dose per frame from input if I want to change</span>
+<span class="sd">            eer_sections = calculate_dose_rate_per_pixel(pixel_size, header_eers)</span>
+
+<span class="sd">            params_dict_movies[&quot;&quot;] = eer_sections</span>
+<span class="sd">            print(header_eers)</span>
+<span class="sd">        except:</span>
+<span class="sd">            pass</span>
+<span class="sd">        # create a combined dict to iterate over</span>
+<span class="sd">        #params_dict_movies.update(header_params)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># go to the importmovies tab by getting the index where importmovies is</span>
+        <span class="c1"># if header also has parameters for other jobs, have to loop through here</span>
+        <span class="n">index_import</span> <span class="o">=</span> <span class="n">jobs_in_scheme</span><span class="p">[</span><span class="n">jobs_in_scheme</span> <span class="o">==</span> <span class="s2">&quot;importmovies&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">tabWidget</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="n">index_import</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+        <span class="c1"># find the  copy the text of the input field to the path to file, check for aliases of the field, and</span>
+        <span class="c1"># iterate over the parameters of the header to input them too</span>
+        <span class="n">table_widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tabWidget</span><span class="o">.</span><span class="n">currentWidget</span><span class="p">()</span><span class="o">.</span><span class="n">findChild</span><span class="p">(</span><span class="n">QTableWidget</span><span class="p">)</span>
+        <span class="n">nRows</span> <span class="o">=</span> <span class="n">table_widget</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">param</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">params_dict_movies</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># look for any aliases for the params and if one is present, set the param to this alias</span>
+            <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="n">jobs_in_scheme</span><span class="p">:</span>
+                <span class="n">original_param_name</span> <span class="o">=</span> <span class="n">get_alias</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">param</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">original_param_name</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">param</span> <span class="o">=</span> <span class="n">original_param_name</span>
+                <span class="c1"># go through the rows in the table and look for the parameter to be set  </span>
+                <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nRows</span><span class="p">):</span>
+                    <span class="n">current_param</span> <span class="o">=</span> <span class="n">table_widget</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+                    <span class="c1"># if the param we are looking for is equal to the param in the row in the table, change the</span>
+                    <span class="c1"># value in that table to the value to the value of the dict (path or header information).</span>
+                    <span class="c1"># Additionally, change the colour of the field to clarify that this has been automatically set.</span>
+                    <span class="k">if</span> <span class="n">current_param</span> <span class="o">==</span> <span class="n">param</span><span class="p">:</span>
+                        <span class="n">table_widget</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)))</span>
+                        <span class="n">table_widget</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">setBackground</span><span class="p">(</span><span class="n">QColor</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">))</span>
+                        <span class="c1"># could also change colour depending on origin of data --&gt; could identify</span>
+                        <span class="c1">#table_widget.item(row, 1).setBackground(QColor(0, 200, 0))</span>
+
+        <span class="c1"># go back to setup tab</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tabWidget</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="MainUI.loadPathMdoc">
+<a class="viewcode-back" href="../../ctp.html#bin.ctp.MainUI.loadPathMdoc">[docs]</a>
+    <span class="k">def</span> <span class="nf">loadPathMdoc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        set the parameter path to mdoc in the importmovies job to the link provided here. Then, look into the </span>
+<span class="sd">        mdoc file and copy the respective information to the respective parameters too.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># save the input of the field as variable</span>
+        <span class="n">params_dict_mdoc</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;mdoc_files&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_path_mdoc</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;*.mdoc&quot;</span><span class="p">}</span>
+        <span class="c1"># look into the mdoc file and save all parameters as variables</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">params_dict_mdoc</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">read_mdoc</span><span class="p">(</span><span class="n">params_dict_mdoc</span><span class="p">[</span><span class="s2">&quot;mdoc_files&quot;</span><span class="p">]))</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="c1"># go to the importmovies tab by getting the index where importmovies is</span>
+        <span class="c1"># if mdoc also has parameters for other jobs, have to loop through here</span>
+        <span class="k">for</span> <span class="n">current_tab</span> <span class="ow">in</span> <span class="n">jobs_in_scheme</span><span class="p">:</span>
+            <span class="n">index_import</span> <span class="o">=</span> <span class="n">jobs_in_scheme</span><span class="p">[</span><span class="n">jobs_in_scheme</span> <span class="o">==</span> <span class="n">current_tab</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tabWidget</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="n">index_import</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+            <span class="c1"># find the  copy the text of the input field to the path to file, check for aliases of the field, and</span>
+            <span class="c1"># iterate over the parameters of the header to input them too</span>
+            <span class="n">table_widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tabWidget</span><span class="o">.</span><span class="n">currentWidget</span><span class="p">()</span><span class="o">.</span><span class="n">findChild</span><span class="p">(</span><span class="n">QTableWidget</span><span class="p">)</span>
+            <span class="n">nRows</span> <span class="o">=</span> <span class="n">table_widget</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">param</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">params_dict_mdoc</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="c1"># look for any aliases for the params and if one is present, set the param to this alias</span>
+                <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="n">jobs_in_scheme</span><span class="p">:</span>
+                    <span class="n">original_param_name</span> <span class="o">=</span> <span class="n">get_alias</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">param</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">original_param_name</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">param</span> <span class="o">=</span> <span class="n">original_param_name</span>
+                    <span class="c1"># go through the rows in the table and look for the parameter to be set  </span>
+                    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nRows</span><span class="p">):</span>
+                        <span class="n">current_param</span> <span class="o">=</span> <span class="n">table_widget</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+                        <span class="c1"># if the param we are looking for is equal to the param in the row in the table, change the</span>
+                        <span class="c1"># value in that table to the value to the value of the dict (path or header information).</span>
+                        <span class="c1"># Additionally, change the colour of the field to clarify that this has been automatically set.</span>
+                        <span class="k">if</span> <span class="n">current_param</span> <span class="o">==</span> <span class="n">param</span><span class="p">:</span>
+                            <span class="n">table_widget</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)))</span>
+                            <span class="n">table_widget</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">setBackground</span><span class="p">(</span><span class="n">QColor</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">))</span>
+                            <span class="c1"># could also change colour depending on origin of data --&gt; could identify</span>
+                            <span class="c1">#table_widget.item(row, 1).setBackground(QColor(200, 0, 0))</span>
+
+        <span class="c1"># go back to setup tab</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tabWidget</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="MainUI.mdoc_use_movie_path">
+<a class="viewcode-back" href="../../ctp.html#bin.ctp.MainUI.mdoc_use_movie_path">[docs]</a>
+    <span class="k">def</span> <span class="nf">mdoc_use_movie_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line_path_mdoc</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">line_path_movies</span><span class="o">.</span><span class="n">text</span><span class="p">())</span></div>
+
+
+
+<div class="viewcode-block" id="MainUI.loadConfig">
+<a class="viewcode-back" href="../../ctp.html#bin.ctp.MainUI.loadConfig">[docs]</a>
+    <span class="k">def</span> <span class="nf">loadConfig</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        go through all parameters of all tabs and see whether any parameter is in the config_microscopes file</span>
+<span class="sd">        (= contains all parameters that are solely dependent on the setup) under the chosen setup. If a parameter</span>
+<span class="sd">        is found, its value is set to the value defined in the config_microscopes for this parameter.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">microscope</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropDown_config</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
+        <span class="c1"># only do something if a microscope is chosen</span>
+        <span class="k">if</span> <span class="n">microscope</span> <span class="o">!=</span> <span class="s2">&quot;Choose Microscope Set-Up&quot;</span><span class="p">:</span>
+            <span class="n">microscope_parameters</span> <span class="o">=</span> <span class="n">load_config</span><span class="p">(</span><span class="n">microscope</span><span class="p">)</span>
+            <span class="c1"># exclude the first tab (= set up)</span>
+            <span class="k">for</span> <span class="n">job_tab_index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">jobs_in_scheme</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="c1">#job_name = self.tabWidget.tabText(job_tab)</span>
+                <span class="c1"># go to the tabs based on their index</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tabWidget</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="n">job_tab_index</span><span class="p">)</span>
+                <span class="c1"># access the TableWidget in the currently open TabWidget</span>
+                <span class="n">table_widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tabWidget</span><span class="o">.</span><span class="n">currentWidget</span><span class="p">()</span><span class="o">.</span><span class="n">findChild</span><span class="p">(</span><span class="n">QTableWidget</span><span class="p">)</span>
+                <span class="n">nRows</span> <span class="o">=</span> <span class="n">table_widget</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()</span>
+                <span class="c1"># iterate through the table and access each row</span>
+                <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nRows</span><span class="p">):</span>
+                    <span class="c1"># set current_param to the parameter in the current row</span>
+                    <span class="n">current_param</span> <span class="o">=</span> <span class="n">table_widget</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+                    <span class="c1"># microscope_parameters is a list of dicts so have to access these dicts first.</span>
+                    <span class="k">for</span> <span class="n">dicts</span> <span class="ow">in</span> <span class="n">microscope_parameters</span><span class="p">:</span>
+                        <span class="c1"># iterate over the parameters and values of the config file. If the param is the same as the </span>
+                        <span class="c1"># current param, set the according value in the table to the value set in the config file.</span>
+                        <span class="k">for</span> <span class="n">param</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">dicts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                            <span class="k">if</span> <span class="n">param</span> <span class="o">==</span> <span class="n">current_param</span><span class="p">:</span>
+                                <span class="c1"># PyQt/QTableWidgetItem can only set str</span>
+                                <span class="n">table_widget</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)))</span> 
+                                <span class="n">table_widget</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">setBackground</span><span class="p">(</span><span class="n">QColor</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">))</span>
+            <span class="c1"># in the end, go back to the start tab from where the command was started</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tabWidget</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="MainUI.changeDf">
+<a class="viewcode-back" href="../../ctp.html#bin.ctp.MainUI.changeDf">[docs]</a>
+    <span class="k">def</span> <span class="nf">changeDf</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        go through all tabs that were created using the makeJobTabs function, select the table that is in that tab</span>
+<span class="sd">        and iterate through the columns and rows of that table, checking whether there is an alias (and reverting</span>
+<span class="sd">        it if there is) and then writing the value into the df for the job.star file at the same position as it </span>
+<span class="sd">        is in the table (table is created based on this df so it should always be the same position and name). </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># exclude the first tab (= set up)</span>
+        <span class="k">for</span> <span class="n">job_tab_index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">jobs_in_scheme</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="c1"># save the name of the job based on the index (tabs also created in order of the index --&gt; is the same)</span>
+            <span class="n">job</span> <span class="o">=</span> <span class="n">jobs_in_scheme</span><span class="p">[</span><span class="n">job_tab_index</span><span class="p">]</span>
+            <span class="c1">#job_name = self.tabWidget.tabText(job_tab)</span>
+            <span class="c1"># go to the tabs based on their index</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tabWidget</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="n">job_tab_index</span><span class="p">)</span>
+            <span class="c1"># access the TableWidget in the currently open TabWidget</span>
+            <span class="n">table_widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tabWidget</span><span class="o">.</span><span class="n">currentWidget</span><span class="p">()</span><span class="o">.</span><span class="n">findChild</span><span class="p">(</span><span class="n">QTableWidget</span><span class="p">)</span>
+
+            <span class="n">nRows</span> <span class="o">=</span> <span class="n">table_widget</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()</span>
+            <span class="n">nColumns</span> <span class="o">=</span> <span class="n">table_widget</span><span class="o">.</span><span class="n">columnCount</span><span class="p">()</span>
+            <span class="c1"># iterate through the table and access each row</span>
+            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nRows</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nColumns</span><span class="p">):</span>
+                    <span class="c1"># set the value to the text in the respective field (determined by row and col index)</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">table_widget</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+                    <span class="c1"># check whether there is an alias for a parameter name and if yes, change back to original name </span>
+                    <span class="k">if</span> <span class="n">col</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">original_param_name</span> <span class="o">=</span> <span class="n">get_alias_reverse</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">original_param_name</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+                            <span class="c1"># param_name = original_param_name</span>
+                            <span class="n">value</span> <span class="o">=</span> <span class="n">original_param_name</span>     
+                    <span class="c1"># insert value at the position defined by the index of the table</span>
+                    <span class="n">job_star_dict</span><span class="p">[</span><span class="n">job</span><span class="p">][</span><span class="s2">&quot;joboptions_values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+        <span class="c1"># in the end, go back to the start relion tab from where the command was started (range excludes last entry)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tabWidget</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">jobs_in_scheme</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="MainUI.writeStar">
+<a class="viewcode-back" href="../../ctp.html#bin.ctp.MainUI.writeStar">[docs]</a>
+    <span class="k">def</span> <span class="nf">writeStar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        write the star file with the coordinates given and with the values of job_star_dict.</span>
+<span class="sd">        so far works only if the directory doesn&#39;t exist yet.</span>
+<span class="sd">        can be made into a pop-up window later.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># set the location for the new project to the link set in the respective field</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path_to_new_project</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_path_new_project</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+
+        <span class="c1"># create the master_scheme dict (where all other jobs are in) at the position set</span>
+        <span class="n">path_scheme_star</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_to_new_project</span><span class="p">,</span> <span class="s2">&quot;Schemes/master_scheme/scheme.star&quot;</span><span class="p">)</span>
+        <span class="c1"># make a directory with this path and raise an error if such a directory already exists</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path_scheme_star</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">write_star</span><span class="p">(</span><span class="n">scheme_star_dict</span><span class="p">,</span> <span class="n">path_scheme_star</span><span class="p">)</span>
+
+        <span class="c1"># repeat for all jobs, creating a job.star file in these directories</span>
+        <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="n">jobs_in_scheme</span><span class="p">:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_to_new_project</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Schemes/master_scheme/</span><span class="si">{</span><span class="n">job</span><span class="si">}</span><span class="s2">/job.star&quot;</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">job_star</span> <span class="o">=</span> <span class="n">job_star_dict</span><span class="p">[</span><span class="n">job</span><span class="p">]</span>
+            <span class="n">write_star</span><span class="p">(</span><span class="n">job_star</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span></div>
+</div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+    <span class="n">ui</span> <span class="o">=</span> <span class="n">MainUI</span><span class="p">()</span>
+    <span class="n">ui</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Florian Beck.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
