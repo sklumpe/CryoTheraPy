@@ -1,23 +1,17 @@
 import sys
 import os
-import subprocess
-import pandas as pd
-import yaml
 from PyQt6.uic import loadUi
 from PyQt6.QtWidgets import QTableWidget, QTableWidgetItem, QVBoxLayout, QApplication, QMainWindow, QDialog, QComboBox, QTabWidget, QWidget
-from PyQt6.QtGui import QColor
 from PyQt6.QtCore import Qt
 
-"""
-script_path = os.path.abspath(__name__)
-script_dir = os.path.dirname(script_path)
-"""
+
 current_dir = os.path.dirname(os.path.abspath(__name__))
 # change the path to be until src
 root_dir = os.path.abspath(os.path.join(current_dir, '../'))
 sys.path.append(root_dir)
 
 #from lib.functions import get_value_from_tab
+from src.gui.gui_lib import change_values, update_df
 from src.read_write.read_write import scheme_star_dict, job_star_dict, jobs_in_scheme, get_alias, get_alias_reverse, load_config, read_mdoc, read_header, write_star
 
 class MainUI(QMainWindow):
@@ -135,32 +129,19 @@ class MainUI(QMainWindow):
         """
         # go to the importmovies tab by getting the index where importmovies is
         # if header also has parameters for other jobs, have to loop through here
-        index_import = jobs_in_scheme[jobs_in_scheme == "importmovies"].index  
-        self.tabWidget.setCurrentIndex(index_import.item())
-        # find the  copy the text of the input field to the path to file, check for aliases of the field, and
-        # iterate over the parameters of the header to input them too
-        table_widget = self.tabWidget.currentWidget().findChild(QTableWidget)
-        nRows = table_widget.rowCount()
-        for param, value in params_dict_movies.items():
-            # look for any aliases for the params and if one is present, set the param to this alias
-            for job in jobs_in_scheme:
-                original_param_name = get_alias(job, param)
-                if original_param_name != None:
-                    param = original_param_name
-                # go through the rows in the table and look for the parameter to be set  
-                for row in range(nRows):
-                    current_param = table_widget.item(row, 0).text()
-                    # if the param we are looking for is equal to the param in the row in the table, change the
-                    # value in that table to the value to the value of the dict (path or header information).
-                    # Additionally, change the colour of the field to clarify that this has been automatically set.
-                    if current_param == param:
-                        table_widget.setItem(row, 1, QTableWidgetItem(str(value)))
-                        table_widget.item(row, 1).setBackground(QColor(200, 200, 200))
-                        # could also change colour depending on origin of data --> could identify
-                        #table_widget.item(row, 1).setBackground(QColor(0, 200, 0))
-
+        for current_tab in jobs_in_scheme:
+            index_import = jobs_in_scheme[jobs_in_scheme == current_tab].index
+            self.tabWidget.setCurrentIndex(index_import.item())
+            # find the  copy the text of the input field to the path to file, check for aliases of the field, and
+            # iterate over the parameters of the header to input them too
+            table_widget = self.tabWidget.currentWidget().findChild(QTableWidget)
+            change_values(table_widget, params_dict_movies, jobs_in_scheme)
         # go back to setup tab
         self.tabWidget.setCurrentIndex(0)
+
+        
+    def mdoc_use_movie_path(self):
+        self.line_path_mdoc.setText(self.line_path_movies.text())
 
 
     def loadPathMdoc(self):
@@ -183,31 +164,9 @@ class MainUI(QMainWindow):
             # find the  copy the text of the input field to the path to file, check for aliases of the field, and
             # iterate over the parameters of the header to input them too
             table_widget = self.tabWidget.currentWidget().findChild(QTableWidget)
-            nRows = table_widget.rowCount()
-            for param, value in params_dict_mdoc.items():
-                # look for any aliases for the params and if one is present, set the param to this alias
-                for job in jobs_in_scheme:
-                    original_param_name = get_alias(job, param)
-                    if original_param_name != None:
-                        param = original_param_name
-                    # go through the rows in the table and look for the parameter to be set  
-                    for row in range(nRows):
-                        current_param = table_widget.item(row, 0).text()
-                        # if the param we are looking for is equal to the param in the row in the table, change the
-                        # value in that table to the value to the value of the dict (path or header information).
-                        # Additionally, change the colour of the field to clarify that this has been automatically set.
-                        if current_param == param:
-                            table_widget.setItem(row, 1, QTableWidgetItem(str(value)))
-                            table_widget.item(row, 1).setBackground(QColor(200, 200, 200))
-                            # could also change colour depending on origin of data --> could identify
-                            #table_widget.item(row, 1).setBackground(QColor(200, 0, 0))
-
+            change_values(table_widget, params_dict_mdoc, jobs_in_scheme)
         # go back to setup tab
         self.tabWidget.setCurrentIndex(0)
-
-
-    def mdoc_use_movie_path(self):
-        self.line_path_mdoc.setText(self.line_path_movies.text())
 
 
     def loadConfig(self):
@@ -219,29 +178,20 @@ class MainUI(QMainWindow):
         microscope = self.dropDown_config.currentText()
         # only do something if a microscope is chosen
         if microscope != "Choose Microscope Set-Up":
-            microscope_parameters = load_config(microscope)
+            microscope_parameters_list_of_dicts = load_config(microscope)
+            microscope_parameters = {}
+            for dicts in microscope_parameters_list_of_dicts:
+                microscope_parameters.update(dicts)
+
             # exclude the first tab (= set up)
             for job_tab_index in range(1, len(jobs_in_scheme) + 1):
-                #job_name = self.tabWidget.tabText(job_tab)
                 # go to the tabs based on their index
                 self.tabWidget.setCurrentIndex(job_tab_index)
                 # access the TableWidget in the currently open TabWidget
                 table_widget = self.tabWidget.currentWidget().findChild(QTableWidget)
-                nRows = table_widget.rowCount()
-                # iterate through the table and access each row
-                for row in range(nRows):
-                    # set current_param to the parameter in the current row
-                    current_param = table_widget.item(row, 0).text()
-                    # microscope_parameters is a list of dicts so have to access these dicts first.
-                    for dicts in microscope_parameters:
-                        # iterate over the parameters and values of the config file. If the param is the same as the 
-                        # current param, set the according value in the table to the value set in the config file.
-                        for param, value in dicts.items():
-                            if param == current_param:
-                                # PyQt/QTableWidgetItem can only set str
-                                table_widget.setItem(row, 1, QTableWidgetItem(str(value))) 
-                                table_widget.item(row, 1).setBackground(QColor(200, 200, 200))
-            # in the end, go back to the start tab from where the command was started
+                #change_values(table_widget, microscope_parameters, jobs_in_scheme)
+                change_values(table_widget, microscope_parameters, jobs_in_scheme)
+            # go back to setup tab
             self.tabWidget.setCurrentIndex(0)
 
 
@@ -261,23 +211,11 @@ class MainUI(QMainWindow):
             self.tabWidget.setCurrentIndex(job_tab_index)
             # access the TableWidget in the currently open TabWidget
             table_widget = self.tabWidget.currentWidget().findChild(QTableWidget)
-
+            
             nRows = table_widget.rowCount()
             nColumns = table_widget.columnCount()
             # iterate through the table and access each row
-            for row in range(nRows):
-                for col in range(nColumns):
-                    # set the value to the text in the respective field (determined by row and col index)
-                    value = table_widget.item(row, col).text()
-                    # check whether there is an alias for a parameter name and if yes, change back to original name 
-                    if col == 0:
-                        original_param_name = get_alias_reverse(job, value)
-                        if original_param_name != None:
-                            # param_name = original_param_name
-                            value = original_param_name     
-                    # insert value at the position defined by the index of the table
-                    job_star_dict[job]["joboptions_values"].iloc[row, col] = value
-
+            update_df(job_star_dict, table_widget, nRows, nColumns, job)
         # in the end, go back to the start relion tab from where the command was started (range excludes last entry)
         self.tabWidget.setCurrentIndex(len(jobs_in_scheme) + 1)
 

@@ -22,7 +22,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Unit Tests io" href="test_read_write.html" />
-    <link rel="prev" title="Application" href="ctp.html" /> 
+    <link rel="prev" title="Application Functions" href="gui_lib.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -50,7 +50,20 @@
 <li class="toctree-l1"><a class="reference internal" href="extdocs/tutorial/tutorial.html">Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="extdocs/intern/intern.html">Intern</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ctp.html">Application</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gui_lib.html">Application Functions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">io</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#src.read_write.read_write.get_alias"><code class="docutils literal notranslate"><span class="pre">get_alias()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#src.read_write.read_write.get_alias_reverse"><code class="docutils literal notranslate"><span class="pre">get_alias_reverse()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#src.read_write.read_write.load_config"><code class="docutils literal notranslate"><span class="pre">load_config()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#src.read_write.read_write.locate_val"><code class="docutils literal notranslate"><span class="pre">locate_val()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#src.read_write.read_write.read_config"><code class="docutils literal notranslate"><span class="pre">read_config()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#src.read_write.read_write.read_header"><code class="docutils literal notranslate"><span class="pre">read_header()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#src.read_write.read_write.read_mdoc"><code class="docutils literal notranslate"><span class="pre">read_mdoc()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#src.read_write.read_write.read_star"><code class="docutils literal notranslate"><span class="pre">read_star()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#src.read_write.read_write.update_job_star_dict"><code class="docutils literal notranslate"><span class="pre">update_job_star_dict()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#src.read_write.read_write.write_star"><code class="docutils literal notranslate"><span class="pre">write_star()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="test_read_write.html">Unit Tests io</a></li>
 </ul>
 
@@ -78,15 +91,223 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-src.read_write">
-<span id="io"></span><h1>io<a class="headerlink" href="#module-src.read_write" title="Link to this heading"></a></h1>
+  <section id="module-src.read_write.read_write">
+<span id="io"></span><h1>io<a class="headerlink" href="#module-src.read_write.read_write" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.read_write.read_write.get_alias">
+<span class="sig-prename descclassname"><span class="pre">src.read_write.read_write.</span></span><span class="sig-name descname"><span class="pre">get_alias</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_to_yaml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'../src/read_write/config_aliases.yaml'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/read_write/read_write.html#get_alias"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.read_write.read_write.get_alias" title="Link to this definition"></a></dt>
+<dd><p>some inputs used by Relion are not self-explanatory (eg. qsub_extra2) so a yaml list was created to change the
+respective name that is displayed while still keeping the original name for writing the data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>job</strong> (<em>str</em>) – job name the parameter is used for.</p></li>
+<li><p><strong>parameter</strong> (<em>str</em>) – parameter name.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>alias displayed instead of the parameter name.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>alias (str)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>job</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.read_write.read_write.get_alias_reverse">
+<span class="sig-prename descclassname"><span class="pre">src.read_write.read_write.</span></span><span class="sig-name descname"><span class="pre">get_alias_reverse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alias</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_to_yaml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'../src/read_write/config_aliases.yaml'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/read_write/read_write.html#get_alias_reverse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.read_write.read_write.get_alias_reverse" title="Link to this definition"></a></dt>
+<dd><p>reverse of the get alias function, i.e. returns the parameter name as used in the .star file when entering the
+alias. Kept seperate to keep reading and writing clearly separated to avoid errors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>job</strong> (<em>str</em>) – job name the parameter is used for.</p></li>
+<li><p><strong>alias</strong> (<em>str</em>) – alias displayed instead of the parameter name.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>parameter name as displayed in the job.star file.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>parameter (str)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>job</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.read_write.read_write.load_config">
+<span class="sig-prename descclassname"><span class="pre">src.read_write.read_write.</span></span><span class="sig-name descname"><span class="pre">load_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">microscope</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_to_yaml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'../config/config_microscopes.yaml'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/read_write/read_write.html#load_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.read_write.read_write.load_config" title="Link to this definition"></a></dt>
+<dd><p>reads the config_microscopes.yaml file, looks for the chosen microscope setup, and returns a list of dicts
+containing the parameters that are solely based on the setup.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>microscope</strong> (<em>str</em>) – the name of the microscope setup.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a list of dicts, with each dict containing one parameter name and the associated value.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>entry[“Parameters”] (list)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>when the input is “Titan Krios 4”, as it is when choosing this setup in the ui, the config_microscopes.yaml
+file will be opened and the list “microscopes” will be searched for a dict where the entry “Microscope” is
+“Titan Krios 4”. If this is found, the list saved under the key “Parameters” of the same dict, containing a
+dict for every parameter solely determined by the setup (key = parameter, value = associated value), will be returned.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.read_write.read_write.locate_val">
+<span class="sig-prename descclassname"><span class="pre">src.read_write.read_write.</span></span><span class="sig-name descname"><span class="pre">locate_val</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">job_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'joboptions_values'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_variable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rlnJobOptionVariable'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rlnJobOptionValue'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/read_write/read_write.html#locate_val"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.read_write.read_write.locate_val" title="Link to this definition"></a></dt>
+<dd><p>locates the value defined of the dict defined in the job_star_dict dictionary so it can be displayed and edited.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>job_name</strong> (<em>str</em>) – job name as str as it’s stated in the job_star_dict (“importmovies”, “motioncorr”, “ctffind”, “aligntilts”, “reconstruction”).</p></li>
+<li><p><strong>var</strong> (<em>str</em>) – name of variable/parameter that should be changed (parameters as defined in the job.star files).</p></li>
+<li><p><strong>job_dict</strong> (<em>str</em>) – dataframe that should be accessed inside the job defined in job_name (standard input is the df containing the parameters).</p></li>
+<li><p><strong>column_variable</strong> (<em>str</em>) – column in the dataframe containing the parameters (standard input is the correct name).</p></li>
+<li><p><strong>column_value</strong> (<em>str</em>) – column in the dataframe containing the values assigned to each parameter (standard input is the correct name).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>value that is currently assigned to the defined parameter of the defined job.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.read_write.read_write.read_config">
+<span class="sig-prename descclassname"><span class="pre">src.read_write.read_write.</span></span><span class="sig-name descname"><span class="pre">read_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/read_write/read_write.html#read_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.read_write.read_write.read_config" title="Link to this definition"></a></dt>
+<dd><p>reads a configuration file in yaml format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – name of the .yaml file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>dictioanry with paramName and data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.read_write.read_write.read_header">
+<span class="sig-prename descclassname"><span class="pre">src.read_write.read_write.</span></span><span class="sig-name descname"><span class="pre">read_header</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_to_frames</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/read_write/read_write.html#read_header"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.read_write.read_write.read_header" title="Link to this definition"></a></dt>
+<dd><p>reads header of a file to fetch the nr of eer’s to calculate the optimal split using the calculate_dose_rate_per_pixel function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path_to_frames</strong> (<em>str</em>) – path to the respective frames.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>best possible eer split per frame as value so it can be added to the dict when transferring</dt><dd><p>information from the file path to the input data.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>eer_split (dict)</p>
+</dd>
+</dl>
+<p>Example:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.read_write.read_write.read_mdoc">
+<span class="sig-prename descclassname"><span class="pre">src.read_write.read_write.</span></span><span class="sig-name descname"><span class="pre">read_mdoc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_to_mdoc_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_to_yaml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'../src/read_write/config_reading_meta.yaml'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/read_write/read_write.html#read_mdoc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.read_write.read_write.read_mdoc" title="Link to this definition"></a></dt>
+<dd><p>reads mdoc file and fetches the relevant parameters to automatically set the respective values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path_to_mdoc</strong> (<em>str</em>) – path to the directory containing the mdoc files.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>values set in the config_reading_meta.yaml file for the respective meta-data type.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>return_mdoc_data (dict)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>input = path to mdoc file
+output = returns a dict with the respective “x/z dimension”, “Pixel size in A”, and “Voltage of Microscope”
+(names must be set in the config_reading_meta.yaml file and be the same as in the config_aliases.yaml
+file). This can subsequently be used to update the respective fields in the table.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.read_write.read_write.read_star">
+<span class="sig-prename descclassname"><span class="pre">src.read_write.read_write.</span></span><span class="sig-name descname"><span class="pre">read_star</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scheme_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/read_write/read_write.html#read_star"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.read_write.read_write.read_star" title="Link to this definition"></a></dt>
+<dd><p>reads a .star file and turns it into a pd df.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>scheme_name</strong> (<em>str</em>) – path to a star file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>dataframe containing the information of the star file at the defined location.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>df</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.read_write.read_write.update_job_star_dict">
+<span class="sig-prename descclassname"><span class="pre">src.read_write.read_write.</span></span><span class="sig-name descname"><span class="pre">update_job_star_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/read_write/read_write.html#update_job_star_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.read_write.read_write.update_job_star_dict" title="Link to this definition"></a></dt>
+<dd><p>updates the job_star_dict dictionary (containing all .star files of the repective jobs) with the values provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>job_name</strong> (<em>str</em>) – job name as str as it’s stated in the job_star_dict (“importmovies”, “motioncorr”, “ctffind”, “aligntilts”, “reconstruction”).</p></li>
+<li><p><strong>param</strong> (<em>str</em>) – parameter that should be updated as str as it’s called in the respective job.star file.</p></li>
+<li><p><strong>value</strong> (<em>str</em>) – new value that should be placed in the job.star file for the set parameter.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>job_star_dict with updated value for respective parameter.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.read_write.read_write.write_star">
+<span class="sig-prename descclassname"><span class="pre">src.read_write.read_write.</span></span><span class="sig-name descname"><span class="pre">write_star</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scheme_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_and_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/read_write/read_write.html#write_star"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.read_write.read_write.write_star" title="Link to this definition"></a></dt>
+<dd><p>reads a pd df and turns it into a .star file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scheme_name</strong> (<em>df</em>) – dataframe with the information of the star file.</p></li>
+<li><p><strong>path_and_name</strong> (<em>str</em>) – path (including file name) to where the new file should be saved.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>star file at the given path.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>.star file</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="ctp.html" class="btn btn-neutral float-left" title="Application" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="gui_lib.html" class="btn btn-neutral float-left" title="Application Functions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="test_read_write.html" class="btn btn-neutral float-right" title="Unit Tests io" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

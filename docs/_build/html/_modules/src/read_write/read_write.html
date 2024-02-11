@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>src.read_write.read_write &mdash; cryotheraPy 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=2709fde1"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            cryotheraPy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../extdocs/setup/setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../extdocs/tutorial/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../extdocs/intern/intern.html">Intern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ctp.html">Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gui_lib.html">Application Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../read_write.html">io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../test_read_write.html">Unit Tests io</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">cryotheraPy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">src.read_write.read_write</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for src.read_write.read_write</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">yaml</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">starfile</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+
+
+<span class="c1">#from lib.functions import calculate_dose_rate_per_pixel, extract_eer_from_header</span>
+
+<div class="viewcode-block" id="read_config">
+<a class="viewcode-back" href="../../../read_write.html#src.read_write.read_write.read_config">[docs]</a>
+<span class="k">def</span> <span class="nf">read_config</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  reads a configuration file in yaml format.</span>
+<span class="sd">  </span>
+<span class="sd">  Args:</span>
+<span class="sd">    filename (str): name of the .yaml file.</span>
+<span class="sd">  </span>
+<span class="sd">  Returns: </span>
+<span class="sd">    dict: dictioanry with paramName and data.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">Loader</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">FullLoader</span><span class="p">)</span>
+    
+  <span class="k">return</span> <span class="n">data</span>    </div>
+
+
+
+<div class="viewcode-block" id="read_star">
+<a class="viewcode-back" href="../../../read_write.html#src.read_write.read_write.read_star">[docs]</a>
+<span class="k">def</span> <span class="nf">read_star</span><span class="p">(</span><span class="n">scheme_name</span><span class="p">):</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  reads a .star file and turns it into a pd df.</span>
+
+<span class="sd">  Args:</span>
+<span class="sd">    scheme_name (str): path to a star file.</span>
+
+<span class="sd">  Returns:</span>
+<span class="sd">    df: dataframe containing the information of the star file at the defined location.</span>
+
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">data_as_df</span> <span class="o">=</span> <span class="n">starfile</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">scheme_name</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">data_as_df</span></div>
+
+
+
+<span class="n">path_to_scheme</span> <span class="o">=</span> <span class="s2">&quot;/fs/gpfs41/lv01/fileset02/pool/pool-plitzko3/Michael/00-Other/CryoTheraPy/data/master_scheme_bck&quot;</span>
+<span class="n">scheme_star_dict</span> <span class="o">=</span> <span class="n">read_star</span><span class="p">(</span><span class="n">path_to_scheme</span> <span class="o">+</span> <span class="s2">&quot;/scheme.star&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># create a pd.series from the edges in the scheme.star (= the order of jobs that are executed), removing the</span>
+<span class="c1"># first and the last as they are usually EXIT_maxtime and WAIT, i.e. not jobs</span>
+<span class="n">jobs_in_scheme</span> <span class="o">=</span> <span class="n">scheme_star_dict</span><span class="p">[</span><span class="s2">&quot;scheme_edges&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rlnSchemeEdgeOutputNodeName</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+
+<span class="n">job_star_dict</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">job</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">read_star</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path_to_scheme</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">job</span><span class="si">}</span><span class="s2">/job.star&quot;</span><span class="p">))</span>
+  <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="n">jobs_in_scheme</span>
+<span class="p">}</span>
+<span class="c1">#job_star_dict[&quot;scheme_star&quot;] = scheme_star_dict</span>
+
+
+<div class="viewcode-block" id="get_alias">
+<a class="viewcode-back" href="../../../read_write.html#src.read_write.read_write.get_alias">[docs]</a>
+<span class="k">def</span> <span class="nf">get_alias</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">path_to_yaml</span> <span class="o">=</span> <span class="s2">&quot;../src/read_write/config_aliases.yaml&quot;</span><span class="p">):</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  some inputs used by Relion are not self-explanatory (eg. qsub_extra2) so a yaml list was created to change the </span>
+<span class="sd">  respective name that is displayed while still keeping the original name for writing the data.</span>
+
+<span class="sd">  Args:</span>
+<span class="sd">    job (str): job name the parameter is used for.</span>
+<span class="sd">    parameter (str): parameter name.</span>
+
+<span class="sd">  Returns:</span>
+<span class="sd">    alias (str): alias displayed instead of the parameter name.</span>
+
+<span class="sd">  Example:</span>
+<span class="sd">    job</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="c1"># path works for any module in the lib/app/ directory</span>
+  <span class="c1"># &quot;r&quot; means that the file should be opened with reading permissions</span>
+  <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_to_yaml</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="n">yaml_data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+   <span class="c1"># go through entries in the aliases dict</span>
+  <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">yaml_data</span><span class="p">[</span><span class="s2">&quot;aliases&quot;</span><span class="p">]:</span>
+    <span class="c1"># if the entry Job of one of the lists equals the given job or all and the entry Parameter contains the given </span>
+    <span class="c1"># parameter name, return the entry Alias</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s2">&quot;Job&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">job</span> <span class="ow">or</span> <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;Job&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;Parameter&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">parameter</span><span class="p">:</span>
+      <span class="k">return</span> <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;Alias&quot;</span><span class="p">]</span>
+  <span class="k">return</span> <span class="kc">None</span></div>
+
+
+
+<span class="c1"># do the same the other way around to get the parameter name from the alias again</span>
+<div class="viewcode-block" id="get_alias_reverse">
+<a class="viewcode-back" href="../../../read_write.html#src.read_write.read_write.get_alias_reverse">[docs]</a>
+<span class="k">def</span> <span class="nf">get_alias_reverse</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">alias</span><span class="p">,</span> <span class="n">path_to_yaml</span> <span class="o">=</span> <span class="s2">&quot;../src/read_write/config_aliases.yaml&quot;</span><span class="p">):</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  reverse of the get alias function, i.e. returns the parameter name as used in the .star file when entering the </span>
+<span class="sd">  alias. Kept seperate to keep reading and writing clearly separated to avoid errors. </span>
+
+<span class="sd">  Args:</span>
+<span class="sd">    job (str): job name the parameter is used for.</span>
+<span class="sd">    alias (str): alias displayed instead of the parameter name.</span>
+
+<span class="sd">  Returns:</span>
+<span class="sd">    parameter (str): parameter name as displayed in the job.star file.</span>
+
+<span class="sd">  Example:</span>
+<span class="sd">    job</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="c1"># path works for any module in the lib/app/ directory</span>
+  <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_to_yaml</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="n">yaml_data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+  <span class="c1"># go through entries in the aliases dict</span>
+  <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">yaml_data</span><span class="p">[</span><span class="s2">&quot;aliases&quot;</span><span class="p">]:</span>
+    <span class="c1"># if the entry Job of one of the lists equals the given job or all and the entry Alias contains the given </span>
+    <span class="c1"># parameter name, return the entry Parameter</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s2">&quot;Job&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">job</span> <span class="ow">or</span> <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;Job&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;Alias&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">alias</span><span class="p">:</span>
+      <span class="k">return</span> <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;Parameter&quot;</span><span class="p">]</span>
+  <span class="k">return</span> <span class="kc">None</span></div>
+
+
+
+<div class="viewcode-block" id="read_header">
+<a class="viewcode-back" href="../../../read_write.html#src.read_write.read_write.read_header">[docs]</a>
+<span class="k">def</span> <span class="nf">read_header</span><span class="p">(</span><span class="n">path_to_frames</span><span class="p">):</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  reads header of a file to fetch the nr of eer&#39;s to calculate the optimal split using the calculate_dose_rate_per_pixel function.</span>
+
+<span class="sd">  Args:</span>
+<span class="sd">    path_to_frames (str): path to the respective frames.</span>
+
+<span class="sd">  Returns:</span>
+<span class="sd">    eer_split (dict): best possible eer split per frame as value so it can be added to the dict when transferring</span>
+<span class="sd">                      information from the file path to the input data.</span>
+<span class="sd">  Example:</span>
+
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="c1"># so it only fetches the first instance of *.eer, not all of them</span>
+  <span class="n">eer_file</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">path_to_frames</span><span class="si">}</span><span class="s2">/*.eer&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="n">command</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;header </span><span class="si">{</span><span class="n">eer_file</span><span class="si">}</span><span class="s2">&quot;</span>
+  <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+  <span class="n">header</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">)</span></div>
+
+  <span class="c1">#eers = extract_eer_from_header(header)</span>
+  <span class="c1">#print(eers)</span>
+  <span class="c1">#eer_split = calculate_dose_rate_per_pixel(eers)</span>
+  <span class="c1">#header = frame.read()</span>
+  <span class="c1">#print(result.stdout)</span>
+  
+
+<div class="viewcode-block" id="read_mdoc">
+<a class="viewcode-back" href="../../../read_write.html#src.read_write.read_write.read_mdoc">[docs]</a>
+<span class="k">def</span> <span class="nf">read_mdoc</span><span class="p">(</span><span class="n">path_to_mdoc_dir</span><span class="p">,</span> <span class="n">path_to_yaml</span> <span class="o">=</span> <span class="s2">&quot;../src/read_write/config_reading_meta.yaml&quot;</span><span class="p">):</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  reads mdoc file and fetches the relevant parameters to automatically set the respective values.</span>
+
+<span class="sd">  Args:</span>
+<span class="sd">    path_to_mdoc (str): path to the directory containing the mdoc files.</span>
+<span class="sd">  </span>
+<span class="sd">  Returns:</span>
+<span class="sd">    return_mdoc_data (dict): values set in the config_reading_meta.yaml file for the respective meta-data type.</span>
+
+<span class="sd">  Example:</span>
+<span class="sd">    input = path to mdoc file</span>
+<span class="sd">    output = returns a dict with the respective &quot;x/z dimension&quot;, &quot;Pixel size in A&quot;, and &quot;Voltage of Microscope&quot;</span>
+<span class="sd">    (names must be set in the config_reading_meta.yaml file and be the same as in the config_aliases.yaml </span>
+<span class="sd">    file). This can subsequently be used to update the respective fields in the table.  </span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">return_mdoc_data</span> <span class="o">=</span> <span class="p">{}</span>
+  <span class="c1"># using the dir, access the first mdoc file in the folder</span>
+  <span class="n">path_to_mdoc</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">path_to_mdoc_dir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="c1"># get respective mdoc file</span>
+  <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_to_mdoc</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">mdoc_file</span><span class="p">:</span>
+    <span class="c1"># store the lines in that mdoc file in a list to iterate over</span>
+    <span class="n">mdoc_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">mdoc_file</span> <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span>
+    <span class="c1"># get entries to look for in the mdoc file (based on the config_reading_meta.yaml file)</span>
+    <span class="c1"># when only accessing the config_reading_meta.yaml file here, it&#39;s only accessed once a valid file-path is </span>
+    <span class="c1"># entered, not everytime there is a change to the QLine field</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_to_yaml</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">yaml_file</span><span class="p">:</span>
+      <span class="n">yaml_data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">yaml_file</span><span class="p">)</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;mdoc file found&quot;</span><span class="p">)</span>
+      <span class="c1"># access the respective list in the config_reading_meta.yaml file (parameter to look for in mdoc and respective alias)</span>
+      <span class="n">yaml_mdoc</span> <span class="o">=</span> <span class="n">yaml_data</span><span class="p">[</span><span class="s2">&quot;meta_data&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;mdoc&quot;</span><span class="p">,</span> <span class="p">[])</span>
+      <span class="c1"># access the list of dicts</span>
+      <span class="k">for</span> <span class="n">yaml_entry</span> <span class="ow">in</span> <span class="n">yaml_mdoc</span><span class="p">:</span>
+        <span class="c1"># iterate through the meta data yaml to get the parameters which should be found (and the associated alias as key)</span>
+        <span class="k">for</span> <span class="n">yaml_param_name</span><span class="p">,</span> <span class="n">yaml_alias</span> <span class="ow">in</span> <span class="n">yaml_entry</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+          <span class="c1"># iterate through the lines in the mdoc file until the respective entry is found</span>
+          <span class="k">for</span> <span class="n">mdoc_current_line</span> <span class="ow">in</span> <span class="n">mdoc_list</span><span class="p">:</span>
+            <span class="c1"># remove spaces ect that might be in front/after the parameter name</span>
+            <span class="n">mdoc_current_line</span> <span class="o">=</span> <span class="n">mdoc_current_line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="c1"># Skip empty lines</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">mdoc_current_line</span><span class="p">:</span>
+              <span class="k">continue</span>
+            <span class="k">else</span><span class="p">:</span>
+              <span class="c1"># data in the mdoc file is in this format: &quot;PixelSpacing = 2.93&quot; --&gt; separate into key and value</span>
+              <span class="n">mdoc_key_value</span> <span class="o">=</span> <span class="n">mdoc_current_line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)</span>
+              <span class="n">mdoc_current_line_key</span> <span class="o">=</span> <span class="n">mdoc_key_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+              <span class="n">mdoc_current_line_value</span> <span class="o">=</span> <span class="n">mdoc_key_value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+              <span class="c1"># if the current line holds the information we want as specified in the yaml), add it to the data dict</span>
+              <span class="c1"># (keys = alias; value = value in meta data)</span>
+              <span class="k">if</span> <span class="n">yaml_param_name</span> <span class="o">==</span> <span class="n">mdoc_current_line_key</span><span class="p">:</span>
+                <span class="c1"># ImageSize contains both xdim and ydim in the mdoc file, have to split it up</span>
+                <span class="k">if</span> <span class="n">mdoc_current_line_key</span> <span class="o">==</span> <span class="s2">&quot;ImageSize&quot;</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">mdoc_current_line_value</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                  <span class="n">xdim</span><span class="p">,</span> <span class="n">ydim</span> <span class="o">=</span> <span class="n">mdoc_current_line_value</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+                  <span class="c1"># Add entries for both x and y dimensions</span>
+                  <span class="n">yaml_alias</span> <span class="o">=</span> <span class="s2">&quot;x dimensions&quot;</span>
+                  <span class="n">return_mdoc_data</span><span class="p">[</span><span class="n">yaml_alias</span><span class="p">]</span> <span class="o">=</span> <span class="n">xdim</span>
+                  <span class="n">yaml_alias</span> <span class="o">=</span> <span class="s2">&quot;y dimensions&quot;</span>
+                  <span class="n">return_mdoc_data</span><span class="p">[</span><span class="n">yaml_alias</span><span class="p">]</span> <span class="o">=</span> <span class="n">ydim</span>
+                <span class="k">else</span><span class="p">:</span>      
+                  <span class="n">return_mdoc_data</span><span class="p">[</span><span class="n">yaml_alias</span><span class="p">]</span> <span class="o">=</span> <span class="n">mdoc_current_line_value</span>
+  <span class="k">return</span><span class="p">(</span><span class="n">return_mdoc_data</span><span class="p">)</span> </div>
+
+
+
+<div class="viewcode-block" id="load_config">
+<a class="viewcode-back" href="../../../read_write.html#src.read_write.read_write.load_config">[docs]</a>
+<span class="k">def</span> <span class="nf">load_config</span><span class="p">(</span><span class="n">microscope</span><span class="p">,</span> <span class="n">path_to_yaml</span> <span class="o">=</span> <span class="s2">&quot;../config/config_microscopes.yaml&quot;</span><span class="p">):</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  reads the config_microscopes.yaml file, looks for the chosen microscope setup, and returns a list of dicts</span>
+<span class="sd">  containing the parameters that are solely based on the setup.</span>
+
+<span class="sd">  Args:</span>
+<span class="sd">    microscope (str): the name of the microscope setup.</span>
+
+<span class="sd">  Returns:</span>
+<span class="sd">    entry[&quot;Parameters&quot;] (list): a list of dicts, with each dict containing one parameter name and the associated value.</span>
+
+<span class="sd">  Example:</span>
+<span class="sd">    when the input is &quot;Titan Krios 4&quot;, as it is when choosing this setup in the ui, the config_microscopes.yaml</span>
+<span class="sd">    file will be opened and the list &quot;microscopes&quot; will be searched for a dict where the entry &quot;Microscope&quot; is </span>
+<span class="sd">    &quot;Titan Krios 4&quot;. If this is found, the list saved under the key &quot;Parameters&quot; of the same dict, containing a </span>
+<span class="sd">    dict for every parameter solely determined by the setup (key = parameter, value = associated value), will be returned.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_to_yaml</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="n">yaml_data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+  <span class="c1"># go through entries in the microscopes dict</span>
+  <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">yaml_data</span><span class="p">[</span><span class="s2">&quot;microscopes&quot;</span><span class="p">]:</span>
+    <span class="c1"># look for an entry that equals the selected microscope</span>
+    <span class="k">if</span> <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;Microscope&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">microscope</span><span class="p">:</span>
+      <span class="c1"># return the list (containing a dict for each parameter) at the entry Parameters</span>
+      <span class="k">return</span> <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;Parameters&quot;</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="locate_val">
+<a class="viewcode-back" href="../../../read_write.html#src.read_write.read_write.locate_val">[docs]</a>
+<span class="k">def</span> <span class="nf">locate_val</span><span class="p">(</span><span class="n">job_name</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">var</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">job_dict</span> <span class="o">=</span> <span class="s2">&quot;joboptions_values&quot;</span><span class="p">,</span> <span class="n">column_variable</span> <span class="o">=</span> <span class="s2">&quot;rlnJobOptionVariable&quot;</span><span class="p">,</span> <span class="n">column_value</span> <span class="o">=</span> <span class="s2">&quot;rlnJobOptionValue&quot;</span><span class="p">):</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  locates the value defined of the dict defined in the job_star_dict dictionary so it can be displayed and edited.</span>
+
+<span class="sd">  Args:</span>
+<span class="sd">    job_name (str): job name as str as it&#39;s stated in the job_star_dict (&quot;importmovies&quot;, &quot;motioncorr&quot;, &quot;ctffind&quot;, &quot;aligntilts&quot;, &quot;reconstruction&quot;).</span>
+<span class="sd">    var (str): name of variable/parameter that should be changed (parameters as defined in the job.star files).</span>
+<span class="sd">    job_dict (str): dataframe that should be accessed inside the job defined in job_name (standard input is the df containing the parameters).</span>
+<span class="sd">    column_variable (str): column in the dataframe containing the parameters (standard input is the correct name).</span>
+<span class="sd">    column_value (str): column in the dataframe containing the values assigned to each parameter (standard input is the correct name).</span>
+
+<span class="sd">  Returns:</span>
+<span class="sd">    str: value that is currently assigned to the defined parameter of the defined job.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">val</span> <span class="o">=</span> <span class="n">job_star_dict</span><span class="p">[</span><span class="n">job_name</span><span class="p">][</span><span class="n">job_dict</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">job_star_dict</span><span class="p">[</span><span class="n">job_name</span><span class="p">][</span><span class="n">job_dict</span><span class="p">][</span><span class="n">column_variable</span><span class="p">]</span> <span class="o">==</span> <span class="n">var</span><span class="p">,</span> <span class="n">column_value</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="k">return</span> <span class="n">val</span></div>
+
+
+
+<div class="viewcode-block" id="update_job_star_dict">
+<a class="viewcode-back" href="../../../read_write.html#src.read_write.read_write.update_job_star_dict">[docs]</a>
+<span class="k">def</span> <span class="nf">update_job_star_dict</span><span class="p">(</span><span class="n">job_name</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  updates the job_star_dict dictionary (containing all .star files of the repective jobs) with the values provided.</span>
+
+<span class="sd">  Args:</span>
+<span class="sd">    job_name (str): job name as str as it&#39;s stated in the job_star_dict (&quot;importmovies&quot;, &quot;motioncorr&quot;, &quot;ctffind&quot;, &quot;aligntilts&quot;, &quot;reconstruction&quot;).</span>
+<span class="sd">    param (str): parameter that should be updated as str as it&#39;s called in the respective job.star file.</span>
+<span class="sd">    value (str): new value that should be placed in the job.star file for the set parameter.</span>
+
+<span class="sd">  Returns:</span>
+<span class="sd">    job_star_dict with updated value for respective parameter.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">index</span> <span class="o">=</span> <span class="n">job_star_dict</span><span class="p">[</span><span class="n">job_name</span><span class="p">][</span><span class="s2">&quot;joboptions_values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">job_star_dict</span><span class="p">[</span><span class="n">job_name</span><span class="p">][</span><span class="s2">&quot;joboptions_values&quot;</span><span class="p">][</span><span class="s2">&quot;rlnJobOptionVariable&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">param</span><span class="p">]</span>
+  <span class="n">job_star_dict</span><span class="p">[</span><span class="n">job_name</span><span class="p">][</span><span class="s2">&quot;joboptions_values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+  <span class="k">return</span> <span class="n">job_star_dict</span></div>
+
+
+
+<div class="viewcode-block" id="write_star">
+<a class="viewcode-back" href="../../../read_write.html#src.read_write.read_write.write_star">[docs]</a>
+<span class="k">def</span> <span class="nf">write_star</span><span class="p">(</span><span class="n">scheme_name</span><span class="p">,</span> <span class="n">path_and_name</span><span class="p">):</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  reads a pd df and turns it into a .star file.</span>
+
+<span class="sd">  Args:</span>
+<span class="sd">    scheme_name (df): dataframe with the information of the star file.</span>
+<span class="sd">    path_and_name (str): path (including file name) to where the new file should be saved.</span>
+
+<span class="sd">  Returns:</span>
+<span class="sd">    .star file: star file at the given path.</span>
+
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">df_as_star</span> <span class="o">=</span> <span class="n">starfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">scheme_name</span><span class="p">,</span> <span class="n">path_and_name</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">df_as_star</span></div>
+
+
+
+<span class="c1"># create Sphinx documentation: sphinx-build -M html docs/ docs/</span>
+<span class="c1"># remove everything in the _build: make clean</span>
+<span class="c1"># update Sphinx documentation: make html</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Florian Beck.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

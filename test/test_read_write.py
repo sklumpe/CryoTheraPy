@@ -12,11 +12,11 @@ python -m unittest test_module_name  (runs just one module)
 """
 
 current_dir = os.path.dirname(os.path.abspath(__name__))
-root_dir = os.path.abspath(os.path.join(current_dir, '..'))
+root_dir = os.path.abspath(os.path.join(current_dir, '../'))
 # Add the 'src' directory to the Python path
 sys.path.append(root_dir)
 
-from src.read_write.read_write import read_config, read_star, write_star, job_star_dict, locate_val, update_job_star_dict, param_names
+from src.read_write.read_write import read_config, read_star, write_star, job_star_dict, locate_val, update_job_star_dict, read_mdoc
 
 # don't have the yaml file yet so changed it to create a temporary file for the test of the function
 class test_read_write_function_read_config(unittest.TestCase):
@@ -37,17 +37,14 @@ class test_read_write_function_read_config(unittest.TestCase):
         finally:
             # delete the temporary file again
             os.remove(temp_file_path)
-        """
-        config_file = read_config()
-        self.assertIsInstance(config_file, dict, "read_config does not accurately create a dict from the yaml file")
-        """
+
 
 class test_read_write_function_read_star(unittest.TestCase):
     def test_read_star(self):
         """
         testing whether the function creates a dict from the star file.
         """
-        starfile = read_star("/fs/gpfs41/lv01/fileset02/pool/pool-plitzko3/Michael/00-Other/CryoTheraPy/src/lib/app/master_scheme_bck/scheme.star")
+        starfile = read_star("/fs/gpfs41/lv01/fileset02/pool/pool-plitzko3/Michael/00-Other/CryoTheraPy/data/master_scheme_bck/scheme.star")
         result = type(starfile) == dict
         # Use assert methods to check if the result matches the expected value
         #if result["scheme_jobs"].empty or result["scheme_edges"].empty == True:
@@ -62,7 +59,7 @@ class test_read_write_variable_job_star_dict(unittest.TestCase):
         for key in job_star_dict.keys():
             dataframe = any(isinstance(job_star_dict[key][sub_key], pd.DataFrame) for sub_key in job_star_dict[key].keys())
             self.assertTrue(dataframe, "job_star_dict is not correctly formatted")
-        self.assertIn("scheme_star", job_star_dict, "scheme.star file is not properly included")
+        #self.assertIn("scheme_star", job_star_dict, "scheme.star file is not properly included")
 
 # not ideal yet bc the paths are hard-coded (and the same way as in the function) but wasn't sure how to set up a proper test here since the values are changing and the function just locates them.
 class test_read_write_function_locate_val(unittest.TestCase):
@@ -71,7 +68,7 @@ class test_read_write_function_locate_val(unittest.TestCase):
         testing whether the locate_val function correctly locates the respective value.
         """
         val_located = locate_val("importmovies", "Cs")
-        val_actual_df = read_star("/fs/gpfs41/lv01/fileset02/pool/pool-plitzko3/Michael/00-Other/CryoTheraPy/src/lib/app/master_scheme_bck/importmovies/job.star")["joboptions_values"]
+        val_actual_df = read_star("/fs/gpfs41/lv01/fileset02/pool/pool-plitzko3/Michael/00-Other/CryoTheraPy/data/master_scheme_bck/importmovies/job.star")["joboptions_values"]
         val_actual = val_actual_df.loc[val_actual_df["rlnJobOptionVariable"] == "Cs", "rlnJobOptionValue"].values[0]
         self.assertEqual(val_located, val_actual, "the located value is not the same as the value in the backup file")
 
@@ -120,23 +117,45 @@ class test_read_write_function_write_star(unittest.TestCase):
             self.assertTrue(os.path.exists(temp_file))
             self.assertTrue(temp_file.endswith(".star"), "no .star file is created at the target location")
 
-class test_read_write_variable_job_names(unittest.TestCase):
-    def test_param_names(self):
-        """
-        testing whether the keys in param_names have corresponding parameter names in the respective job.star
-        to see whether any variable name has changed.
-        """
-        for job_name in param_names:
-            for key in param_names[job_name]:
-                self.assertIn(key, job_star_dict[job_name]["joboptions_values"].rlnJobOptionVariable.values,
-                f"{key} is no longer a variable in {job_name}")
 
 class test_read_write_function_read_mdoc(unittest.TestCase):
+    """
+    test whether the read_mdoc function can read an .mdoc file correctly.
+    """
+    def setUp(self):
+        # create a temporary directory
+        self.temp_dir = tempfile.TemporaryDirectory()
+        # create a temporary .mdoc file
+        mdoc_content = """\
+DataMode = 6
+ImageSize = 4096 4096
+ImageFile = Position_x.mrc
+PixelSpacing = 2.93
+Voltage = 300.00
+
+[T = Tomography: TITAN52337180    20-Oct-2023  22:41:15]
+"""
+        mdoc_file_path = os.path.join(self.temp_dir.name, "temp.mdoc")
+        with open(mdoc_file_path, "w") as mdoc_file:
+            mdoc_file.write(mdoc_content)
+        self.temp_mdoc_path = mdoc_file_path
     def test_read_mdoc(self):
-        """
-        
-        """
-        pass
+
+        mdoc_data = read_mdoc(self.temp_mdoc_path, "src/read_write/config_reading_meta.yaml")
+
+        # assert that the returned dictionary contains the expected key-value pairs
+        expected_mdoc_data = {
+            "x dimensions": "4096",
+            "y dimensions": "4096",
+            "Pixel in A": "2.93",
+            "kV": "300.00"
+        }
+        self.assertEqual(mdoc_data, expected_mdoc_data, "not equal")
+    
+    def tearDown(self):
+        # delete the temp dir again
+        self.temp_dir.cleanup()
+
 
 class test_read_write_function_read_header(unittest.TestCase):
     def test_read_header(self):

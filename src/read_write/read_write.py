@@ -4,6 +4,7 @@ import starfile
 import subprocess
 import glob
 
+
 #from lib.functions import calculate_dose_rate_per_pixel, extract_eer_from_header
 
 def read_config(filename):
@@ -53,7 +54,7 @@ job_star_dict = {
 #job_star_dict["scheme_star"] = scheme_star_dict
 
 
-def get_alias(job, parameter):
+def get_alias(job, parameter, path_to_yaml = "../src/read_write/config_aliases.yaml"):
   """
   some inputs used by Relion are not self-explanatory (eg. qsub_extra2) so a yaml list was created to change the 
   respective name that is displayed while still keeping the original name for writing the data.
@@ -70,7 +71,7 @@ def get_alias(job, parameter):
   """
   # path works for any module in the lib/app/ directory
   # "r" means that the file should be opened with reading permissions
-  with open("../src/read_write/config_aliases.yaml", "r") as file:
+  with open(path_to_yaml, "r") as file:
     yaml_data = yaml.safe_load(file)
 
    # go through entries in the aliases dict
@@ -83,7 +84,7 @@ def get_alias(job, parameter):
 
 
 # do the same the other way around to get the parameter name from the alias again
-def get_alias_reverse(job, alias):
+def get_alias_reverse(job, alias, path_to_yaml = "../src/read_write/config_aliases.yaml"):
   """
   reverse of the get alias function, i.e. returns the parameter name as used in the .star file when entering the 
   alias. Kept seperate to keep reading and writing clearly separated to avoid errors. 
@@ -99,7 +100,7 @@ def get_alias_reverse(job, alias):
     job
   """
   # path works for any module in the lib/app/ directory
-  with open("../src/read_write/config_aliases.yaml", "r") as file:
+  with open(path_to_yaml, "r") as file:
     yaml_data = yaml.safe_load(file)
 
   # go through entries in the aliases dict
@@ -111,7 +112,6 @@ def get_alias_reverse(job, alias):
   return None
 
 
- # so it only fetches the first instance of *.eer, not all of them
 def read_header(path_to_frames):
   """
   reads header of a file to fetch the nr of eer's to calculate the optimal split using the calculate_dose_rate_per_pixel function.
@@ -125,20 +125,19 @@ def read_header(path_to_frames):
   Example:
 
   """
-  #with open(path_to_frames, "rb") as frame:
+  # so it only fetches the first instance of *.eer, not all of them
   eer_file = glob.glob(f"{path_to_frames}/*.eer")[0]
   command = f"header {eer_file}"
   result = subprocess.run(command, shell=True, check=True, capture_output=True, text=True)
   header = str(result)
-  eers = extract_eer_from_header(header)
-  print(eers)
+  #eers = extract_eer_from_header(header)
+  #print(eers)
   #eer_split = calculate_dose_rate_per_pixel(eers)
   #header = frame.read()
   #print(result.stdout)
   
 
-
-def read_mdoc(path_to_mdoc_dir):
+def read_mdoc(path_to_mdoc_dir, path_to_yaml = "../src/read_write/config_reading_meta.yaml"):
   """
   reads mdoc file and fetches the relevant parameters to automatically set the respective values.
 
@@ -151,8 +150,8 @@ def read_mdoc(path_to_mdoc_dir):
   Example:
     input = path to mdoc file
     output = returns a dict with the respective "x/z dimension", "Pixel size in A", and "Voltage of Microscope"
-            (names must be set in the config_reading_meta.yaml file and be the same as in the 
-            config_aliases.yaml file). This can subsequently be used to update the respective fields in the table.  
+    (names must be set in the config_reading_meta.yaml file and be the same as in the config_aliases.yaml 
+    file). This can subsequently be used to update the respective fields in the table.  
   """
   return_mdoc_data = {}
   # using the dir, access the first mdoc file in the folder
@@ -164,7 +163,7 @@ def read_mdoc(path_to_mdoc_dir):
     # get entries to look for in the mdoc file (based on the config_reading_meta.yaml file)
     # when only accessing the config_reading_meta.yaml file here, it's only accessed once a valid file-path is 
     # entered, not everytime there is a change to the QLine field
-    with open("../src/read_write/config_reading_meta.yaml", "r") as yaml_file:
+    with open(path_to_yaml, "r") as yaml_file:
       yaml_data = yaml.safe_load(yaml_file)
       print("mdoc file found")
       # access the respective list in the config_reading_meta.yaml file (parameter to look for in mdoc and respective alias)
@@ -201,7 +200,7 @@ def read_mdoc(path_to_mdoc_dir):
   return(return_mdoc_data) 
 
 
-def load_config(microscope):
+def load_config(microscope, path_to_yaml = "../config/config_microscopes.yaml"):
   """
   reads the config_microscopes.yaml file, looks for the chosen microscope setup, and returns a list of dicts
   containing the parameters that are solely based on the setup.
@@ -218,7 +217,7 @@ def load_config(microscope):
     "Titan Krios 4". If this is found, the list saved under the key "Parameters" of the same dict, containing a 
     dict for every parameter solely determined by the setup (key = parameter, value = associated value), will be returned.
   """
-  with open("../config/config_microscopes.yaml", "r") as file:
+  with open(path_to_yaml, "r") as file:
     yaml_data = yaml.safe_load(file)
   # go through entries in the microscopes dict
   for entry in yaml_data["microscopes"]:
@@ -262,6 +261,7 @@ def update_job_star_dict(job_name, param, value):
   job_star_dict[job_name]["joboptions_values"].iloc[index, 1] = value
   return job_star_dict
 
+
 def write_star(scheme_name, path_and_name):
   """
   reads a pd df and turns it into a .star file.
@@ -277,129 +277,6 @@ def write_star(scheme_name, path_and_name):
   df_as_star = starfile.write(scheme_name, path_and_name)
   return df_as_star
 
-# create a dict with the parameter names as keys and the names that should appear in the UI as values to 
-# provide further explanation (e.g. qsub_extra2 doesn't tell the user what to give as input).
-param_names = {
-  "importmovies":{
-    # all the parameters for importmovies
-    "Cs": "Spherical aberration",
-    "Q0": "Amplitude contrast",
-    "angpix": "Pixel size in \u212B",
-    #do_coords
-    #do_coords_flipZ
-    #do_flipYZ
-    #do_flipZ
-    #do_other
-    "do_queue": "Add to external queue",
-    #do_tiltseries
-    #do_tomo
-    #dose_is_per_movie_frame
-    #dose_rate
-    #flip_tiltseries_hand
-    #fn_in_other
-    #hand
-    #images_are_motion_corrected
-    #io_tomos
-    "kV": "kV of Microscope",
-    "mdoc_files": "Path to mdoc files",
-    #min_dedicated
-    "movie_files": "Path to images",
-    #mtf_file
-    #node_type
-    #optics_group_particles
-    #order_list
-    #other_args
-    #part_star
-    #part_tomos
-    #prefix
-    "qsub": "q-submission script",
-    #qsub_extra1
-    #qsub_extra2
-    #qsub_extra3
-    #qsub_extra4
-    #qsubscript
-    #queuename
-    #tilt_axis_angle
-    #tomo_star
-},
-  "motioncorr":{
-    # all parameters for motioncorr
-    "bfactor": "B factor",
-    "bin_factor": "Binning factor",
-    "do_even_odd_split": "Split data for denoising",
-    #do_float16
-    #do_own_motioncor
-    #do_queue
-    #do_save_ps
-    #eer_grouping
-    #fn_defect
-    #fn_gain_ref
-    #fn_motioncor2_exe
-    #gain_flip
-    #gain_rot
-    #gpu_ids
-    #group_for_ps
-    #group_frames
-    #input_star_mics
-    #min_dedicated
-    #nr_mpi
-    #nr_threads
-    #other_args
-    #other_motioncor2_args
-    #patch_x
-    #patch_y
-    #qsub
-    #qsub_extra1
-    #qsub_extra2
-    #qsub_extra3
-    #qsub_extra4
-    #qsubscript
-    #queuename
-},
-  "ctffind":{
-    # all parameters for ctffind
-    "box": "Box size",
-    #ctf_win
-    #dast
-    #dfmax
-    #dfmin
-    #dfstep
-    #do_EPA
-    #do_ignore_ctffind_params
-    #do_phaseshift
-    #do_queue
-    #fn_ctffind_exe
-    #fn_gctf_exe
-    #gpu_ids
-    #input_star_mics
-    #min_dedicated
-    #nr_mpi
-    #other_args
-    #other_gctf_args
-    #phase_max
-    #phase_min
-    #phase_step
-    #qsub
-    #qsub_extra1
-    #qsub_extra2
-    #qsub_extra3
-    #qsub_extra4
-    #qsubscript
-    #queuename
-    #resmax
-    #resmin
-    #slow_search
-    #use_ctffind4
-    #use_gctf
-    #use_given_ps
-},
-  "aligntilts":{
-
-},
-  "reconstruction":{
-
-}
-}
 
 # create Sphinx documentation: sphinx-build -M html docs/ docs/
 # remove everything in the _build: make clean

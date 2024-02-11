@@ -49,6 +49,7 @@
 <li class="toctree-l1"><a class="reference internal" href="extdocs/tutorial/tutorial.html">Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="extdocs/intern/intern.html">Intern</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ctp.html">Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gui_lib.html">Application Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="read_write.html">io</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Unit Tests io</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#test.test_read_write.test_read_write_function_locate_val"><code class="docutils literal notranslate"><span class="pre">test_read_write_function_locate_val</span></code></a><ul>
@@ -64,6 +65,8 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#test.test_read_write.test_read_write_function_read_mdoc"><code class="docutils literal notranslate"><span class="pre">test_read_write_function_read_mdoc</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#test.test_read_write.test_read_write_function_read_mdoc.setUp"><code class="docutils literal notranslate"><span class="pre">test_read_write_function_read_mdoc.setUp()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#test.test_read_write.test_read_write_function_read_mdoc.tearDown"><code class="docutils literal notranslate"><span class="pre">test_read_write_function_read_mdoc.tearDown()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#test.test_read_write.test_read_write_function_read_mdoc.test_read_mdoc"><code class="docutils literal notranslate"><span class="pre">test_read_write_function_read_mdoc.test_read_mdoc()</span></code></a></li>
 </ul>
 </li>
@@ -77,10 +80,6 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#test.test_read_write.test_read_write_update_job_star_dict"><code class="docutils literal notranslate"><span class="pre">test_read_write_update_job_star_dict</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#test.test_read_write.test_read_write_update_job_star_dict.test_update_job_star_dict"><code class="docutils literal notranslate"><span class="pre">test_read_write_update_job_star_dict.test_update_job_star_dict()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#test.test_read_write.test_read_write_variable_job_names"><code class="docutils literal notranslate"><span class="pre">test_read_write_variable_job_names</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#test.test_read_write.test_read_write_variable_job_names.test_param_names"><code class="docutils literal notranslate"><span class="pre">test_read_write_variable_job_names.test_param_names()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#test.test_read_write.test_read_write_variable_job_star_dict"><code class="docutils literal notranslate"><span class="pre">test_read_write_variable_job_star_dict</span></code></a><ul>
@@ -156,6 +155,19 @@
 <dt class="sig sig-object py" id="test.test_read_write.test_read_write_function_read_mdoc">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test.test_read_write.</span></span><span class="sig-name descname"><span class="pre">test_read_write_function_read_mdoc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/test/test_read_write.html#test_read_write_function_read_mdoc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test.test_read_write.test_read_write_function_read_mdoc" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TestCase</span></code></p>
+<p>test whether the read_mdoc function can read an .mdoc file correctly.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test.test_read_write.test_read_write_function_read_mdoc.setUp">
+<span class="sig-name descname"><span class="pre">setUp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test/test_read_write.html#test_read_write_function_read_mdoc.setUp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test.test_read_write.test_read_write_function_read_mdoc.setUp" title="Link to this definition"></a></dt>
+<dd><p>Hook method for setting up the test fixture before exercising it.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test.test_read_write.test_read_write_function_read_mdoc.tearDown">
+<span class="sig-name descname"><span class="pre">tearDown</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test/test_read_write.html#test_read_write_function_read_mdoc.tearDown"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test.test_read_write.test_read_write_function_read_mdoc.tearDown" title="Link to this definition"></a></dt>
+<dd><p>Hook method for deconstructing the test fixture after testing it.</p>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="test.test_read_write.test_read_write_function_read_mdoc.test_read_mdoc">
 <span class="sig-name descname"><span class="pre">test_read_mdoc</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test/test_read_write.html#test_read_write_function_read_mdoc.test_read_mdoc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test.test_read_write.test_read_write_function_read_mdoc.test_read_mdoc" title="Link to this definition"></a></dt>
@@ -195,19 +207,6 @@
 <dt class="sig sig-object py" id="test.test_read_write.test_read_write_update_job_star_dict.test_update_job_star_dict">
 <span class="sig-name descname"><span class="pre">test_update_job_star_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test/test_read_write.html#test_read_write_update_job_star_dict.test_update_job_star_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test.test_read_write.test_read_write_update_job_star_dict.test_update_job_star_dict" title="Link to this definition"></a></dt>
 <dd><p>testing whether the function properly updates the set value in the job_star_dict.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="test.test_read_write.test_read_write_variable_job_names">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test.test_read_write.</span></span><span class="sig-name descname"><span class="pre">test_read_write_variable_job_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/test/test_read_write.html#test_read_write_variable_job_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test.test_read_write.test_read_write_variable_job_names" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TestCase</span></code></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="test.test_read_write.test_read_write_variable_job_names.test_param_names">
-<span class="sig-name descname"><span class="pre">test_param_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test/test_read_write.html#test_read_write_variable_job_names.test_param_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test.test_read_write.test_read_write_variable_job_names.test_param_names" title="Link to this definition"></a></dt>
-<dd><p>testing whether the keys in param_names have corresponding parameter names in the respective job.star
-to see whether any variable name has changed.</p>
 </dd></dl>
 
 </dd></dl>

@@ -14,6 +14,7 @@ Welcome to CryoTheraPy's documentation!
    extdocs/tutorial/tutorial
    extdocs/intern/intern
    ctp
+   gui_lib
    read_write
    test_read_write
    

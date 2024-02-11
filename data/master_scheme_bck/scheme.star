@@ -65,8 +65,8 @@ _rlnSchemeEdgeBooleanVariable #5
 EXIT_maxtime importmovies            0  undefined  undefined 
 importmovies motioncorr            0  undefined  undefined 
 motioncorr    ctffind            0  undefined  undefined 
-ctffind select            0  undefined  undefined
-select aligntilts            0  undefined  undefined  
-aligntilts reconstruction            0  undefined  undefined 
+ctffind     aligntilts             0  undefined  undefined
+aligntilts  select            0  undefined  undefined  
+select reconstruction            0  undefined  undefined 
 reconstruction       WAIT            0  undefined  undefined 
  

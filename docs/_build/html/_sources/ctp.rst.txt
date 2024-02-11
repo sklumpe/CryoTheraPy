@@ -1,7 +1,7 @@
 Application
 ===========
 
-.. automodule:: bin.ctp
+.. automodule:: src.gui.ctp
    :members:
    :undoc-members:
    :show-inheritance:
