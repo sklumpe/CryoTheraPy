@@ -2,15 +2,32 @@
 import sys
 import os
 from PyQt6.QtGui import QColor
-from PyQt6.QtWidgets import QTableWidgetItem, QTabWidget
+from PyQt6.QtWidgets import QTableWidgetItem, QTabWidget, QFileDialog
 
 current_dir = os.path.dirname(os.path.abspath(__name__))
 # change the path to be until src
 root_dir = os.path.abspath(os.path.join(current_dir, '../'))
 sys.path.append(root_dir)
 
-#from lib.functions import get_value_from_tab
 from src.read_write.read_write import get_alias, get_alias_reverse, job_star_dict
+
+def browse_dirs(target_field):
+    """
+    browse through the files to find the path and paste that path into the specified field.
+
+    Atgs:
+        target_field (QLineEdit): field in which the path should be set.
+    
+    Example:
+        target_field = line_path_to_movies
+        
+        A window will open, allowing you to browse through your files. Once a directory is selected, 
+        the path to that directory will be copied into the field line_path_to_movies.
+    """
+    current_dir = os.path.dirname(__file__)
+    dir_name = QFileDialog.getExistingDirectory(None, "Navigate to Directory", current_dir)
+    target_field.setText(dir_name + "/")
+
 
 def change_bckgrnd(table_widget, row_index, col_index, colour = (QColor(200, 200, 200))):
     """
@@ -41,6 +58,7 @@ def change_values(table_widget, param_val_dict, job_names):
         table_widget = table
         param_val_dict = {"Path to movies": "../../movies/*.eer"}
         job_names = jobs_in_scheme
+
         First, the aliases yaml is searched for an alias for "Path to movies". Then, it iterates 
         over the rows in col 0 of the table looking for "Path to movies" (or the respective alias).
         If the parameter is found, "../../movies/*.eer" is set in col 1 of the table at the respective 
@@ -84,11 +102,12 @@ def update_df(job_star_dict, table_widget, table_nRows, table_nCols, current_job
         updated job_star_dict.
 
     Example:
-        job_star_dict = job_star_dict
-        table_widget = table
-        table_nRows = 30
-        table_nCols = 2
-        current_job_tab = "importmovies"
+        job_star_dict = job_star_dict 
+        table_widget = table 
+        table_nRows = 30 
+        table_nCols = 2 
+        current_job_tab = "importmovies" 
+
         It will go through the table row by row, extracting the input into each field. For inputs in the first
         columns, it will look for aliases in the yaml file, so all params have the name that Relion expects.
         Once the correct param name is determined, it writes the respective input into the respective position

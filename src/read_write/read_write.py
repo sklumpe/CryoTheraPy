@@ -148,8 +148,9 @@ def read_mdoc(path_to_mdoc_dir, path_to_yaml = "../src/read_write/config_reading
     return_mdoc_data (dict): values set in the config_reading_meta.yaml file for the respective meta-data type.
 
   Example:
-    input = path to mdoc file
-    output = returns a dict with the respective "x/z dimension", "Pixel size in A", and "Voltage of Microscope"
+    path_to_mdoc_dir = [path to mdoc file]
+
+    returns a dict with the respective "x/z dimension", "Pixel size in A", and "Voltage of Microscope"
     (names must be set in the config_reading_meta.yaml file and be the same as in the config_aliases.yaml 
     file). This can subsequently be used to update the respective fields in the table.  
   """
@@ -212,6 +213,8 @@ def load_config(microscope, path_to_yaml = "../config/config_microscopes.yaml"):
     entry["Parameters"] (list): a list of dicts, with each dict containing one parameter name and the associated value.
 
   Example:
+  microscope = "Titan Krios 4"
+  
     when the input is "Titan Krios 4", as it is when choosing this setup in the ui, the config_microscopes.yaml
     file will be opened and the list "microscopes" will be searched for a dict where the entry "Microscope" is 
     "Titan Krios 4". If this is found, the list saved under the key "Parameters" of the same dict, containing a 

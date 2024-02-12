@@ -81,15 +81,35 @@
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">PyQt6.QtGui</span> <span class="kn">import</span> <span class="n">QColor</span>
-<span class="kn">from</span> <span class="nn">PyQt6.QtWidgets</span> <span class="kn">import</span> <span class="n">QTableWidgetItem</span><span class="p">,</span> <span class="n">QTabWidget</span>
+<span class="kn">from</span> <span class="nn">PyQt6.QtWidgets</span> <span class="kn">import</span> <span class="n">QTableWidgetItem</span><span class="p">,</span> <span class="n">QTabWidget</span><span class="p">,</span> <span class="n">QFileDialog</span>
 
 <span class="n">current_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__name__</span><span class="p">))</span>
 <span class="c1"># change the path to be until src</span>
 <span class="n">root_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_dir</span><span class="p">,</span> <span class="s1">&#39;../&#39;</span><span class="p">))</span>
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root_dir</span><span class="p">)</span>
 
-<span class="c1">#from lib.functions import get_value_from_tab</span>
 <span class="kn">from</span> <span class="nn">src.read_write.read_write</span> <span class="kn">import</span> <span class="n">get_alias</span><span class="p">,</span> <span class="n">get_alias_reverse</span><span class="p">,</span> <span class="n">job_star_dict</span>
+
+<div class="viewcode-block" id="browse_dirs">
+<a class="viewcode-back" href="../../../gui_lib.html#src.gui.gui_lib.browse_dirs">[docs]</a>
+<span class="k">def</span> <span class="nf">browse_dirs</span><span class="p">(</span><span class="n">target_field</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    browse through the files to find the path and paste that path into the specified field.</span>
+
+<span class="sd">    Atgs:</span>
+<span class="sd">        target_field (QLineEdit): field in which the path should be set.</span>
+<span class="sd">    </span>
+<span class="sd">    Example:</span>
+<span class="sd">        target_field = line_path_to_movies</span>
+<span class="sd">        </span>
+<span class="sd">        A window will open, allowing you to browse through your files. Once a directory is selected, </span>
+<span class="sd">        the path to that directory will be copied into the field line_path_to_movies.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">current_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+    <span class="n">dir_name</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">getExistingDirectory</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Navigate to Directory&quot;</span><span class="p">,</span> <span class="n">current_dir</span><span class="p">)</span>
+    <span class="n">target_field</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">dir_name</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span></div>
+
+
 
 <div class="viewcode-block" id="change_bckgrnd">
 <a class="viewcode-back" href="../../../gui_lib.html#src.gui.gui_lib.change_bckgrnd">[docs]</a>
@@ -125,6 +145,7 @@
 <span class="sd">        table_widget = table</span>
 <span class="sd">        param_val_dict = {&quot;Path to movies&quot;: &quot;../../movies/*.eer&quot;}</span>
 <span class="sd">        job_names = jobs_in_scheme</span>
+
 <span class="sd">        First, the aliases yaml is searched for an alias for &quot;Path to movies&quot;. Then, it iterates </span>
 <span class="sd">        over the rows in col 0 of the table looking for &quot;Path to movies&quot; (or the respective alias).</span>
 <span class="sd">        If the parameter is found, &quot;../../movies/*.eer&quot; is set in col 1 of the table at the respective </span>
@@ -171,11 +192,12 @@
 <span class="sd">        updated job_star_dict.</span>
 
 <span class="sd">    Example:</span>
-<span class="sd">        job_star_dict = job_star_dict</span>
-<span class="sd">        table_widget = table</span>
-<span class="sd">        table_nRows = 30</span>
-<span class="sd">        table_nCols = 2</span>
-<span class="sd">        current_job_tab = &quot;importmovies&quot;</span>
+<span class="sd">        job_star_dict = job_star_dict </span>
+<span class="sd">        table_widget = table </span>
+<span class="sd">        table_nRows = 30 </span>
+<span class="sd">        table_nCols = 2 </span>
+<span class="sd">        current_job_tab = &quot;importmovies&quot; </span>
+
 <span class="sd">        It will go through the table row by row, extracting the input into each field. For inputs in the first</span>
 <span class="sd">        columns, it will look for aliases in the yaml file, so all params have the name that Relion expects.</span>
 <span class="sd">        Once the correct param name is determined, it writes the respective input into the respective position</span>

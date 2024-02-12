@@ -11,7 +11,7 @@ root_dir = os.path.abspath(os.path.join(current_dir, '../'))
 sys.path.append(root_dir)
 
 #from lib.functions import get_value_from_tab
-from src.gui.gui_lib import change_values, update_df
+from src.gui.gui_lib import browse_dirs, change_values, update_df
 from src.read_write.read_write import scheme_star_dict, job_star_dict, jobs_in_scheme, get_alias, get_alias_reverse, load_config, read_mdoc, read_header, write_star
 
 class MainUI(QMainWindow):
@@ -29,14 +29,17 @@ class MainUI(QMainWindow):
         # have now put to textChanged --> every key entered updates it. If it takes too long to iterate every
         # time, change to editingFinished
         self.line_path_movies.textChanged.connect(self.loadPathMovies)
-        self.line_path_mdoc.textChanged.connect(self.loadPathMdoc)
-        self.btn_use_movie_path.clicked.connect(self.mdoc_use_movie_path)
+        self.btn_browse_movies.clicked.connect(self.browsePathMovies)
+        self.line_path_mdocs.textChanged.connect(self.loadPathMdocs)
+        self.btn_browse_mdocs.clicked.connect(self.browsePathMdocs)
+        self.btn_use_movie_path.clicked.connect(self.mdocs_use_movie_path)
         self.dropDown_config.addItem("Choose Microscope Set-Up")
         self.dropDown_config.addItem("Titan Krios 4")
         self.dropDown_config.addItem("Titan Krios 5")
         self.dropDown_config.activated.connect(self.loadConfig)
-        self.btn_changeStarValues.clicked.connect(self.changeDf)
+        self.btn_writeStar.clicked.connect(self.changeDf)
         self.btn_writeStar.clicked.connect(self.writeStar)
+        
 
 
     def makeJobTabs(self):
@@ -139,18 +142,22 @@ class MainUI(QMainWindow):
         # go back to setup tab
         self.tabWidget.setCurrentIndex(0)
 
+    def browsePathMovies(self):
+        browse_dirs(self.line_path_movies)
         
-    def mdoc_use_movie_path(self):
-        self.line_path_mdoc.setText(self.line_path_movies.text())
+
+        
+    def mdocs_use_movie_path(self):
+        self.line_path_mdocs.setText(self.line_path_movies.text())
 
 
-    def loadPathMdoc(self):
+    def loadPathMdocs(self):
         """
         set the parameter path to mdoc in the importmovies job to the link provided here. Then, look into the 
         mdoc file and copy the respective information to the respective parameters too.
         """
         # save the input of the field as variable
-        params_dict_mdoc = {"mdoc_files": self.line_path_mdoc.text() + "*.mdoc"}
+        params_dict_mdoc = {"mdoc_files": self.line_path_mdocs.text() + "*.mdoc"}
         # look into the mdoc file and save all parameters as variables
         try:
             params_dict_mdoc.update(read_mdoc(params_dict_mdoc["mdoc_files"]))
@@ -168,6 +175,9 @@ class MainUI(QMainWindow):
         # go back to setup tab
         self.tabWidget.setCurrentIndex(0)
 
+    def browsePathMdocs(self):
+        browse_dirs(self.line_path_mdocs)
+        
 
     def loadConfig(self):
         """

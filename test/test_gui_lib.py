@@ -1,15 +1,17 @@
 import unittest
+from unittest.mock import patch
+import tempfile
 import sys
 import os
 import pandas as pd
-from PyQt6.QtWidgets import QTableWidget, QApplication, QTableWidgetItem
+from PyQt6.QtWidgets import QLineEdit, QTableWidget, QApplication, QTableWidgetItem
 from PyQt6.QtGui import QColor
 
 current_dir = os.path.dirname(os.path.abspath(__name__))
 root_dir = os.path.abspath(os.path.join(current_dir, '..'))
 sys.path.append(root_dir)
 
-from src.gui.gui_lib import change_bckgrnd, change_values, update_df
+from src.gui.gui_lib import browse_dirs, change_bckgrnd, change_values, update_df
 from src.read_write.read_write import job_star_dict
 
 class test_gui_lib_function_(unittest.TestCase):
@@ -27,6 +29,36 @@ class set_up(unittest.TestCase):
         # Clean up the QApplication instance
         appl.app.quit()
 
+
+class test_gui_lib_function_browse_dirs(set_up):
+    """
+    Test whether the browse_dirs function accurately sets the QLineEdit.Text() to the path of the 
+    selected directory.
+    """
+
+    def setUp(self):
+        # Create a QLineEdit field
+        self.line_edit = QLineEdit()
+
+        # create a temporary directory
+        self.temp_dir = tempfile.mkdtemp()
+
+    def tearDown(self):
+        # Remove the temporary directory and its contents after the test is completed
+        os.rmdir(self.temp_dir)
+
+    def test_browse_dirs(self):
+        with patch("src.gui.gui_lib.QFileDialog.getExistingDirectory", return_value=self.temp_dir):
+            # Call the browse_dirs function
+            browse_dirs(self.line_edit)
+
+            # Get the text in the QLineEdit
+            path = self.line_edit.text()
+            # Add the / to the path (as is done in the browse_dirs function)
+            path_dir = os.path.abspath(self.temp_dir) + "/"
+            # Assert that the path is equal to the path of the temporary directory
+            self.assertEqual(path, path_dir, "The path to the directory is not copied correctly")
+            
 
 class test_gui_lib_function_change_bckgrnd(set_up):
     def test_change_bckgrnd(self):

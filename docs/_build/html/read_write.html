@@ -155,11 +155,14 @@ containing the parameters that are solely based on the setup.</p>
 <dd class="field-odd"><p>entry[“Parameters”] (list)</p>
 </dd>
 </dl>
-<p class="rubric">Example</p>
-<p>when the input is “Titan Krios 4”, as it is when choosing this setup in the ui, the config_microscopes.yaml
+<p>Example:
+microscope = “Titan Krios 4”</p>
+<blockquote>
+<div><p>when the input is “Titan Krios 4”, as it is when choosing this setup in the ui, the config_microscopes.yaml
 file will be opened and the list “microscopes” will be searched for a dict where the entry “Microscope” is
 “Titan Krios 4”. If this is found, the list saved under the key “Parameters” of the same dict, containing a
 dict for every parameter solely determined by the setup (key = parameter, value = associated value), will be returned.</p>
+</div></blockquote>
 </dd></dl>
 
 <dl class="py function">
@@ -240,8 +243,8 @@ dict for every parameter solely determined by the setup (key = parameter, value 
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<p>input = path to mdoc file
-output = returns a dict with the respective “x/z dimension”, “Pixel size in A”, and “Voltage of Microscope”
+<p>path_to_mdoc_dir = [path to mdoc file]</p>
+<p>returns a dict with the respective “x/z dimension”, “Pixel size in A”, and “Voltage of Microscope”
 (names must be set in the config_reading_meta.yaml file and be the same as in the config_aliases.yaml
 file). This can subsequently be used to update the respective fields in the table.</p>
 </dd></dl>

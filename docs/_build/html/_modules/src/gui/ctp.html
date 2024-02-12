@@ -90,7 +90,7 @@
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root_dir</span><span class="p">)</span>
 
 <span class="c1">#from lib.functions import get_value_from_tab</span>
-<span class="kn">from</span> <span class="nn">src.gui.gui_lib</span> <span class="kn">import</span> <span class="n">change_values</span><span class="p">,</span> <span class="n">update_df</span>
+<span class="kn">from</span> <span class="nn">src.gui.gui_lib</span> <span class="kn">import</span> <span class="n">browse_dirs</span><span class="p">,</span> <span class="n">change_values</span><span class="p">,</span> <span class="n">update_df</span>
 <span class="kn">from</span> <span class="nn">src.read_write.read_write</span> <span class="kn">import</span> <span class="n">scheme_star_dict</span><span class="p">,</span> <span class="n">job_star_dict</span><span class="p">,</span> <span class="n">jobs_in_scheme</span><span class="p">,</span> <span class="n">get_alias</span><span class="p">,</span> <span class="n">get_alias_reverse</span><span class="p">,</span> <span class="n">load_config</span><span class="p">,</span> <span class="n">read_mdoc</span><span class="p">,</span> <span class="n">read_header</span><span class="p">,</span> <span class="n">write_star</span>
 
 <div class="viewcode-block" id="MainUI">
@@ -110,14 +110,17 @@
         <span class="c1"># have now put to textChanged --&gt; every key entered updates it. If it takes too long to iterate every</span>
         <span class="c1"># time, change to editingFinished</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">line_path_movies</span><span class="o">.</span><span class="n">textChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loadPathMovies</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">line_path_mdoc</span><span class="o">.</span><span class="n">textChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loadPathMdoc</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">btn_use_movie_path</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mdoc_use_movie_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_browse_movies</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">browsePathMovies</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line_path_mdocs</span><span class="o">.</span><span class="n">textChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loadPathMdocs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_browse_mdocs</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">browsePathMdocs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_use_movie_path</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mdocs_use_movie_path</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dropDown_config</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">&quot;Choose Microscope Set-Up&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dropDown_config</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">&quot;Titan Krios 4&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dropDown_config</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">&quot;Titan Krios 5&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dropDown_config</span><span class="o">.</span><span class="n">activated</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loadConfig</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">btn_changeStarValues</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">changeDf</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_writeStar</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">changeDf</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">btn_writeStar</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">writeStar</span><span class="p">)</span>
+        
 
 
 <div class="viewcode-block" id="MainUI.makeJobTabs">
@@ -226,23 +229,30 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">tabWidget</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="MainUI.browsePathMovies">
+<a class="viewcode-back" href="../../../ctp.html#src.gui.ctp.MainUI.browsePathMovies">[docs]</a>
+    <span class="k">def</span> <span class="nf">browsePathMovies</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">browse_dirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">line_path_movies</span><span class="p">)</span></div>
+
         
-<div class="viewcode-block" id="MainUI.mdoc_use_movie_path">
-<a class="viewcode-back" href="../../../ctp.html#src.gui.ctp.MainUI.mdoc_use_movie_path">[docs]</a>
-    <span class="k">def</span> <span class="nf">mdoc_use_movie_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">line_path_mdoc</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">line_path_movies</span><span class="o">.</span><span class="n">text</span><span class="p">())</span></div>
+
+        
+<div class="viewcode-block" id="MainUI.mdocs_use_movie_path">
+<a class="viewcode-back" href="../../../ctp.html#src.gui.ctp.MainUI.mdocs_use_movie_path">[docs]</a>
+    <span class="k">def</span> <span class="nf">mdocs_use_movie_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line_path_mdocs</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">line_path_movies</span><span class="o">.</span><span class="n">text</span><span class="p">())</span></div>
 
 
 
-<div class="viewcode-block" id="MainUI.loadPathMdoc">
-<a class="viewcode-back" href="../../../ctp.html#src.gui.ctp.MainUI.loadPathMdoc">[docs]</a>
-    <span class="k">def</span> <span class="nf">loadPathMdoc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="MainUI.loadPathMdocs">
+<a class="viewcode-back" href="../../../ctp.html#src.gui.ctp.MainUI.loadPathMdocs">[docs]</a>
+    <span class="k">def</span> <span class="nf">loadPathMdocs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        set the parameter path to mdoc in the importmovies job to the link provided here. Then, look into the </span>
 <span class="sd">        mdoc file and copy the respective information to the respective parameters too.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># save the input of the field as variable</span>
-        <span class="n">params_dict_mdoc</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;mdoc_files&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_path_mdoc</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;*.mdoc&quot;</span><span class="p">}</span>
+        <span class="n">params_dict_mdoc</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;mdoc_files&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_path_mdocs</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;*.mdoc&quot;</span><span class="p">}</span>
         <span class="c1"># look into the mdoc file and save all parameters as variables</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">params_dict_mdoc</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">read_mdoc</span><span class="p">(</span><span class="n">params_dict_mdoc</span><span class="p">[</span><span class="s2">&quot;mdoc_files&quot;</span><span class="p">]))</span>
@@ -261,6 +271,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">tabWidget</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="MainUI.browsePathMdocs">
+<a class="viewcode-back" href="../../../ctp.html#src.gui.ctp.MainUI.browsePathMdocs">[docs]</a>
+    <span class="k">def</span> <span class="nf">browsePathMdocs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">browse_dirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">line_path_mdocs</span><span class="p">)</span></div>
+
+        
 
 <div class="viewcode-block" id="MainUI.loadConfig">
 <a class="viewcode-back" href="../../../ctp.html#src.gui.ctp.MainUI.loadConfig">[docs]</a>

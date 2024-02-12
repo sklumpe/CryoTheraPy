@@ -51,12 +51,14 @@
 <li class="toctree-l1"><a class="reference internal" href="extdocs/intern/intern.html">Intern</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Application</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#src.gui.ctp.MainUI"><code class="docutils literal notranslate"><span class="pre">MainUI</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#src.gui.ctp.MainUI.browsePathMdocs"><code class="docutils literal notranslate"><span class="pre">MainUI.browsePathMdocs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#src.gui.ctp.MainUI.browsePathMovies"><code class="docutils literal notranslate"><span class="pre">MainUI.browsePathMovies()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#src.gui.ctp.MainUI.changeDf"><code class="docutils literal notranslate"><span class="pre">MainUI.changeDf()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#src.gui.ctp.MainUI.loadConfig"><code class="docutils literal notranslate"><span class="pre">MainUI.loadConfig()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#src.gui.ctp.MainUI.loadPathMdoc"><code class="docutils literal notranslate"><span class="pre">MainUI.loadPathMdoc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#src.gui.ctp.MainUI.loadPathMdocs"><code class="docutils literal notranslate"><span class="pre">MainUI.loadPathMdocs()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#src.gui.ctp.MainUI.loadPathMovies"><code class="docutils literal notranslate"><span class="pre">MainUI.loadPathMovies()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#src.gui.ctp.MainUI.makeJobTabs"><code class="docutils literal notranslate"><span class="pre">MainUI.makeJobTabs()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#src.gui.ctp.MainUI.mdoc_use_movie_path"><code class="docutils literal notranslate"><span class="pre">MainUI.mdoc_use_movie_path()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#src.gui.ctp.MainUI.mdocs_use_movie_path"><code class="docutils literal notranslate"><span class="pre">MainUI.mdocs_use_movie_path()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#src.gui.ctp.MainUI.writeStar"><code class="docutils literal notranslate"><span class="pre">MainUI.writeStar()</span></code></a></li>
 </ul>
 </li>
@@ -99,6 +101,16 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QMainWindow</span></code></p>
 <p>Main window of the UI.</p>
 <dl class="py method">
+<dt class="sig sig-object py" id="src.gui.ctp.MainUI.browsePathMdocs">
+<span class="sig-name descname"><span class="pre">browsePathMdocs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/gui/ctp.html#MainUI.browsePathMdocs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.gui.ctp.MainUI.browsePathMdocs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.gui.ctp.MainUI.browsePathMovies">
+<span class="sig-name descname"><span class="pre">browsePathMovies</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/gui/ctp.html#MainUI.browsePathMovies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.gui.ctp.MainUI.browsePathMovies" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="src.gui.ctp.MainUI.changeDf">
 <span class="sig-name descname"><span class="pre">changeDf</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/gui/ctp.html#MainUI.changeDf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.gui.ctp.MainUI.changeDf" title="Link to this definition"></a></dt>
 <dd><p>go through all tabs that were created using the makeJobTabs function, select the table that is in that tab
@@ -116,8 +128,8 @@ is found, its value is set to the value defined in the config_microscopes for th
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="src.gui.ctp.MainUI.loadPathMdoc">
-<span class="sig-name descname"><span class="pre">loadPathMdoc</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/gui/ctp.html#MainUI.loadPathMdoc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.gui.ctp.MainUI.loadPathMdoc" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="src.gui.ctp.MainUI.loadPathMdocs">
+<span class="sig-name descname"><span class="pre">loadPathMdocs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/gui/ctp.html#MainUI.loadPathMdocs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.gui.ctp.MainUI.loadPathMdocs" title="Link to this definition"></a></dt>
 <dd><p>set the parameter path to mdoc in the importmovies job to the link provided here. Then, look into the
 mdoc file and copy the respective information to the respective parameters too.</p>
 </dd></dl>
@@ -137,8 +149,8 @@ file in the [“joboptions_values”] df.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="src.gui.ctp.MainUI.mdoc_use_movie_path">
-<span class="sig-name descname"><span class="pre">mdoc_use_movie_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/gui/ctp.html#MainUI.mdoc_use_movie_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.gui.ctp.MainUI.mdoc_use_movie_path" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="src.gui.ctp.MainUI.mdocs_use_movie_path">
+<span class="sig-name descname"><span class="pre">mdocs_use_movie_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/gui/ctp.html#MainUI.mdocs_use_movie_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.gui.ctp.MainUI.mdocs_use_movie_path" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
