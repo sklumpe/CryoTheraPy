@@ -23,7 +23,7 @@ do_imod_patchtrack         No
   do_queue        Yes 
 fiducial_diameter         10 
    gpu_ids        0:1 
-in_tiltseries Schemes/master_scheme/select/micrographs.star 
+in_tiltseries Schemes/master_scheme/exclude_rule_based/excluded_tilts_rule.star 
 min_dedicated          1 
 other_args         "" 
 patch_overlap         50 

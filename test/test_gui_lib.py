@@ -11,12 +11,9 @@ current_dir = os.path.dirname(os.path.abspath(__name__))
 root_dir = os.path.abspath(os.path.join(current_dir, '..'))
 sys.path.append(root_dir)
 
-from src.gui.gui_lib import browse_dirs, change_bckgrnd, change_values, update_df
+from src.gui.gui_lib import browse_dirs, change_bckgrnd, change_values, update_df, abs_to_loc_path
 from src.read_write.read_write import job_star_dict
 
-class test_gui_lib_function_(unittest.TestCase):
-    def test_(self):
-        pass
 
 class set_up(unittest.TestCase):
     @classmethod
@@ -35,7 +32,6 @@ class test_gui_lib_function_browse_dirs(set_up):
     Test whether the browse_dirs function accurately sets the QLineEdit.Text() to the path of the 
     selected directory.
     """
-
     def setUp(self):
         # Create a QLineEdit field
         self.line_edit = QLineEdit()
@@ -150,3 +146,44 @@ class test_gui_lib_function_update_df(set_up):
 
         self.assertTrue(expected_df_state.equals(updated_dict_first10), "The df is not properly updated")
 
+
+class test_gui_lib_function_abs_to_loc_path(unittest.TestCase):
+    def setUp(self):
+        # Create temporary directories for testing
+        self.test_in_dir = os.path.join(os.getcwd(), "test_in_directory")
+        self.test_out_dir = os.path.join(os.getcwd(), "test_out_directory")
+        self.frames_dir = os.path.join(self.test_in_dir, "frames")
+        self.mdocs_dir = os.path.join(self.test_in_dir, "mdocs")
+        os.makedirs(self.test_in_dir)
+        os.makedirs(self.test_out_dir)
+        os.makedirs(self.frames_dir)
+        os.makedirs(self.mdocs_dir)
+
+    def tearDown(self):
+        # Remove symbolic links and temporary directories after testing
+        os.remove(os.path.join(self.test_out_dir, "frames"))
+        os.remove(os.path.join(self.test_out_dir, "mdocs"))
+        os.rmdir(self.frames_dir)
+        os.rmdir(self.mdocs_dir)
+        os.rmdir(self.test_in_dir)
+        os.rmdir(self.test_out_dir)
+
+
+    def test_abs_to_loc_path_symlinks_created(self):
+        """
+        test whether the the cwd is properly reset afterwards and symlinks are created properly.
+        """
+        self.original_directory = os.getcwd()
+
+        path_frames = self.frames_dir
+        path_mdocs = self.mdocs_dir
+        path_out_dir = self.test_out_dir
+
+        abs_to_loc_path(path_frames, path_mdocs, path_out_dir)
+
+        self.after_directory = os.getcwd()
+
+        # Check if symbolic links are created
+        self.assertEqual(self.original_directory, self.after_directory, "cwd is not properly reset at the end")
+        self.assertTrue(os.path.islink(os.path.join(path_out_dir, "frames")), "frames link is not properly created")
+        self.assertTrue(os.path.islink(os.path.join(path_out_dir, "mdocs")), "mdoc link is not properly created")

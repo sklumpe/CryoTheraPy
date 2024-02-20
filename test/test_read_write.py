@@ -45,11 +45,11 @@ class test_read_write_function_read_star(unittest.TestCase):
         testing whether the function creates a dict from the star file.
         """
         starfile = read_star("/fs/gpfs41/lv01/fileset02/pool/pool-plitzko3/Michael/00-Other/CryoTheraPy/data/master_scheme_bck/scheme.star")
-        result = type(starfile) == dict
         # Use assert methods to check if the result matches the expected value
         #if result["scheme_jobs"].empty or result["scheme_edges"].empty == True:
         self.assertFalse(starfile["scheme_jobs"].empty or starfile["scheme_edges"].empty, "scheme.star file doesn't have all required entries")
-        self.assertTrue(result, "read_star function does not accurately return a dict containing the data from the .star file as df")
+        self.assertIsInstance(starfile, dict, "read_star function does not accurately return a dict containing the data from the .star file as df")
+
 
 class test_read_write_variable_job_star_dict(unittest.TestCase):
     def test_job_star_dict(self):

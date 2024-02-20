@@ -134,12 +134,12 @@
 <span class="sd">        testing whether the function creates a dict from the star file.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">starfile</span> <span class="o">=</span> <span class="n">read_star</span><span class="p">(</span><span class="s2">&quot;/fs/gpfs41/lv01/fileset02/pool/pool-plitzko3/Michael/00-Other/CryoTheraPy/data/master_scheme_bck/scheme.star&quot;</span><span class="p">)</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">starfile</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span>
         <span class="c1"># Use assert methods to check if the result matches the expected value</span>
         <span class="c1">#if result[&quot;scheme_jobs&quot;].empty or result[&quot;scheme_edges&quot;].empty == True:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">starfile</span><span class="p">[</span><span class="s2">&quot;scheme_jobs&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">empty</span> <span class="ow">or</span> <span class="n">starfile</span><span class="p">[</span><span class="s2">&quot;scheme_edges&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">empty</span><span class="p">,</span> <span class="s2">&quot;scheme.star file doesn&#39;t have all required entries&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="s2">&quot;read_star function does not accurately return a dict containing the data from the .star file as df&quot;</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">starfile</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="s2">&quot;read_star function does not accurately return a dict containing the data from the .star file as df&quot;</span><span class="p">)</span></div>
 </div>
+
 
 
 <div class="viewcode-block" id="test_read_write_variable_job_star_dict">

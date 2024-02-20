@@ -11,7 +11,7 @@ root_dir = os.path.abspath(os.path.join(current_dir, '../'))
 sys.path.append(root_dir)
 
 #from lib.functions import get_value_from_tab
-from src.gui.gui_lib import browse_dirs, change_values, update_df
+from src.gui.gui_lib import browse_dirs, change_values, update_df, abs_to_loc_path
 from src.read_write.read_write import scheme_star_dict, job_star_dict, jobs_in_scheme, get_alias, get_alias_reverse, load_config, read_mdoc, read_header, write_star
 
 class MainUI(QMainWindow):
@@ -37,10 +37,10 @@ class MainUI(QMainWindow):
         self.dropDown_config.addItem("Titan Krios 4")
         self.dropDown_config.addItem("Titan Krios 5")
         self.dropDown_config.activated.connect(self.loadConfig)
+        self.btn_browse_target.clicked.connect(self.browsePathTarget)
         self.btn_writeStar.clicked.connect(self.changeDf)
         self.btn_writeStar.clicked.connect(self.writeStar)
         
-
 
     def makeJobTabs(self):
         """
@@ -99,37 +99,7 @@ class MainUI(QMainWindow):
         params_dict_movies = {"movie_files": self.line_path_movies.text() + "*.eer"}
 
         # reading the header doesn't work yet!
-        """
-        # look into the header and save all parameters as variables
-        try:
-            header_eers = read_header(params_dict_movies["movie_files"])
-
-            index_import = jobs_in_scheme[jobs_in_scheme == "importmovies"].index
-
-            self.tabWidget.setCurrentIndex(index_import.item())
-            table_widget = self.tabWidget.currentWidget().findChild(QTableWidget)
-            nRows = table_widget.rowCount()
-            for row in range(nRows):
-                current_param = table_widget.item(row, 0).text()
-                # if the param we are looking for is equal to the param in the row in the table, change the
-                # value in that table to the value to the value of the dict (path or header information).
-                # Additionally, change the colour of the field to clarify that this has been automatically set.
-                if current_param == "Pixel in A":
-                    pixel_size = table_widget.item(row, 1).text()
-
-                # exposure time and dose per ang in mdoc
-
-               exposure_times, dose_per_angstrom, eer_sections
-            # dose per frame from input if I want to change
-            eer_sections = calculate_dose_rate_per_pixel(pixel_size, header_eers)
-
-            params_dict_movies[""] = eer_sections
-            print(header_eers)
-        except:
-            pass
-        # create a combined dict to iterate over
-        #params_dict_movies.update(header_params)
-        """
+ 
         # go to the importmovies tab by getting the index where importmovies is
         # if header also has parameters for other jobs, have to loop through here
         for current_tab in jobs_in_scheme:
@@ -146,7 +116,10 @@ class MainUI(QMainWindow):
         browse_dirs(self.line_path_movies)
         
 
-        
+    def browsePathMdocs(self):
+        browse_dirs(self.line_path_mdocs)
+
+
     def mdocs_use_movie_path(self):
         self.line_path_mdocs.setText(self.line_path_movies.text())
 
@@ -174,9 +147,6 @@ class MainUI(QMainWindow):
             change_values(table_widget, params_dict_mdoc, jobs_in_scheme)
         # go back to setup tab
         self.tabWidget.setCurrentIndex(0)
-
-    def browsePathMdocs(self):
-        browse_dirs(self.line_path_mdocs)
         
 
     def loadConfig(self):
@@ -205,13 +175,31 @@ class MainUI(QMainWindow):
             self.tabWidget.setCurrentIndex(0)
 
 
+    def browsePathTarget(self):
+        browse_dirs(self.line_path_new_project)
+
+
     def changeDf(self):
         """
-        go through all tabs that were created using the makeJobTabs function, select the table that is in that tab
+        first, create a symlink to the frames and mdoc files and change the absolute paths provided by the browse 
+        function to relative paths to these links and change the input fields accordingly.
+        Then, go through all tabs that were created using the makeJobTabs function, select the table that is in that tab
         and iterate through the columns and rows of that table, checking whether there is an alias (and reverting
         it if there is) and then writing the value into the df for the job.star file at the same position as it 
         is in the table (table is created based on this df so it should always be the same position and name). 
         """
+        self.path_to_new_project = self.line_path_new_project.text()        
+        self.name_new_frames_dir = self.line_path_movies.text().split("/")[-2]
+        self.name_new_mdocs_dir = self.line_path_mdocs.text().split("/")[-2]
+
+        abs_to_loc_path(self.line_path_movies.text(), self.line_path_mdocs.text(), self.path_to_new_project)
+
+        if self.line_path_mdocs.text() != self.line_path_movies.text():
+            self.line_path_mdocs.setText("./" + self.name_new_mdocs_dir)
+        else:
+            self.line_path_mdocs.setText("./" + self.name_new_frames_dir + "/")
+        self.line_path_movies.setText("./" + self.name_new_frames_dir + "/")
+
         # exclude the first tab (= set up)
         for job_tab_index in range(1, len(jobs_in_scheme) + 1):
             # save the name of the job based on the index (tabs also created in order of the index --> is the same)

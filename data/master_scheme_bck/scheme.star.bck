@@ -45,6 +45,7 @@ _rlnSchemeJobMode #3
 _rlnSchemeJobHasStarted #4 
 aligntilts aligntilts   continue            0 
    ctffind    ctffind   continue            0 
+exclude_rule_based External/   continue            0
 importmovies importmovies   continue            0 
 motioncorr motioncorr   continue            0 
 reconstruction reconstruction   continue            0 
@@ -64,7 +65,9 @@ _rlnSchemeEdgeBooleanVariable #5
 EXIT_maxtime importmovies            0  undefined  undefined 
 importmovies motioncorr            0  undefined  undefined 
 motioncorr    ctffind            0  undefined  undefined 
-   ctffind aligntilts            0  undefined  undefined 
+ctffind     exclude_rule_based             0  undefined  undefined
+exclude_rule_based  aligntilts            0  undefined  undefined  
 aligntilts reconstruction            0  undefined  undefined 
 reconstruction       WAIT            0  undefined  undefined 
+ 
  

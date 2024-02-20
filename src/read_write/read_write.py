@@ -23,7 +23,7 @@ def read_config(filename):
   return data    
 
 
-def read_star(scheme_name):
+def read_star(scheme_name, do_dict = False):
   """
   reads a .star file and turns it into a pd df.
 
@@ -31,12 +31,11 @@ def read_star(scheme_name):
     scheme_name (str): path to a star file.
 
   Returns:
-    df: dataframe containing the information of the star file at the defined location.
+    dict: dict containing the df containing the information of the star file at the defined location.
 
   """
-  data_as_df = starfile.read(scheme_name)
-  return data_as_df
-
+  data_as_dict = starfile.read(scheme_name, always_dict = do_dict)
+  return data_as_dict
 
 path_to_scheme = "/fs/gpfs41/lv01/fileset02/pool/pool-plitzko3/Michael/00-Other/CryoTheraPy/data/master_scheme_bck"
 scheme_star_dict = read_star(path_to_scheme + "/scheme.star")

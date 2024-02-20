@@ -15,7 +15,7 @@ def browse_dirs(target_field):
     """
     browse through the files to find the path and paste that path into the specified field.
 
-    Atgs:
+    Args:
         target_field (QLineEdit): field in which the path should be set.
     
     Example:
@@ -50,18 +50,18 @@ def change_values(table_widget, param_val_dict, job_names):
     goes to the tab defined and changes the respective parameter to the new value.
 
     Args:
-        table_widget (PyQt6 tabWidge): the widget in which the values should be changed.
+        table_widget (PyQt6 tabWidget): the widget in which the values should be changed.
         param_val_dict (dict): dictionary containing the parameter as key and the new value as value.
         job_names (pd.Series): series of job names to check for aliases.
 
     Example:
         table_widget = table
-        param_val_dict = {"Path to movies": "../../movies/*.eer"}
+        param_val_dict = {"Path to movies": "../../movies/\*.eer"}
         job_names = jobs_in_scheme
 
-        First, the aliases yaml is searched for an alias for "Path to movies". Then, it iterates 
+        First, the aliases yaml is searched for an alias for "Path to movies". Then, it iterates
         over the rows in col 0 of the table looking for "Path to movies" (or the respective alias).
-        If the parameter is found, "../../movies/*.eer" is set in col 1 of the table at the respective 
+        If the parameter is found, "../../movies/\*.eer" is set in col 1 of the table at the respective
         position and the background colour of that field is changed.
     """
     nRows = table_widget.rowCount()
@@ -126,3 +126,42 @@ def update_df(job_star_dict, table_widget, table_nRows, table_nCols, current_job
             # insert value at the position defined by the index of the table
             job_star_dict[current_job_tab]["joboptions_values"].iloc[row, col] = value
     return(job_star_dict)
+
+
+def abs_to_loc_path(path_frames, path_mdocs, path_out_dir):
+    """
+    Relion only accepts local paths, browsing for paths returns absolute paths. To combine this, create symlinks
+    in the out_dir based on the data of the absolute paths.
+
+    Args:
+        path_frames (str): absolute path to the imported frames.
+        path_mdocs (str): absolute path to the mdoc files.
+        path_out_dir (str): absolute path to the project directory, in which the scheme will be executed.
+
+    Returns:
+        Creates symlinks for the input data and changes the respective fields in Relion to relative paths
+        pointing to these symlinks.
+
+    Example:
+        path_frames = /fs/pool/pool-plitzko3/Michael/01-Data/relion/frames
+        path_mdocs = /fs/pool/pool-plitzko3/Michael/01-Data/relion/frames
+        path_out_dir = /fs/pool/pool-plitzko3/Michael/01-Data/project
+
+        create a symlink to /fs/pool/pool-plitzko3/Michael/01-Data/relion/frames called frames and changes
+        the path to the input in Relion to ./frames. As the path to the frames and to the mdocs is identical,
+        only one symlink will be created for both.
+    """
+    original_directory = os.getcwd()
+
+    os.chdir(path_out_dir)
+    command_frames = f"ln -s {path_frames} ./"
+    os.system(command_frames)
+    if path_frames != path_mdocs:
+        command_mdoc = f"ln -s {path_mdocs} ./"
+        os.system(command_mdoc)
+    # Reset directory
+    os.chdir(original_directory)
+    
+
+def read_header():
+    pass

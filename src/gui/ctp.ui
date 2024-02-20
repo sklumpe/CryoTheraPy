@@ -161,6 +161,13 @@
           <item row="0" column="0">
            <widget class="QLineEdit" name="line_path_new_project"/>
           </item>
+          <item row="1" column="0">
+           <widget class="QPushButton" name="btn_browse_target">
+            <property name="text">
+             <string>Browse</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </widget>

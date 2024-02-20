@@ -107,7 +107,7 @@
 
 <div class="viewcode-block" id="read_star">
 <a class="viewcode-back" href="../../../read_write.html#src.read_write.read_write.read_star">[docs]</a>
-<span class="k">def</span> <span class="nf">read_star</span><span class="p">(</span><span class="n">scheme_name</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">read_star</span><span class="p">(</span><span class="n">scheme_name</span><span class="p">,</span> <span class="n">do_dict</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
 <span class="w">  </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">  reads a .star file and turns it into a pd df.</span>
 
@@ -115,12 +115,11 @@
 <span class="sd">    scheme_name (str): path to a star file.</span>
 
 <span class="sd">  Returns:</span>
-<span class="sd">    df: dataframe containing the information of the star file at the defined location.</span>
+<span class="sd">    dict: dict containing the df containing the information of the star file at the defined location.</span>
 
 <span class="sd">  &quot;&quot;&quot;</span>
-  <span class="n">data_as_df</span> <span class="o">=</span> <span class="n">starfile</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">scheme_name</span><span class="p">)</span>
-  <span class="k">return</span> <span class="n">data_as_df</span></div>
-
+  <span class="n">data_as_dict</span> <span class="o">=</span> <span class="n">starfile</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">scheme_name</span><span class="p">,</span> <span class="n">always_dict</span> <span class="o">=</span> <span class="n">do_dict</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">data_as_dict</span></div>
 
 
 <span class="n">path_to_scheme</span> <span class="o">=</span> <span class="s2">&quot;/fs/gpfs41/lv01/fileset02/pool/pool-plitzko3/Michael/00-Other/CryoTheraPy/data/master_scheme_bck&quot;</span>

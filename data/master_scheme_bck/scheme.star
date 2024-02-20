@@ -45,10 +45,10 @@ _rlnSchemeJobMode #3
 _rlnSchemeJobHasStarted #4 
 aligntilts AlignTiltSeries/job109/   continue            1 
    ctffind CtfFind/job107/   continue            1 
+exclude_rule_based External/job108/   continue            1 
 importmovies ImportTomo/job105/   continue            1 
 motioncorr MotionCorr/job106/   continue            1 
 reconstruction ReconstructTomograms/job110/   continue            1
-select SubsetSelect/job108/   continue            1 
  
 
 # version 30001
@@ -65,8 +65,8 @@ _rlnSchemeEdgeBooleanVariable #5
 EXIT_maxtime importmovies            0  undefined  undefined 
 importmovies motioncorr            0  undefined  undefined 
 motioncorr    ctffind            0  undefined  undefined 
-ctffind     aligntilts             0  undefined  undefined
-aligntilts  select            0  undefined  undefined  
-select reconstruction            0  undefined  undefined 
+ctffind     exclude_rule_based             0  undefined  undefined
+exclude_rule_based  aligntilts            0  undefined  undefined  
+aligntilts reconstruction            0  undefined  undefined 
 reconstruction       WAIT            0  undefined  undefined 
  

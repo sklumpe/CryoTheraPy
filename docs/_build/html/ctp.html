@@ -53,6 +53,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#src.gui.ctp.MainUI"><code class="docutils literal notranslate"><span class="pre">MainUI</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#src.gui.ctp.MainUI.browsePathMdocs"><code class="docutils literal notranslate"><span class="pre">MainUI.browsePathMdocs()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#src.gui.ctp.MainUI.browsePathMovies"><code class="docutils literal notranslate"><span class="pre">MainUI.browsePathMovies()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#src.gui.ctp.MainUI.browsePathTarget"><code class="docutils literal notranslate"><span class="pre">MainUI.browsePathTarget()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#src.gui.ctp.MainUI.changeDf"><code class="docutils literal notranslate"><span class="pre">MainUI.changeDf()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#src.gui.ctp.MainUI.loadConfig"><code class="docutils literal notranslate"><span class="pre">MainUI.loadConfig()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#src.gui.ctp.MainUI.loadPathMdocs"><code class="docutils literal notranslate"><span class="pre">MainUI.loadPathMdocs()</span></code></a></li>
@@ -111,9 +112,16 @@
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="src.gui.ctp.MainUI.browsePathTarget">
+<span class="sig-name descname"><span class="pre">browsePathTarget</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/gui/ctp.html#MainUI.browsePathTarget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.gui.ctp.MainUI.browsePathTarget" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="src.gui.ctp.MainUI.changeDf">
 <span class="sig-name descname"><span class="pre">changeDf</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/gui/ctp.html#MainUI.changeDf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.gui.ctp.MainUI.changeDf" title="Link to this definition"></a></dt>
-<dd><p>go through all tabs that were created using the makeJobTabs function, select the table that is in that tab
+<dd><p>first, create a symlink to the frames and mdoc files and change the absolute paths provided by the browse
+function to relative paths to these links and change the input fields accordingly.
+Then, go through all tabs that were created using the makeJobTabs function, select the table that is in that tab
 and iterate through the columns and rows of that table, checking whether there is an alias (and reverting
 it if there is) and then writing the value into the df for the job.star file at the same position as it
 is in the table (table is created based on this df so it should always be the same position and name).</p>

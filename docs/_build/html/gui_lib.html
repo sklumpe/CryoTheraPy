@@ -51,9 +51,11 @@
 <li class="toctree-l1"><a class="reference internal" href="extdocs/intern/intern.html">Intern</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ctp.html">Application</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Application Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#src.gui.gui_lib.abs_to_loc_path"><code class="docutils literal notranslate"><span class="pre">abs_to_loc_path()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#src.gui.gui_lib.browse_dirs"><code class="docutils literal notranslate"><span class="pre">browse_dirs()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#src.gui.gui_lib.change_bckgrnd"><code class="docutils literal notranslate"><span class="pre">change_bckgrnd()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#src.gui.gui_lib.change_values"><code class="docutils literal notranslate"><span class="pre">change_values()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#src.gui.gui_lib.read_header"><code class="docutils literal notranslate"><span class="pre">read_header()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#src.gui.gui_lib.update_df"><code class="docutils literal notranslate"><span class="pre">update_df()</span></code></a></li>
 </ul>
 </li>
@@ -88,11 +90,39 @@
   <section id="module-src.gui.gui_lib">
 <span id="application-functions"></span><h1>Application Functions<a class="headerlink" href="#module-src.gui.gui_lib" title="Link to this heading"></a></h1>
 <dl class="py function">
+<dt class="sig sig-object py" id="src.gui.gui_lib.abs_to_loc_path">
+<span class="sig-prename descclassname"><span class="pre">src.gui.gui_lib.</span></span><span class="sig-name descname"><span class="pre">abs_to_loc_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_frames</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_mdocs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_out_dir</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/gui/gui_lib.html#abs_to_loc_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.gui.gui_lib.abs_to_loc_path" title="Link to this definition"></a></dt>
+<dd><p>Relion only accepts local paths, browsing for paths returns absolute paths. To combine this, create symlinks
+in the out_dir based on the data of the absolute paths.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path_frames</strong> (<em>str</em>) – absolute path to the imported frames.</p></li>
+<li><p><strong>path_mdocs</strong> (<em>str</em>) – absolute path to the mdoc files.</p></li>
+<li><p><strong>path_out_dir</strong> (<em>str</em>) – absolute path to the project directory, in which the scheme will be executed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Creates symlinks for the input data and changes the respective fields in Relion to relative paths
+pointing to these symlinks.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>path_frames = /fs/pool/pool-plitzko3/Michael/01-Data/relion/frames
+path_mdocs = /fs/pool/pool-plitzko3/Michael/01-Data/relion/frames
+path_out_dir = /fs/pool/pool-plitzko3/Michael/01-Data/project</p>
+<p>create a symlink to /fs/pool/pool-plitzko3/Michael/01-Data/relion/frames called frames and changes
+the path to the input in Relion to ./frames. As the path to the frames and to the mdocs is identical,
+only one symlink will be created for both.</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="src.gui.gui_lib.browse_dirs">
 <span class="sig-prename descclassname"><span class="pre">src.gui.gui_lib.</span></span><span class="sig-name descname"><span class="pre">browse_dirs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_field</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/gui/gui_lib.html#browse_dirs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.gui.gui_lib.browse_dirs" title="Link to this definition"></a></dt>
 <dd><p>browse through the files to find the path and paste that path into the specified field.</p>
-<dl class="simple">
-<dt>Atgs:</dt><dd><p>target_field (QLineEdit): field in which the path should be set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>target_field</strong> (<em>QLineEdit</em>) – field in which the path should be set.</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
@@ -126,7 +156,7 @@ will then turn the background dark grey, signalling that this is already the cor
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>table_widget</strong> (<em>PyQt6 tabWidge</em>) – the widget in which the values should be changed.</p></li>
+<li><p><strong>table_widget</strong> (<em>PyQt6 tabWidget</em>) – the widget in which the values should be changed.</p></li>
 <li><p><strong>param_val_dict</strong> (<em>dict</em>) – dictionary containing the parameter as key and the new value as value.</p></li>
 <li><p><strong>job_names</strong> (<em>pd.Series</em>) – series of job names to check for aliases.</p></li>
 </ul>
@@ -134,13 +164,18 @@ will then turn the background dark grey, signalling that this is already the cor
 </dl>
 <p class="rubric">Example</p>
 <p>table_widget = table
-param_val_dict = {“Path to movies”: “../../movies/<a href="#id1"><span class="problematic" id="id2">*</span></a>.eer”}
+param_val_dict = {“Path to movies”: “../../movies/*.eer”}
 job_names = jobs_in_scheme</p>
 <p>First, the aliases yaml is searched for an alias for “Path to movies”. Then, it iterates
 over the rows in col 0 of the table looking for “Path to movies” (or the respective alias).
-If the parameter is found, “../../movies/<a href="#id3"><span class="problematic" id="id4">*</span></a>.eer” is set in col 1 of the table at the respective
+If the parameter is found, “../../movies/*.eer” is set in col 1 of the table at the respective
 position and the background colour of that field is changed.</p>
 </dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.gui.gui_lib.read_header">
+<span class="sig-prename descclassname"><span class="pre">src.gui.gui_lib.</span></span><span class="sig-name descname"><span class="pre">read_header</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/gui/gui_lib.html#read_header"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.gui.gui_lib.read_header" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.gui.gui_lib.update_df">
