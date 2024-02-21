@@ -13,17 +13,18 @@ from src.lib.exclude_tilts.exclude_tilts_rules_lib import col_of_df_to_series, s
 
 
 class Main:
-    def __init__(self, in_mics, out_dir, shift_min, shift_max, defocus_min, defocus_max, resolution_min, resolution_max, nr_threads):
+    def __init__(self, in_mics, out_dir, shift, defocus, resolution, nr_threads):
         self.mics = in_mics
         self.out_dir = out_dir
-        self.shift = (int(shift_min), int(shift_max))
-        self.defocus = (int(defocus_min), int(defocus_max))
-        self.res = (int(resolution_min), int(resolution_max))
+        self.shift_init = shift
+        self.defocus_init = defocus
+        self.res_init = resolution
         self.nr_threads = nr_threads
-        self.loop_series_in_star()
+        self.loop_series_in_star()    
+
 
     def loop_series_in_star(self):
-        """
+        """  
         loop through the tilt series found in the .star file and perform the respective functions on them
         to exclude tilts that are not within the set range of the respective parameter. 
 
@@ -33,9 +34,19 @@ class Main:
             param_range_dict = {"rlnCtfMaxResolution": (8, 9)}
         """
         self.param_range_dict = ({})
-        self.param_range_dict["rlnAccumMotionTotal"] = self.shift
-        self.param_range_dict["rlnDefocusU"] = self.defocus
-        self.param_range_dict["rlnCtfMaxResolution"] = self.res
+
+        # Turn the str of the input into tuples and add to dict if they are given
+        if self.shift_init:
+            self.shift = tuple(map(float, self.shift_init.split("-")))
+            self.param_range_dict["rlnAccumMotionTotal"] = self.shift
+
+        if self.defocus_init:
+            self.defocus = tuple(map(float, self.defocus_init.split("-")))
+            self.param_range_dict["rlnDefocusU"] = self.defocus
+
+        if self.res_init:
+            self.res = tuple(map(float, self.res_init.split("-")))
+            self.param_range_dict["rlnCtfMaxResolution"] = self.res
 
 
         # Make dir for individual tilt series' .star files
@@ -74,6 +85,7 @@ class Main:
         
         self.name_jobXXX = self.out_dir.split("/")[1]
         self.name_job_number = self.name_jobXXX.split("job")[1]
+
         # Change the name of the files being pointed to (CtfFind/jobXXX/tilt_series/Position_10.star to External/jobYYY/tilt_series/Position_10.star)
         self.part_to_replace = self.tilt_series_star_list[0].split("/tilt_series")[0]
         self.updated_tilt_series_star_col = self.tilt_series_star_list.str.replace(self.part_to_replace, f"External/job{self.name_job_number}")
@@ -82,23 +94,44 @@ class Main:
         # Write the star file
         self.updated_tilt_series_star_path = os.path.join(os.getcwd(), self.out_dir, "excluded_tilts_rule.star")
         write_star(self.tilt_series_ctf_star_dict, self.updated_tilt_series_star_path)
-        
+
 
 if __name__ == "__main__":
-
     print(sys.argv)
-    if len(sys.argv) != 19:
-        print("Usage: {} --i <input_tilt_file> --o <output_directory> --r_min <min_resolution> --r_max <max_resolution>".format(sys.argv[0]))
+    
+    # Define option names
+    option_names = {
+        "--in_mics": "in_mics",
+        "--o": "out_dir",
+        "--shift": "shift",
+        "--defocus": "defocus",
+        "--resolution": "resolution",
+        "--j": "nr_threads"
+    }
+
+    # Initialize variables with None to handle optional parameters
+    shift = None
+    defocus = None
+    resolution = None
+    nr_threads = None
+
+    # Parse command line arguments
+    i = 1
+    while i < len(sys.argv):
+        if sys.argv[i] in option_names:
+            # Get the variable name associated with the option
+            var_name = option_names[sys.argv[i]]
+            # Assign the value after the option to the corresponding variable
+            globals()[var_name] = sys.argv[i + 1]
+            i += 2
+        else:
+            print("Invalid option:", sys.argv[i])
+            sys.exit(1)
+
+    # Check if all required arguments are provided
+    if None in [in_mics, out_dir]:
+        print("Usage: {} --in_mics <input_tilt_file> --o <output_directory> [--shift <shift_value>] [--defocus <defocus_value>] [--resolution <resolution_value>] [--j <nr_threads>]".format(sys.argv[0]))
         sys.exit(1)
 
-    in_mics = sys.argv[2]
-    out_dir = sys.argv[4]
-    shift_min = sys.argv[6]
-    shift_max = sys.argv[8]
-    defocus_min = sys.argv[10]
-    defocus_max = sys.argv[12]
-    resolution_min = sys.argv[14]
-    resolution_max = sys.argv[16]
-    nr_threads = sys.argv[18]
+    main_instance = Main(in_mics, out_dir, shift, defocus, resolution, nr_threads)
 
-    main_instance = Main(in_mics, out_dir, shift_min, shift_max, defocus_min, defocus_max, resolution_min, resolution_max, nr_threads)
