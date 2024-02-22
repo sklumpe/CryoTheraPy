@@ -3,7 +3,7 @@ CryoTheraPy
 
 
 ## Installation
-# Install Miniconda: 
+Install Miniconda: 
 https://docs.anaconda.com/free/miniconda/ 
 ```
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
@@ -18,9 +18,9 @@ chmod 755 Miniconda3-latest-Linux-x86_64.sh
 
 Source the respective python
 
-# Pip install requirements (see Requirements.txt).
+Pip install requirements (see Requirements.txt).
 
-# Change Shebang to respective python version (which python to see abs path; #![abs. path[).
+Modify shebang to respective python version (which python to see abs path; #![abs. path[).
 
 
 ## Documentation
