@@ -20,7 +20,18 @@ Source the respective python
 
 Pip install requirements (see Requirements.txt).
 
-Modify shebang to respective python version (which python to see abs path; #![abs. path[).
+Modify shebang to respective python version (which python to see abs path; #![abs. path]).
 
 
 ## Documentation
+Move to the docs directory.
+To create the documentation:
+```
+make html
+```
+will write the html files into the _build directory.
+
+To remove the currently existing documentation:
+```
+make clean
+```
